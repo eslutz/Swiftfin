@@ -130,7 +130,9 @@ class VideoPlayerContainerState: ObservableObject {
     let timer: PokeIntervalTimer = .init()
     let toastProxy: ToastProxy = .init()
 
+    #if !os(visionOS)
     weak var containerView: VideoPlayer.UIVideoPlayerContainerViewController?
+    #endif
     weak var manager: MediaPlayerManager?
 
     #if os(iOS)
@@ -166,10 +168,14 @@ class VideoPlayerContainerState: ObservableObject {
 
         if supplement?.id == selectedSupplement?.id {
             selectedSupplement = nil
+            #if !os(visionOS)
             containerView?.presentSupplementContainer(false)
+            #endif
         } else {
             selectedSupplement = supplement
+            #if !os(visionOS)
             containerView?.presentSupplementContainer(supplement != nil)
+            #endif
         }
     }
 }

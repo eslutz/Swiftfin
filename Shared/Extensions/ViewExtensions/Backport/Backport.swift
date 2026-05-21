@@ -22,7 +22,7 @@ extension Backport where Content: View {
 
     @ViewBuilder
     func toolbarTitleDisplayMode(_ mode: ToolbarTitleDisplayMode) -> some View {
-        if #available(iOS 17, tvOS 17, *) {
+        if #available(iOS 17, tvOS 17, visionOS 1, *) {
             content.toolbarTitleDisplayMode(mode.swiftUIValue)
         } else {
             content.navigationBarTitleDisplayMode(mode.navigationBarTitleDisplayMode)
@@ -31,7 +31,7 @@ extension Backport where Content: View {
 
     @ViewBuilder
     func matchedTransitionSource(id: String, in namespace: Namespace.ID) -> some View {
-        if #available(iOS 18.0, tvOS 18.0, *) {
+        if #available(iOS 18.0, tvOS 18.0, visionOS 2.0, *) {
             content.matchedTransitionSource(
                 id: id,
                 in: namespace
@@ -43,7 +43,7 @@ extension Backport where Content: View {
 
     @ViewBuilder
     func navigationTransition(_ style: NavigationTransition) -> some View {
-        if #available(iOS 18.0, tvOS 18.0, *), case let .zoom(sourceID, namespace) = style {
+        if #available(iOS 18.0, tvOS 18.0, visionOS 2.0, *), case let .zoom(sourceID, namespace) = style {
             content.navigationTransition(
                 .zoom(sourceID: sourceID, in: namespace)
             )
@@ -57,7 +57,7 @@ extension Backport where Content: View {
         of value: V,
         _ action: @escaping (_ oldValue: V, _ newValue: V) -> Void
     ) -> some View {
-        if #available(iOS 17, tvOS 17, *) {
+        if #available(iOS 17, tvOS 17, visionOS 1, *) {
             content.onChange(of: value, action)
         } else {
             content.onChange(of: value) { [value] newValue in
@@ -71,7 +71,7 @@ extension Backport where Content: View {
         of value: some Equatable,
         _ action: @escaping () -> Void
     ) -> some View {
-        if #available(iOS 17, tvOS 17, *) {
+        if #available(iOS 17, tvOS 17, visionOS 1, *) {
             content.onChange(of: value, action)
         } else {
             content.onChange(of: value) { _ in
@@ -83,7 +83,7 @@ extension Backport where Content: View {
     @MainActor
     @ViewBuilder
     func scrollClipDisabled(_ disabled: Bool = true) -> some View {
-        if #available(iOS 17, tvOS 17, *) {
+        if #available(iOS 17, tvOS 17, visionOS 1, *) {
             content.scrollClipDisabled(disabled)
         } else {
             content.introspect(.scrollView, on: .iOS(.v16), .tvOS(.v16)) { scrollView in

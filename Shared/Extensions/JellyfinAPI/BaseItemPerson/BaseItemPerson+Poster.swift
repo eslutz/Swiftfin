@@ -35,7 +35,7 @@ extension BaseItemPerson: Poster {
 
         // TODO: figure out what to do about screen scaling with .main being deprecated
         //       - maxWidth assume already scaled?
-        let scaleWidth: Int? = maxWidth == nil ? nil : UIScreen.main.scale(maxWidth!)
+        let scaleWidth: Int? = maxWidth == nil ? nil : PlatformScreen.scale(maxWidth!)
 
         let imageRequestParameters = Paths.GetItemImageParameters(
             maxWidth: scaleWidth ?? Int(maxWidth),

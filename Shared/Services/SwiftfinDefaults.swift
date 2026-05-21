@@ -302,7 +302,11 @@ extension Defaults.Keys {
         }
 
         static var videoPlayerType: Key<VideoPlayerType> {
+            #if os(visionOS)
+            UserKey("videoPlayerType", default: .native)
+            #else
             UserKey("videoPlayerType", default: .swiftfin)
+            #endif
         }
 
         enum Gesture {

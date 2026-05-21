@@ -15,6 +15,14 @@ enum VideoPlayerType: String, CaseIterable, Displayable, Storable {
     case native
     case swiftfin
 
+    static var allCases: [VideoPlayerType] {
+        #if os(visionOS)
+        [.native]
+        #else
+        [.native, .swiftfin]
+        #endif
+    }
+
     var displayTitle: String {
         switch self {
         case .native:

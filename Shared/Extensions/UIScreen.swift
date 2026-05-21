@@ -6,6 +6,9 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
+import CoreGraphics
+
+#if !os(visionOS)
 import UIKit
 
 extension UIScreen {
@@ -16,5 +19,17 @@ extension UIScreen {
 
     func scale(_ x: CGFloat) -> Int {
         Int(nativeScale * x)
+    }
+}
+#endif
+
+enum PlatformScreen {
+
+    static func scale(_ x: CGFloat) -> Int {
+        #if os(visionOS)
+        Int(2 * x)
+        #else
+        UIScreen.main.scale(x)
+        #endif
     }
 }

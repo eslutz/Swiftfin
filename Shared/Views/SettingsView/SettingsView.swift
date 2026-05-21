@@ -99,7 +99,7 @@ struct SettingsView: View {
         Section(L10n.videoPlayer) {
             #if os(iOS)
             Picker(L10n.videoPlayerType, selection: $videoPlayerType)
-            #else
+            #elseif os(tvOS)
             ListRowMenu(L10n.videoPlayerType, selection: $videoPlayerType)
             #endif
 

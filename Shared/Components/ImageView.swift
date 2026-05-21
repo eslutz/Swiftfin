@@ -46,12 +46,17 @@ struct ImageView<Failure: View>: View {
                 if state.isLoading {
                     _placeholder(currentSource)
                 } else if let _image = state.image {
+                    #if !os(visionOS)
                     if let data = state.imageContainer?.data {
                         FastSVGView(data: data)
                     } else {
                         image(_image.resizable())
                             .eraseToAnyView()
                     }
+                    #else
+                    image(_image.resizable())
+                        .eraseToAnyView()
+                    #endif
                 } else if state.error != nil {
                     failure
                         .onAppear {

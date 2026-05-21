@@ -29,6 +29,13 @@ extension PlatformView {
         iOSView
     }
 
+    #elseif os(visionOS)
+    @ViewBuilder
+    @MainActor
+    var body: some View {
+        iOSView
+    }
+
     #elseif os(tvOS)
     @ViewBuilder
     @MainActor

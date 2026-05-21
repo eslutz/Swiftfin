@@ -11,7 +11,9 @@ import Factory
 import JellyfinAPI
 import PreferencesView
 import SwiftUI
+#if !os(visionOS)
 import Transmission
+#endif
 
 extension NavigationRoute {
 
@@ -104,11 +106,15 @@ struct VideoPlayerViewShim: View {
 
     var body: some View {
         Group {
+            #if os(visionOS)
+            NativeVideoPlayer()
+            #else
             if Defaults[.VideoPlayer.videoPlayerType] == .swiftfin {
                 VideoPlayer()
             } else {
                 NativeVideoPlayer()
             }
+            #endif
         }
         .colorScheme(.dark) // use over `preferredColorScheme(.dark)` to not have destination change
         .environment(\.safeAreaInsets, safeAreaInsets)
