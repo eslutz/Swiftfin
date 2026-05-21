@@ -101,7 +101,7 @@ struct ConnectToServerView: View {
 
     @ViewBuilder
     private var contentView: some View {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         List {
             connectSection
 

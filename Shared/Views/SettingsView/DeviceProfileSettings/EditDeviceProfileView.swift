@@ -69,7 +69,7 @@ extension CustomDeviceProfilesView {
                         .buttonStyle(.toolbarPill)
                     #endif
                 }
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
                 .navigationBarBackButtonHidden()
                 .navigationBarCloseButton {
                     isPresentingNotSaved = true

@@ -22,6 +22,15 @@ struct MainTabView: View {
         TabItem.search
         TabItem.media
     }
+
+    #elseif os(visionOS)
+    @StateObject
+    private var tabCoordinator = TabCoordinator {
+        TabItem.home
+        TabItem.search
+        TabItem.media
+        TabItem.settings
+    }
     #else
     @StateObject
     private var tabCoordinator = TabCoordinator {

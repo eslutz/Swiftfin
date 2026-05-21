@@ -169,6 +169,7 @@ extension NavigationRoute {
 
     #endif
 
+    #if !os(visionOS)
     static func searchSubtitle(viewModel: ItemSubtitlesViewModel) -> NavigationRoute {
         NavigationRoute(
             id: "searchSubtitle",
@@ -177,6 +178,7 @@ extension NavigationRoute {
             ItemSubtitleSearchView(viewModel: viewModel)
         }
     }
+    #endif
 
     static func item(item: BaseItemDto) -> NavigationRoute {
         NavigationRoute(
@@ -244,6 +246,7 @@ extension NavigationRoute {
 
     #endif
 
+    #if !os(visionOS)
     static func itemMetadataRefresh(viewModel: ItemEditorViewModel<BaseItemDto>) -> NavigationRoute {
         NavigationRoute(
             id: "itemMetadataRefresh",
@@ -252,6 +255,7 @@ extension NavigationRoute {
             ItemRefreshView(viewModel: viewModel)
         }
     }
+    #endif
 
     static func itemOverview(item: BaseItemDto) -> NavigationRoute {
         NavigationRoute(

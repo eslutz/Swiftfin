@@ -29,7 +29,7 @@ extension NavigationRoute {
         }
     }
 
-    #if os(iOS)
+    #if os(iOS) || os(visionOS)
     // TODO: rename to `localUserAccessPolicy`
     static func userSecurity(pinHint: Binding<String>, accessPolicy: Binding<LocalUserAccessPolicy>) -> NavigationRoute {
         NavigationRoute(

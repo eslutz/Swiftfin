@@ -27,7 +27,7 @@ struct RootView: View {
                 RootItem.selectUser.content
             }
 
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
             if rootCoordinator.root.id == RootItem.serverCheck.id {
                 RootItem.serverCheck.content
             }

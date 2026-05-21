@@ -40,7 +40,7 @@ struct RootItem: Identifiable {
         }
     }
 
-    #if os(iOS)
+    #if os(iOS) || os(visionOS)
     static let serverCheck = RootItem(id: "serverCheck") {
         NavigationInjectionView(coordinator: .init()) {
             ServerCheckView()

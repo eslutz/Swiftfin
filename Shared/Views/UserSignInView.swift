@@ -6,12 +6,15 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionVGrid
 import Defaults
 import Factory
 import JellyfinAPI
 import Logging
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionVGrid
+#endif
 
 struct UserSignInView: View {
 
@@ -251,7 +254,7 @@ struct UserSignInView: View {
 
     @ViewBuilder
     private var contentView: some View {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         List {
             signInSection
             publicUsersSection
