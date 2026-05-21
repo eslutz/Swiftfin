@@ -116,6 +116,40 @@
 		E1DC9814296DC06200982F06 /* PulseLogHandler in Frameworks */ = {isa = PBXBuildFile; productRef = E1DC9813296DC06200982F06 /* PulseLogHandler */; };
 		E1E2D7BF2E3FD936004E2E5F /* Transmission in Frameworks */ = {isa = PBXBuildFile; productRef = E1E2D7BE2E3FD936004E2E5F /* Transmission */; };
 		E1FADDF12E84B63600FB310E /* StatefulMacros in Frameworks */ = {isa = PBXBuildFile; productRef = E1FADDF02E84B63600FB310E /* StatefulMacros */; };
+		E1F002012F01000000000201 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = E13DD3C52716499E009D4DAF /* CoreStore */; };
+		E1F002022F01000000000202 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = E13DD3D227168E65009D4DAF /* Defaults */; };
+		E1F002032F01000000000203 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = E1002B672793CFBA00E47059 /* Algorithms */; };
+		E1F002042F01000000000204 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E19E6E0428A0B958005C10C8 /* Nuke */; };
+		E1F002062F01000000000206 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E19E6E0628A0B958005C10C8 /* NukeUI */; };
+		E1F002072F01000000000207 /* BlurHashKit in Frameworks */ = {isa = PBXBuildFile; productRef = E19E6E0928A0BEFF005C10C8 /* BlurHashKit */; };
+		E1F002082F01000000000208 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = E192608228D2D0DB002314B4 /* Factory */; };
+		E1F002092F01000000000209 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = E1575E3B293C6B15001665B1 /* Files */; };
+		E1F0020A2F0100000000020A /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = E15210532946DF1B00375CC2 /* Pulse */; };
+		E1F0020B2F0100000000020B /* PulseLogHandler in Frameworks */ = {isa = PBXBuildFile; productRef = E15210552946DF1B00375CC2 /* PulseLogHandler */; };
+		E1F0020C2F0100000000020C /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = E15210572946DF1B00375CC2 /* PulseUI */; };
+		E1F0020D2F0100000000020D /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E19DDEC62948EF9900954E10 /* OrderedCollections */; };
+		E1F0020E2F0100000000020E /* PreferencesView in Frameworks */ = {isa = PBXBuildFile; productRef = E15D4F042B1B0C3C00442DB8 /* PreferencesView */; };
+		E1F0020F2F0100000000020F /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = E15EFA852BA1685F0080E926 /* SwiftUIIntrospect */; };
+		E1F002102F01000000000210 /* Engine in Frameworks */ = {isa = PBXBuildFile; productRef = E1F004012F01000000000401 /* Engine */; };
+		E1F002112F01000000000211 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E145EB4A2BE16849003BF6F3 /* KeychainSwift */; };
+		E1F002122F01000000000212 /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E176EBDD2D050067009F4CF1 /* IdentifiedCollections */; };
+		E1F002152F01000000000215 /* StatefulMacros in Frameworks */ = {isa = PBXBuildFile; productRef = E14000BC2EF622AC00354A3C /* StatefulMacros */; };
+		E1F002162F01000000000216 /* JellyfinAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E1BD95B12FBE8E44001CDA57 /* JellyfinAPI */; };
+		E1F003012F01000000000301 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4AE267D40B5000E2F71 /* AudioToolbox.framework */; };
+		E1F003022F01000000000302 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4AA267D40AD000E2F71 /* AVFoundation.framework */; };
+		E1F003032F01000000000303 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4B0267D40B9000E2F71 /* CFNetwork.framework */; };
+		E1F003042F01000000000304 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62666E0027E5016900EC0ECD /* CoreFoundation.framework */; };
+		E1F003052F01000000000305 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4B6267D40CA000E2F71 /* CoreGraphics.framework */; };
+		E1F003062F01000000000306 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4B8267D40CE000E2F71 /* CoreMedia.framework */; };
+		E1F003072F01000000000307 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4BA267D40D2000E2F71 /* CoreText.framework */; };
+		E1F003082F01000000000308 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62666E0527E5017A00EC0ECD /* CoreVideo.framework */; };
+		E1F003092F01000000000309 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4BC267D40D8000E2F71 /* Foundation.framework */; };
+		E1F0030A2F0100000000030A /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4BE267D40E4000E2F71 /* MediaAccessibility.framework */; };
+		E1F0030B2F0100000000030B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C2267D40EC000E2F71 /* QuartzCore.framework */; };
+		E1F0030C2F0100000000030C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C4267D40F0000E2F71 /* Security.framework */; };
+		E1F0030D2F0100000000030D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C6267D40F4000E2F71 /* SystemConfiguration.framework */; };
+		E1F0030E2F0100000000030E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C8267D40F7000E2F71 /* UIKit.framework */; };
+		E1F0030F2F0100000000030F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62666E0F27E501B400EC0ECD /* VideoToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,6 +179,7 @@
 
 /* Begin PBXFileReference section */
 		535870602669D21600D05A09 /* Swiftfin tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1F000012F01000000000001 /* Swiftfin visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5362E4A7267D4067000E2F71 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = "../../Downloads/GoogleCastSDK-ios-4.6.0_dynamic/GoogleCast.framework"; sourceTree = "<group>"; };
 		5362E4AA267D40AD000E2F71 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5362E4AC267D40B1000E2F71 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -248,15 +283,212 @@
 			);
 			target = 5358705F2669D21600D05A09 /* Swiftfin tvOS */;
 		};
+		E1F0000A2F0100000000000A /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/AppDelegate.swift,
+				App/SwiftfinApp.swift,
+				App/SwiftfinSpotlight.swift,
+				Components/GestureView.swift,
+				Components/ItemElementSearchView.swift,
+				Components/OverlayToastView.swift,
+				Components/Video3DFormatPicker.swift,
+				Extensions/View,
+				Extensions/View/Modifiers/DetectOrientationModifier.swift,
+				Extensions/View/Modifiers/NavigationBarCloseButton.swift,
+				Extensions/View/Modifiers/NavigationBarDrawerButtons/NavigationBarDrawerModifier.swift,
+				Extensions/View/Modifiers/NavigationBarDrawerButtons/NavigationBarDrawerView.swift,
+				Extensions/View/Modifiers/NavigationBarMenuButton.swift,
+				Extensions/View/Modifiers/NavigationBarOffset/NavigationBarOffsetModifier.swift,
+				Extensions/View/Modifiers/NavigationBarOffset/NavigationBarOffsetView.swift,
+				Extensions/View/Modifiers/PhotoPickerModifier.swift,
+				Extensions/View/View-iOS.swift,
+				Resources/Assets.xcassets,
+				Resources/Info.plist,
+				Resources/Swiftfin.entitlements,
+				Views/AdminDashboardView,
+				Views/AdminDashboardView/APIKeyView/APIKeysView.swift,
+				Views/AdminDashboardView/APIKeyView/Components/APIKeysRow.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionDetailView/Components/StreamSection.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionDetailView/Components/TranscodeSection.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionDetailView/ServerSessionDetailView.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionsView/ActiveSessionsView.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionsView/Components/ActiveSessionProgressSection.swift,
+				Views/AdminDashboardView/ActiveSessions/ActiveSessionsView/Components/ActiveSessionRow.swift,
+				Views/AdminDashboardView/AdminDashboardView.swift,
+				Views/AdminDashboardView/Components/DeviceSection.swift,
+				Views/AdminDashboardView/Components/UserSection.swift,
+				Views/AdminDashboardView/ServerActivity/ServerActivityDetailsView/ServerActivityDetailsView.swift,
+				Views/AdminDashboardView/ServerActivity/ServerActivityFilterView/ServerActivityFilterView.swift,
+				Views/AdminDashboardView/ServerActivity/ServerActivityView/Components/ServerActivityEntry.swift,
+				Views/AdminDashboardView/ServerActivity/ServerActivityView/ServerActivityView.swift,
+				Views/AdminDashboardView/ServerDevices/DeviceDetailsView/Components/Sections/CompatibilitiesSection.swift,
+				Views/AdminDashboardView/ServerDevices/DeviceDetailsView/DeviceDetailsView.swift,
+				Views/AdminDashboardView/ServerDevices/DevicesView/Components/DeviceRow.swift,
+				Views/AdminDashboardView/ServerDevices/DevicesView/DevicesView.swift,
+				Views/AdminDashboardView/ServerLogs/ServerLogsView/ServerLogsView.swift,
+				Views/AdminDashboardView/ServerTasks/AddTaskTriggerView/AddTaskTriggerView.swift,
+				Views/AdminDashboardView/ServerTasks/AddTaskTriggerView/Components/IntervalRow.swift,
+				Views/AdminDashboardView/ServerTasks/AddTaskTriggerView/Components/TimeLimitSection.swift,
+				Views/AdminDashboardView/ServerTasks/AddTaskTriggerView/Components/TimeRow.swift,
+				Views/AdminDashboardView/ServerTasks/AddTaskTriggerView/Components/TriggerTypeRow.swift,
+				Views/AdminDashboardView/ServerTasks/EditServerTaskView/Components/Sections/ServerTaskProgressSection.swift,
+				Views/AdminDashboardView/ServerTasks/EditServerTaskView/Components/Sections/TriggersSection.swift,
+				Views/AdminDashboardView/ServerTasks/EditServerTaskView/Components/TriggerRow.swift,
+				Views/AdminDashboardView/ServerTasks/EditServerTaskView/EditServerTaskView.swift,
+				Views/AdminDashboardView/ServerTasks/ServerTasksView/Components/DestructiveServerTask.swift,
+				Views/AdminDashboardView/ServerTasks/ServerTasksView/Components/ServerTaskRow.swift,
+				Views/AdminDashboardView/ServerTasks/ServerTasksView/ServerTasksView.swift,
+				Views/AdminDashboardView/ServerUsers/AddServerUserView/AddServerUserView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserDetailsView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessSchedule/AddAccessScheduleView/AddAccessScheduleView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessSchedule/EditAccessScheduleView/Components/EditAccessScheduleRow.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessSchedule/EditAccessScheduleView/EditAccessScheduleView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessTags/AddServerUserAccessTagsView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessTags/EditServerUserAccessTagsView/Components/EditAccessTagRow.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserAccessTags/EditServerUserAccessTagsView/EditServerUserAccessTagsView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserDeviceAccessView/ServerUserDeviceAccessView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserLiveTVAccessView/ServerUserLiveTVAccessView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserMediaAccessView/ServerUserMediaAccessView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserParentalRatingView/ServerUserParentalRatingView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/ExternalAccessSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/ManagementSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/MediaPlaybackSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/PermissionSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/RemoteControlSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/SessionsSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/StatusSection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/Components/Sections/SyncPlaySection.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUserSettings/ServerUserPermissionsView/ServerUserPermissionsView.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUsersView/Components/ServerUsersRow.swift,
+				Views/AdminDashboardView/ServerUsers/ServerUsersView/ServerUsersView.swift,
+				Views/AppIconSelectorView.swift,
+				Views/DownloadListView.swift,
+				Views/DownloadTaskView,
+				Views/DownloadTaskView/DownloadTaskContentView.swift,
+				Views/DownloadTaskView/DownloadTaskView.swift,
+				Views/ItemView/Components/DownloadTaskButton.swift,
+				Views/GestureSettingsView.swift,
+				Views/ItemEditorView,
+				Views/ItemEditorView/ItemEditorView.swift,
+				Views/ItemEditorView/ItemIdentification/IdentifyItemResultView.swift,
+				Views/ItemEditorView/ItemIdentification/IdentifyItemView/Components/IdentifyItemViewResultRow.swift,
+				Views/ItemEditorView/ItemIdentification/IdentifyItemView/IdentifyItemView.swift,
+				Views/ItemEditorView/ItemImages/ItemImageDetailView.swift,
+				Views/ItemEditorView/ItemImages/ItemImagesView.swift,
+				Views/ItemEditorView/ItemImages/RemoteImageDetailView.swift,
+				Views/ItemEditorView/ItemImages/RemoteImageSearchView.swift,
+				Views/ItemEditorView/ItemMetadata/AddItemElementView.swift,
+				Views/ItemEditorView/ItemMetadata/EditItemElementView/Components/EditItemElementRow.swift,
+				Views/ItemEditorView/ItemMetadata/EditItemElementView/EditItemElementView.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/DateSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/DisplayOrderSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/EpisodeSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/LocalizationSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/LockMetadataSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/MediaFormatSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/OverviewSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/ParentialRatingsSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/ReviewsSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/SeriesSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/Components/Sections/TitleSection.swift,
+				Views/ItemEditorView/ItemMetadata/EditMetadataView/EditMetadataView.swift,
+				Views/ItemEditorView/ItemSubtitles/ItemSubtitleUploadView.swift,
+				Views/ItemEditorView/ItemSubtitles/ItemSubtitlesView/Components/ItemSubtitleButton.swift,
+				Views/ItemEditorView/ItemSubtitles/ItemSubtitlesView/ItemSubtitlesView.swift,
+				Views/PhotoCropView,
+				Views/PhotoCropView/PhotoCropAspectRatios.swift,
+				Views/PhotoCropView/PhotoCropView.swift,
+				Views/QuickConnectAuthorizeView.swift,
+				Views/ResetUserPasswordView.swift,
+				Views/VideoPlayerContainerView,
+				Views/VideoPlayerContainerView/Gestures/PanHandlingAction.swift,
+				"Views/VideoPlayerContainerView/Gestures/VideoPlayerContainerView+PanGesture.swift",
+				"Views/VideoPlayerContainerView/Gestures/VideoPlayerContainerView+PinchGesture.swift",
+				"Views/VideoPlayerContainerView/Gestures/VideoPlayerContainerView+TapGesture.swift",
+				Views/VideoPlayerContainerView/PlaybackControls/Components/CurrentSecondTick.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/ActionButtons.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/AspectFillActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/AudioActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/AutoPlayActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/GestureLockActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/PlayNextItemActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/PlayPreviousItemActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/PlaybackQualityActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/PlaybackRateActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/ActionButtons/SubtitleActionButton.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/NavigationBar/NavigationBar.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/OverlayButtonStyle.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/PlaybackButtons.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/PlaybackProgress/ChapterTrackMask.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/PlaybackProgress/PlaybackProgress.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/PlaybackProgress/PreviewImageView.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/Components/PlaybackProgress/SplitTimestamp.swift,
+				Views/VideoPlayerContainerView/PlaybackControls/PlaybackControls.swift,
+				Views/VideoPlayerContainerView/SupplementContainerView/Components/SupplementTitleButtonStyle.swift,
+				Views/VideoPlayerContainerView/SupplementContainerView/SupplementContainerView.swift,
+				"Views/VideoPlayerContainerView/VideoPlayer+KeyCommands.swift",
+				Views/VideoPlayerContainerView/VideoPlayerContainerView.swift,
+			);
+			target = E1F000022F01000000000002 /* Swiftfin visionOS */;
+		};
+		E1F0000B2F0100000000000B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components/VideoPlayer.swift,
+				Components/FastSVGView.swift,
+				"Coordinators/Navigation/NavigationRoute/NavigationRoute+Download.swift",
+				"Extensions/JellyfinAPI/MediaStream+VLC.swift",
+				Extensions/JellyfinAPI/TaskTriggerInfoType.swift,
+				Objects/ItemArrayElements.swift,
+				"Objects/MediaPlayerManager/MediaPlayerProxy/MediaPlayerProxy+VLC.swift",
+				Services/DownloadManager.swift,
+				Services/DownloadTask.swift,
+				Views/ItemEditorView/ItemRefreshView.swift,
+				Views/ItemEditorView/ItemSubtitleSearchView/Components/ItemSubtitlesSearchResultRow.swift,
+				Views/ItemEditorView/ItemSubtitleSearchView/ItemSubtitleSearchView.swift,
+				ViewModels/AdminDashboard/ActiveSessionsViewModel.swift,
+				ViewModels/AdminDashboard/APIKeysViewModel.swift,
+				ViewModels/AdminDashboard/DevicesViewModel.swift,
+				ViewModels/AdminDashboard/ServerActivityDetailViewModel.swift,
+				ViewModels/AdminDashboard/ServerActivityViewModel.swift,
+				ViewModels/AdminDashboard/ServerLogs/ServerLogsViewModel.swift,
+				ViewModels/AdminDashboard/ServerTaskObserver.swift,
+				ViewModels/AdminDashboard/ServerTasksViewModel.swift,
+				ViewModels/AdminDashboard/Users/AddServerUserViewModel.swift,
+				ViewModels/AdminDashboard/Users/ServerUsersViewModel.swift,
+				ViewModels/DownloadListViewModel.swift,
+				ViewModels/ImageViewModel/ItemImageViewModel.swift,
+				ViewModels/ItemAdministration/IdentifyItemViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/ItemEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/GenreEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/PeopleEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/StudioEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/TagEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemSubtitlesViewModel.swift,
+				ViewModels/ItemAdministration/RemoteImageInfoViewModel.swift,
+				ViewModels/QuickConnectAuthorizeViewModel.swift,
+				ViewModels/ResetUserPasswordViewModel.swift,
+			);
+			target = E1F000022F01000000000002 /* Swiftfin visionOS */;
+		};
+		E1F0000C2F0100000000000C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = E1F000022F01000000000002 /* Swiftfin visionOS */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E14560852DFCAE51008FF700 /* Swiftfin */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E14561A32DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Swiftfin; sourceTree = "<group>"; };
-		E14563272DFCAE6E008FF700 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		E14560852DFCAE51008FF700 /* Swiftfin */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E14561A32DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E1F0000A2F0100000000000A /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Swiftfin; sourceTree = "<group>"; };
+		E14563272DFCAE6E008FF700 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E1F0000B2F0100000000000B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		E14565DD2DFCAE78008FF700 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
 		E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14567272DFCAEFD008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin tvOS"; sourceTree = "<group>"; };
 		E1456FC82DFCB323008FF700 /* Translations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Translations; sourceTree = "<group>"; };
 		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XcodeConfig; sourceTree = "<group>"; };
+		E1F000092F01000000000009 /* Swiftfin visionOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E1F0000C2F0100000000000C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOS"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +613,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1F000042F01000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1F003022F01000000000302 /* AVFoundation.framework in Frameworks */,
+				E1F003012F01000000000301 /* AudioToolbox.framework in Frameworks */,
+				E1F003032F01000000000303 /* CFNetwork.framework in Frameworks */,
+				E1F003042F01000000000304 /* CoreFoundation.framework in Frameworks */,
+				E1F003052F01000000000305 /* CoreGraphics.framework in Frameworks */,
+				E1F003062F01000000000306 /* CoreMedia.framework in Frameworks */,
+				E1F003072F01000000000307 /* CoreText.framework in Frameworks */,
+				E1F003082F01000000000308 /* CoreVideo.framework in Frameworks */,
+				E1F003092F01000000000309 /* Foundation.framework in Frameworks */,
+				E1F0030A2F0100000000030A /* MediaAccessibility.framework in Frameworks */,
+				E1F0030B2F0100000000030B /* QuartzCore.framework in Frameworks */,
+				E1F0030C2F0100000000030C /* Security.framework in Frameworks */,
+				E1F0030D2F0100000000030D /* SystemConfiguration.framework in Frameworks */,
+				E1F0030E2F0100000000030E /* UIKit.framework in Frameworks */,
+				E1F0030F2F0100000000030F /* VideoToolbox.framework in Frameworks */,
+				E1F002032F01000000000203 /* Algorithms in Frameworks */,
+				E1F002072F01000000000207 /* BlurHashKit in Frameworks */,
+				E1F002012F01000000000201 /* CoreStore in Frameworks */,
+				E1F002022F01000000000202 /* Defaults in Frameworks */,
+				E1F002082F01000000000208 /* Factory in Frameworks */,
+				E1F002092F01000000000209 /* Files in Frameworks */,
+				E1F002122F01000000000212 /* IdentifiedCollections in Frameworks */,
+				E1F002162F01000000000216 /* JellyfinAPI in Frameworks */,
+				E1F002112F01000000000211 /* KeychainSwift in Frameworks */,
+				E1F002042F01000000000204 /* Nuke in Frameworks */,
+				E1F002062F01000000000206 /* NukeUI in Frameworks */,
+				E1F0020D2F0100000000020D /* OrderedCollections in Frameworks */,
+				E1F0020E2F0100000000020E /* PreferencesView in Frameworks */,
+				E1F0020A2F0100000000020A /* Pulse in Frameworks */,
+				E1F0020B2F0100000000020B /* PulseLogHandler in Frameworks */,
+				E1F0020C2F0100000000020C /* PulseUI in Frameworks */,
+				E1F002152F01000000000215 /* StatefulMacros in Frameworks */,
+				E1F0020F2F0100000000020F /* SwiftUIIntrospect in Frameworks */,
+				E1F002102F01000000000210 /* Engine in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -389,6 +662,7 @@
 			children = (
 				E14560852DFCAE51008FF700 /* Swiftfin */,
 				E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */,
+				E1F000092F01000000000009 /* Swiftfin visionOS */,
 				E14563272DFCAE6E008FF700 /* Shared */,
 				E1456FC82DFCB323008FF700 /* Translations */,
 				5377CBF2263B596A003A4E83 /* Products */,
@@ -403,6 +677,7 @@
 			children = (
 				5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */,
 				535870602669D21600D05A09 /* Swiftfin tvOS.app */,
+				E1F000012F01000000000001 /* Swiftfin visionOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -599,6 +874,55 @@
 			productReference = 5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E1F000022F01000000000002 /* Swiftfin visionOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1F000062F01000000000006 /* Build configuration list for PBXNativeTarget "Swiftfin visionOS" */;
+			buildPhases = (
+				E1F0000D2F0100000000000D /* Alphabetize Strings */,
+				E1F0000E2F0100000000000E /* Run Swiftgen.swift */,
+				E1F0000F2F0100000000000F /* Run SwiftFormat */,
+				E1F000102F01000000000010 /* Run SwiftLint */,
+				E1F000032F01000000000003 /* Sources */,
+				E1F000042F01000000000004 /* Frameworks */,
+				E1F000052F01000000000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E14560852DFCAE51008FF700 /* Swiftfin */,
+				E14563272DFCAE6E008FF700 /* Shared */,
+				E1F000092F01000000000009 /* Swiftfin visionOS */,
+				E1456FC82DFCB323008FF700 /* Translations */,
+				E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */,
+			);
+			name = "Swiftfin visionOS";
+			packageProductDependencies = (
+				E13DD3C52716499E009D4DAF /* CoreStore */,
+				E13DD3D227168E65009D4DAF /* Defaults */,
+				E1002B672793CFBA00E47059 /* Algorithms */,
+				E19E6E0428A0B958005C10C8 /* Nuke */,
+				E19E6E0628A0B958005C10C8 /* NukeUI */,
+				E19E6E0928A0BEFF005C10C8 /* BlurHashKit */,
+				E192608228D2D0DB002314B4 /* Factory */,
+				E1575E3B293C6B15001665B1 /* Files */,
+				E15210532946DF1B00375CC2 /* Pulse */,
+				E15210552946DF1B00375CC2 /* PulseLogHandler */,
+				E15210572946DF1B00375CC2 /* PulseUI */,
+				E19DDEC62948EF9900954E10 /* OrderedCollections */,
+				E15D4F042B1B0C3C00442DB8 /* PreferencesView */,
+				E15EFA852BA1685F0080E926 /* SwiftUIIntrospect */,
+				E1F004012F01000000000401 /* Engine */,
+				E145EB4A2BE16849003BF6F3 /* KeychainSwift */,
+				E176EBDD2D050067009F4CF1 /* IdentifiedCollections */,
+				E14000BC2EF622AC00354A3C /* StatefulMacros */,
+				E1BD95B12FBE8E44001CDA57 /* JellyfinAPI */,
+			);
+			productName = "Swiftfin visionOS";
+			productReference = E1F000012F01000000000001 /* Swiftfin visionOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -617,6 +941,9 @@
 					};
 					5377CBF0263B596A003A4E83 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					E1F000022F01000000000002 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
@@ -702,6 +1029,7 @@
 				BD88CB402D77E6A0006BB5E3 /* XCRemoteSwiftPackageReference "TVOSPicker" */,
 				E1137D2D2E090C1A0091EB60 /* XCRemoteSwiftPackageReference "VLCUI" */,
 				E164308A2E3AA9710028D4E8 /* XCRemoteSwiftPackageReference "Transmission" */,
+				E1F004002F01000000000400 /* XCRemoteSwiftPackageReference "Engine" */,
 				E13CCE482E6C077D0070965F /* XCRemoteSwiftPackageReference "LNPopupUI" */,
 				E1C404CB2EF61D4C00959C4F /* XCRemoteSwiftPackageReference "StatefulMacro" */,
 				E1BD95B02FBE8E44001CDA57 /* XCRemoteSwiftPackageReference "jellyfin-sdk-swift" */,
@@ -712,6 +1040,7 @@
 			targets = (
 				5377CBF0263B596A003A4E83 /* Swiftfin iOS */,
 				5358705F2669D21600D05A09 /* Swiftfin tvOS */,
+				E1F000022F01000000000002 /* Swiftfin visionOS */,
 			);
 		};
 /* End PBXProject section */
@@ -725,6 +1054,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5377CBEF263B596A003A4E83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1F000052F01000000000005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -888,6 +1224,83 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif command -v swiftlint >/dev/null; then\n  swiftlint lint\nelse\n  echo \"warning: SwiftLint not installed. Run 'brew bundle --file Brewfile' from the repository root.\"\nfi\n";
 		};
+		E1F0000D2F0100000000000D /* Alphabetize Strings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Translations/en.lproj/Localizable.strings",
+			);
+			name = "Alphabetize Strings";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/alphabetizeStrings.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun --sdk macosx swift \"${SRCROOT}/Scripts/Translations/AlphabetizeStrings.swift\"\n";
+		};
+		E1F0000E2F0100000000000E /* Run Swiftgen.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftgen.swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftGen installations\nexport PATH=/opt/homebrew/bin:$PATH\n\nif which swiftgen >/dev/null; then\n  swiftgen\nelse\n  echo \"error: SwiftGen not installed, check contributing.md for installation instructions.\"\n  return 1\nfi\n";
+		};
+		E1F0000F2F0100000000000F /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftFormat installations\nexport PATH=/opt/homebrew/bin:$PATH\n\n# Skip phase if the action is not build (ie. analyze, archive, etc).\nif [ \"$ACTION\" != \"build\" ]; then\n    exit 0\nfi\n\nif which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"error: SwiftFormat not installed, check contributing.md for installation instructions.\"\nfi\n";
+		};
+		E1F000102F01000000000010 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif command -v swiftlint >/dev/null; then\n  swiftlint lint\nelse\n  echo \"warning: SwiftLint not installed. Run 'brew bundle --file Brewfile' from the repository root.\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -899,6 +1312,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5377CBED263B596A003A4E83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1F000032F01000000000003 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1171,6 +1591,78 @@
 			};
 			name = Release;
 		};
+		E1F000072F01000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-primary-primary";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Swiftfin visionOS/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Swiftfin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		E1F000082F01000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-primary-primary";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Swiftfin visionOS/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Swiftfin;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1197,6 +1689,15 @@
 			buildConfigurations = (
 				5377CC1C263B596B003A4E83 /* Debug */,
 				5377CC1D263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1F000062F01000000000006 /* Build configuration list for PBXNativeTarget "Swiftfin visionOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1F000072F01000000000007 /* Debug */,
+				E1F000082F01000000000008 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1321,6 +1822,14 @@
 			requirement = {
 				kind = exactVersion;
 				version = 2.8.3;
+			};
+		};
+		E1F004002F01000000000400 /* XCRemoteSwiftPackageReference "Engine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nathantannar4/Engine";
+			requirement = {
+				kind = exactVersion;
+				version = 2.7.0;
 			};
 		};
 		E176EBDC2D050067009F4CF1 /* XCRemoteSwiftPackageReference "swift-identified-collections" */ = {
@@ -1750,6 +2259,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E164308A2E3AA9710028D4E8 /* XCRemoteSwiftPackageReference "Transmission" */;
 			productName = Transmission;
+		};
+		E1F004012F01000000000401 /* Engine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1F004002F01000000000400 /* XCRemoteSwiftPackageReference "Engine" */;
+			productName = Engine;
 		};
 		E1FADDF02E84B63600FB310E /* StatefulMacros */ = {
 			isa = XCSwiftPackageProductDependency;
