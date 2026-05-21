@@ -6,14 +6,17 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
-import CollectionVGrid
 import Combine
 import Defaults
 import Foundation
 import IdentifiedCollections
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+import CollectionVGrid
+#endif
 
 // TODO: loading, error states
 // TODO: watched/status indicators
@@ -187,6 +190,9 @@ extension EpisodeMediaPlayerQueue {
         }
 
         var iOSView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             CompactOrRegularView(
                 isCompact: containerState.isCompact
             ) {
@@ -211,9 +217,11 @@ extension EpisodeMediaPlayerQueue {
                     selection = viewModel.seasons.first?.id
                 }
             }
+            #endif
         }
     }
 
+    #if !os(visionOS)
     private struct CompactSeasonStackObserver: View {
 
         @EnvironmentObject
@@ -259,7 +267,9 @@ extension EpisodeMediaPlayerQueue {
             }
         }
     }
+    #endif
 
+    #if !os(visionOS)
     private struct RegularSeasonStackObserver: View {
 
         @Environment(\.safeAreaInsets)
@@ -392,6 +402,7 @@ extension EpisodeMediaPlayerQueue {
             }
         }
     }
+    #endif
 
     private struct EpisodePreview: View {
 

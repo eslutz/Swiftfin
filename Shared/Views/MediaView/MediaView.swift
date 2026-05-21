@@ -6,11 +6,14 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionVGrid
 import Defaults
 import Engine
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionVGrid
+#endif
 
 struct MediaView: View {
 
@@ -20,6 +23,7 @@ struct MediaView: View {
     @StateObject
     private var viewModel = MediaViewModel()
 
+    #if !os(visionOS)
     private var layout: CollectionVGridLayout {
         if UIDevice.isTV {
             .columns(4, insets: .init(50), itemSpacing: 50, lineSpacing: 50)
@@ -29,9 +33,49 @@ struct MediaView: View {
             .columns(2)
         }
     }
+    #endif
 
     @ViewBuilder
     private var content: some View {
+        #if os(visionOS)
+        ScrollView {
+            LazyVGrid(
+                columns: [GridItem(.adaptive(minimum: 200), spacing: EdgeInsets.edgePadding)],
+                spacing: EdgeInsets.edgePadding
+            ) {
+                ForEach(viewModel.mediaItems, id: \.self) { mediaType in
+                    MediaItem(viewModel: viewModel, type: mediaType) { namespace in
+                        switch mediaType {
+                        case let .collectionFolder(item):
+                            let viewModel = ItemLibraryViewModel(
+                                parent: item,
+                                filters: .default
+                            )
+                            router.route(to: .library(viewModel: viewModel), in: namespace)
+                        case .downloads:
+                            #if os(visionOS)
+                            break
+                            #else
+                            router.route(to: .downloadList)
+                            #endif
+                        case .favorites:
+                            // TODO: favorites should have its own view instead of a library
+                            let viewModel = ItemLibraryViewModel(
+                                title: L10n.favorites,
+                                id: "favorites",
+                                filters: .favorites
+                            )
+                            router.route(to: .library(viewModel: viewModel), in: namespace)
+                        case .liveTV:
+                            router.route(to: .liveTV)
+                        }
+                    }
+                }
+            }
+            .padding(EdgeInsets.edgePadding)
+        }
+        .scrollIndicators(.hidden)
+        #else
         CollectionVGrid(
             uniqueElements: viewModel.mediaItems,
             layout: layout
@@ -45,7 +89,11 @@ struct MediaView: View {
                     )
                     router.route(to: .library(viewModel: viewModel), in: namespace)
                 case .downloads:
+                    #if os(visionOS)
+                    break
+                    #else
                     router.route(to: .downloadList)
+                    #endif
                 case .favorites:
                     // TODO: favorites should have its own view instead of a library
                     let viewModel = ItemLibraryViewModel(
@@ -59,6 +107,7 @@ struct MediaView: View {
                 }
             }
         }
+        #endif
     }
 
     var body: some View {

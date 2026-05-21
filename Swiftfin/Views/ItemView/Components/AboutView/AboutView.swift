@@ -6,11 +6,14 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
 import Defaults
 import IdentifiedCollections
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+#endif
 
 // TODO: rename `AboutItemView`
 // TODO: see what to do about bottom padding
@@ -110,6 +113,33 @@ extension ItemView {
                     .accessibility(addTraits: [.isHeader])
                     .edgePadding(.horizontal)
 
+                #if os(visionOS)
+                ScrollView(.horizontal) {
+                    LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                        ForEach(items) { item in
+                            switch item {
+                            case .image:
+                                ImageCard(viewModel: viewModel)
+                                    .frame(width: UIDevice.isPad ? padImageWidth : phoneImageWidth)
+                            case .overview:
+                                OverviewCard(item: viewModel.item)
+                                    .frame(width: cardSize.width, height: cardSize.height)
+                            case let .mediaSource(source):
+                                MediaSourcesCard(
+                                    subtitle: (viewModel.item.mediaSources ?? []).count > 1 ? source.displayTitle : nil,
+                                    source: source
+                                )
+                                .frame(width: cardSize.width, height: cardSize.height)
+                            case .ratings:
+                                RatingsCard(item: viewModel.item)
+                                    .frame(width: cardSize.width, height: cardSize.height)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, EdgeInsets.edgePadding)
+                }
+                .scrollIndicators(.hidden)
+                #else
                 CollectionHStack(
                     uniqueElements: items,
                     variadicWidths: true
@@ -136,6 +166,7 @@ extension ItemView {
                 .insets(horizontal: EdgeInsets.edgePadding)
                 .itemSpacing(EdgeInsets.edgePadding / 2)
                 .scrollBehavior(.continuousLeadingEdge)
+                #endif
             }
             .trackingSize($contentSize)
             .id(viewModel.item.hashValue)

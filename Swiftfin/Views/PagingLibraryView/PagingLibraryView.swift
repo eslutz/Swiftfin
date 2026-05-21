@@ -6,11 +6,23 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionVGrid
 import Defaults
 import JellyfinAPI
 import Nuke
 import SwiftUI
+
+#if os(visionOS)
+private struct PagingCollectionLayout {
+
+    let columns: [GridItem]
+    let lineSpacing: CGFloat
+    let padding: EdgeInsets
+}
+#else
+import CollectionVGrid
+
+private typealias PagingCollectionLayout = CollectionVGridLayout
+#endif
 
 // TODO: need to think about better design for views that may not support current library display type
 //       - ex: channels/albums when in portrait/landscape
@@ -58,7 +70,7 @@ struct PagingLibraryView<Element: Poster>: View {
     private var router
 
     @State
-    private var layout: CollectionVGridLayout
+    private var layout: PagingCollectionLayout
     @State
     private var safeArea: EdgeInsets = .zero
 
@@ -69,8 +81,10 @@ struct PagingLibraryView<Element: Poster>: View {
     @StoredValue
     private var posterType: PosterDisplayType
 
+    #if !os(visionOS)
     @StateObject
     private var collectionVGridProxy: CollectionVGridProxy = .init()
+    #endif
     @StateObject
     private var viewModel: PagingLibraryViewModel<Element>
 
@@ -143,30 +157,86 @@ struct PagingLibraryView<Element: Poster>: View {
         posterType: PosterDisplayType,
         viewType: LibraryDisplayType,
         listColumnCount: Int
-    ) -> CollectionVGridLayout {
+    ) -> PagingCollectionLayout {
         switch (posterType, viewType) {
         case (.landscape, .grid):
+            #if os(visionOS)
+            .init(
+                columns: [GridItem(.adaptive(minimum: 200), spacing: EdgeInsets.edgePadding / 2)],
+                lineSpacing: EdgeInsets.edgePadding,
+                padding: .init(EdgeInsets.edgePadding)
+            )
+            #else
             .minWidth(200)
+            #endif
         case (.portrait, .grid), (.square, .grid):
+            #if os(visionOS)
+            .init(
+                columns: [GridItem(.adaptive(minimum: 150), spacing: EdgeInsets.edgePadding / 2)],
+                lineSpacing: EdgeInsets.edgePadding,
+                padding: .init(EdgeInsets.edgePadding)
+            )
+            #else
             .minWidth(150)
+            #endif
         case (_, .list):
+            #if os(visionOS)
+            .init(
+                columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: listColumnCount),
+                lineSpacing: 0,
+                padding: .zero
+            )
+            #else
             .columns(listColumnCount, insets: .zero, itemSpacing: 0, lineSpacing: 0)
+            #endif
         }
     }
 
     private static func phoneLayout(
         posterType: PosterDisplayType,
         viewType: LibraryDisplayType
-    ) -> CollectionVGridLayout {
+    ) -> PagingCollectionLayout {
         switch (posterType, viewType) {
         case (.landscape, .grid):
+            #if os(visionOS)
+            .init(
+                columns: Array(repeating: GridItem(.flexible(), spacing: EdgeInsets.edgePadding / 2), count: 2),
+                lineSpacing: EdgeInsets.edgePadding,
+                padding: .init(EdgeInsets.edgePadding)
+            )
+            #else
             .columns(2)
+            #endif
         case (.portrait, .grid):
+            #if os(visionOS)
+            .init(
+                columns: Array(repeating: GridItem(.flexible(), spacing: EdgeInsets.edgePadding / 2), count: 3),
+                lineSpacing: EdgeInsets.edgePadding,
+                padding: .init(EdgeInsets.edgePadding)
+            )
+            #else
             .columns(3)
+            #endif
         case (.square, .grid):
+            #if os(visionOS)
+            .init(
+                columns: Array(repeating: GridItem(.flexible(), spacing: EdgeInsets.edgePadding / 2), count: 3),
+                lineSpacing: EdgeInsets.edgePadding,
+                padding: .init(EdgeInsets.edgePadding)
+            )
+            #else
             .columns(3)
+            #endif
         case (_, .list):
+            #if os(visionOS)
+            .init(
+                columns: [GridItem(.flexible(), spacing: 0)],
+                lineSpacing: 0,
+                padding: .zero
+            )
+            #else
             .columns(1, insets: .zero, itemSpacing: 0, lineSpacing: 0)
+            #endif
         }
     }
 
@@ -206,6 +276,32 @@ struct PagingLibraryView<Element: Poster>: View {
 
     @ViewBuilder
     private var elementsView: some View {
+        #if os(visionOS)
+        ScrollView {
+            LazyVGrid(columns: layout.columns, spacing: layout.lineSpacing) {
+                ForEach(Array(viewModel.elements.enumerated()), id: \.element.unwrappedIDHashOrZero) { offset, item in
+                    let displayType = Defaults[.Customization.Library.rememberLayout] ? displayType : defaultDisplayType
+                    let posterType = Defaults[.Customization.Library.rememberLayout] ? posterType : defaultPosterType
+
+                    Group {
+                        switch displayType {
+                        case .grid:
+                            gridItemView(item: item, posterType: posterType)
+                        case .list:
+                            listItemView(item: item, posterType: posterType)
+                        }
+                    }
+                    .onAppear {
+                        if offset == viewModel.elements.count - 1 {
+                            viewModel.send(.getNextPage)
+                        }
+                    }
+                }
+            }
+            .padding(layout.padding)
+        }
+        .scrollIndicators(.hidden)
+        #else
         CollectionVGrid(
             uniqueElements: viewModel.elements,
             id: \.unwrappedIDHashOrZero,
@@ -226,6 +322,7 @@ struct PagingLibraryView<Element: Poster>: View {
         }
         .proxy(collectionVGridProxy)
         .scrollIndicators(.hidden)
+        #endif
     }
 
     @ViewBuilder
@@ -307,6 +404,12 @@ struct PagingLibraryView<Element: Poster>: View {
             guard !Defaults[.Customization.Library.rememberLayout] else { return }
 
             if UIDevice.isPhone {
+                #if os(visionOS)
+                layout = Self.phoneLayout(
+                    posterType: newValue,
+                    viewType: defaultDisplayType
+                )
+                #else
                 if defaultDisplayType == .list {
                     collectionVGridProxy.layout()
                 } else {
@@ -315,7 +418,15 @@ struct PagingLibraryView<Element: Poster>: View {
                         viewType: defaultDisplayType
                     )
                 }
+                #endif
             } else {
+                #if os(visionOS)
+                layout = Self.padLayout(
+                    posterType: newValue,
+                    viewType: defaultDisplayType,
+                    listColumnCount: defaultListColumnCount
+                )
+                #else
                 if defaultDisplayType == .list {
                     collectionVGridProxy.layout()
                 } else {
@@ -325,6 +436,7 @@ struct PagingLibraryView<Element: Poster>: View {
                         listColumnCount: defaultListColumnCount
                     )
                 }
+                #endif
             }
         }
         .onChange(of: displayType) { newValue in
@@ -352,6 +464,12 @@ struct PagingLibraryView<Element: Poster>: View {
         }
         .onChange(of: posterType) { newValue in
             if UIDevice.isPhone {
+                #if os(visionOS)
+                layout = Self.phoneLayout(
+                    posterType: newValue,
+                    viewType: displayType
+                )
+                #else
                 if displayType == .list {
                     collectionVGridProxy.layout()
                 } else {
@@ -360,7 +478,15 @@ struct PagingLibraryView<Element: Poster>: View {
                         viewType: displayType
                     )
                 }
+                #endif
             } else {
+                #if os(visionOS)
+                layout = Self.padLayout(
+                    posterType: newValue,
+                    viewType: displayType,
+                    listColumnCount: listColumnCount
+                )
+                #else
                 if displayType == .list {
                     collectionVGridProxy.layout()
                 } else {
@@ -370,6 +496,7 @@ struct PagingLibraryView<Element: Poster>: View {
                         listColumnCount: listColumnCount
                     )
                 }
+                #endif
             }
         }
         .onChange(of: rememberLayout) { newValue in

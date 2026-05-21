@@ -6,10 +6,13 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
 import JellyfinAPI
 import OrderedCollections
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+#endif
 
 // TODO: Show show name in episode subheader
 
@@ -34,6 +37,18 @@ extension ItemView {
                     .accessibility(addTraits: [.isHeader])
                     .edgePadding(.horizontal)
 
+                #if os(visionOS)
+                ScrollView(.horizontal) {
+                    LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                        ForEach(element.value.elements, id: \.unwrappedIDHashOrZero) { episode in
+                            SeriesEpisodeSelector.EpisodeCard(episode: episode)
+                                .frame(width: 320)
+                        }
+                    }
+                    .padding(.horizontal, EdgeInsets.edgePadding)
+                }
+                .scrollIndicators(.hidden)
+                #else
                 CollectionHStack(
                     uniqueElements: element.value.elements,
                     id: \.unwrappedIDHashOrZero,
@@ -44,6 +59,7 @@ extension ItemView {
                 .scrollBehavior(.continuousLeadingEdge)
                 .insets(horizontal: EdgeInsets.edgePadding)
                 .itemSpacing(EdgeInsets.edgePadding / 2)
+                #endif
             }
         }
 

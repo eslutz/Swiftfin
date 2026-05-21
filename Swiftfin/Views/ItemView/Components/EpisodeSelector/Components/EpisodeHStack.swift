@@ -6,9 +6,12 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+#endif
 
 // TODO: The content/loading/error states are implemented as different CollectionHStacks because it was just easy.
 //       A theoretically better implementation would be a single CollectionHStack with cards that represent the state instead.
@@ -22,12 +25,38 @@ extension SeriesEpisodeSelector {
         @State
         private var didScrollToPlayButtonItem = false
 
+        #if !os(visionOS)
         @StateObject
         private var proxy = CollectionHStackProxy()
+        #endif
 
         let playButtonItem: BaseItemDto?
 
         private func contentView(viewModel: SeasonItemViewModel) -> some View {
+            #if os(visionOS)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal) {
+                    LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                        ForEach(viewModel.elements, id: \.unwrappedIDHashOrZero) { episode in
+                            SeriesEpisodeSelector.EpisodeCard(episode: episode)
+                                .frame(width: 320)
+                                .id(episode.unwrappedIDHashOrZero)
+                        }
+                    }
+                    .padding(.horizontal, EdgeInsets.edgePadding)
+                }
+                .scrollIndicators(.hidden)
+                .onFirstAppear {
+                    guard !didScrollToPlayButtonItem else { return }
+                    didScrollToPlayButtonItem = true
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        guard let playButtonItem else { return }
+                        proxy.scrollTo(playButtonItem.unwrappedIDHashOrZero)
+                    }
+                }
+            }
+            #else
             CollectionHStack(
                 uniqueElements: viewModel.elements,
                 id: \.unwrappedIDHashOrZero,
@@ -50,6 +79,7 @@ extension SeriesEpisodeSelector {
                     proxy.scrollTo(id: playButtonItem.unwrappedIDHashOrZero, animated: false)
                 }
             }
+            #endif
         }
 
         var body: some View {
@@ -71,6 +101,17 @@ extension SeriesEpisodeSelector {
     struct EmptyHStack: View {
 
         var body: some View {
+            #if os(visionOS)
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    SeriesEpisodeSelector.EmptyCard()
+                        .frame(width: 320)
+                }
+                .padding(.horizontal, EdgeInsets.edgePadding)
+            }
+            .scrollDisabled(true)
+            .scrollIndicators(.hidden)
+            #else
             CollectionHStack(
                 count: 1,
                 columns: UIDevice.isPhone ? 1.5 : 3.5
@@ -80,6 +121,7 @@ extension SeriesEpisodeSelector {
             .insets(horizontal: EdgeInsets.edgePadding)
             .itemSpacing(EdgeInsets.edgePadding / 2)
             .scrollDisabled(true)
+            #endif
         }
     }
 
@@ -92,6 +134,19 @@ extension SeriesEpisodeSelector {
         let error: ErrorMessage
 
         var body: some View {
+            #if os(visionOS)
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    SeriesEpisodeSelector.ErrorCard(error: error) {
+                        viewModel.send(.refresh)
+                    }
+                    .frame(width: 320)
+                }
+                .padding(.horizontal, EdgeInsets.edgePadding)
+            }
+            .scrollDisabled(true)
+            .scrollIndicators(.hidden)
+            #else
             CollectionHStack(
                 count: 1,
                 columns: UIDevice.isPhone ? 1.5 : 3.5
@@ -103,12 +158,26 @@ extension SeriesEpisodeSelector {
             .insets(horizontal: EdgeInsets.edgePadding)
             .itemSpacing(EdgeInsets.edgePadding / 2)
             .scrollDisabled(true)
+            #endif
         }
     }
 
     struct LoadingHStack: View {
 
         var body: some View {
+            #if os(visionOS)
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                    ForEach(0 ..< Int.random(in: 2 ..< 5), id: \.self) { _ in
+                        SeriesEpisodeSelector.LoadingCard()
+                            .frame(width: 320)
+                    }
+                }
+                .padding(.horizontal, EdgeInsets.edgePadding)
+            }
+            .scrollDisabled(true)
+            .scrollIndicators(.hidden)
+            #else
             CollectionHStack(
                 count: Int.random(in: 2 ..< 5),
                 columns: UIDevice.isPhone ? 1.5 : 3.5
@@ -118,6 +187,7 @@ extension SeriesEpisodeSelector {
             .insets(horizontal: EdgeInsets.edgePadding)
             .itemSpacing(EdgeInsets.edgePadding / 2)
             .scrollDisabled(true)
+            #endif
         }
     }
 }

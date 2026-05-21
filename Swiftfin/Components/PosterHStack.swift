@@ -6,8 +6,11 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+#endif
 
 // TODO: Migrate to single `header: View`
 
@@ -21,6 +24,7 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
     private var trailingContent: () -> any View
     private let action: (Element, Namespace.ID) -> Void
 
+    #if !os(visionOS)
     private var layout: CollectionHStackLayout {
         if UIDevice.isPhone {
             .grid(
@@ -35,9 +39,29 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
             )
         }
     }
+    #endif
 
     @ViewBuilder
     private var stack: some View {
+        #if os(visionOS)
+        ScrollView(.horizontal) {
+            LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                ForEach(Array(data.prefix(20)), id: \.unwrappedIDHashOrZero) { item in
+                    PosterButton(
+                        item: item,
+                        type: type
+                    ) { namespace in
+                        action(item, namespace)
+                    } label: {
+                        label(item).eraseToAnyView()
+                    }
+                    .frame(width: type == .landscape ? 220 : 140)
+                }
+            }
+            .padding(.horizontal, EdgeInsets.edgePadding)
+        }
+        .scrollIndicators(.hidden)
+        #else
         CollectionHStack(
             uniqueElements: data,
             layout: layout
@@ -56,6 +80,7 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
         .insets(horizontal: EdgeInsets.edgePadding)
         .itemSpacing(EdgeInsets.edgePadding / 2)
         .scrollBehavior(.continuousLeadingEdge)
+        #endif
     }
 
     var body: some View {

@@ -6,11 +6,22 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionVGrid
 import Defaults
 import Foundation
 import JellyfinAPI
 import SwiftUI
+
+#if os(visionOS)
+private struct ChannelCollectionLayout {
+
+    let columns: [GridItem]
+    let spacing: CGFloat
+}
+#else
+import CollectionVGrid
+
+private typealias ChannelCollectionLayout = CollectionVGridLayout
+#endif
 
 // TODO: remove and flatten to `PagingLibraryView`
 
@@ -34,7 +45,7 @@ struct ChannelLibraryView: View {
     @State
     private var channelDisplayType: LibraryDisplayType = .list
     @State
-    private var layout: CollectionVGridLayout
+    private var layout: ChannelCollectionLayout
 
     @StateObject
     private var viewModel = ChannelLibraryViewModel()
@@ -53,23 +64,39 @@ struct ChannelLibraryView: View {
 
     private static func padlayout(
         channelDisplayType: LibraryDisplayType
-    ) -> CollectionVGridLayout {
+    ) -> ChannelCollectionLayout {
         switch channelDisplayType {
         case .grid:
+            #if os(visionOS)
+            .init(columns: [GridItem(.adaptive(minimum: 150), spacing: EdgeInsets.edgePadding)], spacing: EdgeInsets.edgePadding)
+            #else
             .minWidth(150)
+            #endif
         case .list:
+            #if os(visionOS)
+            .init(columns: [GridItem(.adaptive(minimum: 250), spacing: EdgeInsets.edgePadding)], spacing: EdgeInsets.edgePadding)
+            #else
             .minWidth(250)
+            #endif
         }
     }
 
     private static func phonelayout(
         channelDisplayType: LibraryDisplayType
-    ) -> CollectionVGridLayout {
+    ) -> ChannelCollectionLayout {
         switch channelDisplayType {
         case .grid:
+            #if os(visionOS)
+            .init(columns: [GridItem(.adaptive(minimum: 150), spacing: EdgeInsets.edgePadding)], spacing: EdgeInsets.edgePadding)
+            #else
             .columns(3)
+            #endif
         case .list:
+            #if os(visionOS)
+            .init(columns: [GridItem(.flexible())], spacing: EdgeInsets.edgePadding)
+            #else
             .columns(1)
+            #endif
         }
     }
 
@@ -101,6 +128,29 @@ struct ChannelLibraryView: View {
 
     @ViewBuilder
     private var contentView: some View {
+        #if os(visionOS)
+        ScrollView {
+            LazyVGrid(columns: layout.columns, spacing: layout.spacing) {
+                ForEach(Array(viewModel.elements.enumerated()), id: \.element.unwrappedIDHashOrZero) { offset, channel in
+                    Group {
+                        switch channelDisplayType {
+                        case .grid:
+                            compactChannelView(channel: channel)
+                        case .list:
+                            detailedChannelView(channel: channel)
+                        }
+                    }
+                    .onAppear {
+                        if offset == viewModel.elements.count - 1 {
+                            viewModel.send(.getNextPage)
+                        }
+                    }
+                }
+            }
+            .padding(EdgeInsets.edgePadding)
+        }
+        .scrollIndicators(.hidden)
+        #else
         CollectionVGrid(
             uniqueElements: viewModel.elements,
             layout: layout
@@ -115,6 +165,7 @@ struct ChannelLibraryView: View {
         .onReachedBottomEdge(offset: .offset(300)) {
             viewModel.send(.getNextPage)
         }
+        #endif
     }
 
     var body: some View {

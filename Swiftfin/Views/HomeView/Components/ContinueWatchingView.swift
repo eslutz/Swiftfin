@@ -6,9 +6,12 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+#endif
 
 extension HomeView {
 
@@ -32,6 +35,48 @@ extension HomeView {
         }
 
         var body: some View {
+            #if os(visionOS)
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                    ForEach(viewModel.resumeItems, id: \.unwrappedIDHashOrZero) { item in
+                        PosterButton(
+                            item: item,
+                            type: .landscape
+                        ) { namespace in
+                            router.route(to: .item(item: item), in: namespace)
+                        } label: {
+                            if item.type == .episode {
+                                PosterButton.EpisodeContentSubtitleContent(item: item)
+                            } else {
+                                PosterButton.TitleSubtitleContentView(item: item)
+                            }
+                        }
+                        .frame(width: 260)
+                    }
+                }
+                .padding(.horizontal, EdgeInsets.edgePadding)
+            }
+            .scrollIndicators(.hidden)
+            .contextMenu(for: BaseItemDto.self) { item in
+                Button {
+                    viewModel.send(.setIsPlayed(true, item))
+                } label: {
+                    Label(L10n.played, systemImage: "checkmark.circle")
+                }
+
+                Button(role: .destructive) {
+                    viewModel.send(.setIsPlayed(false, item))
+                } label: {
+                    Label(L10n.unplayed, systemImage: "minus.circle")
+                }
+            }
+            .posterOverlay(for: BaseItemDto.self) { item in
+                LandscapePosterProgressBar(
+                    title: item.progressLabel ?? L10n.continue,
+                    progress: (item.userData?.playedPercentage ?? 0) / 100
+                )
+            }
+            #else
             CollectionHStack(
                 uniqueElements: viewModel.resumeItems,
                 columns: columnCount
@@ -70,6 +115,7 @@ extension HomeView {
                     progress: (item.userData?.playedPercentage ?? 0) / 100
                 )
             }
+            #endif
         }
     }
 }
