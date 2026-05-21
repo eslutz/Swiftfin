@@ -28,6 +28,7 @@ body:
       options:
         - iOS
         - tvOS
+        - visionOS
     validations:
       required: true
     

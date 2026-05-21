@@ -57,6 +57,7 @@ body:
       options:
         - iOS
         - tvOS
+        - visionOS
     validations:
       required: true
 
@@ -84,7 +85,7 @@ body:
     attributes:
       label: Device information
       description: Device model
-      placeholder: iPhone 18 Pro, 12.9-in. iPad Pro (6th gen), Apple TV 4K (2nd gen)
+      placeholder: iPhone 18 Pro, 12.9-in. iPad Pro (6th gen), Apple TV 4K (2nd gen), Apple Vision Pro
     validations:
       required: true
 
@@ -93,7 +94,7 @@ body:
     attributes:
       label: OS version
       description: Version of the operating system
-      placeholder: iOS 18.1, iPadOS 18.1, tvOS 18.1
+      placeholder: iOS 18.1, iPadOS 18.1, tvOS 18.1, visionOS 2.0
     validations:
       required: true
 

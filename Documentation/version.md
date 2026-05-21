@@ -30,6 +30,12 @@ Older OS versions may still receive **limited support**:
 - Only small bug fixes will be applied on separate branches.
 - **New features and backports will not be accepted**, even if minor.
 
+## Current Minimums
+
+- iOS and iPadOS 16.6
+- tvOS 17.0
+- visionOS 2.0
+
 ## Questions, Comments, or Concerns
 
 Our discussion for this topic can be found at [Supported OS Versions](https://github.com/jellyfin/Swiftfin/discussions/1564).
