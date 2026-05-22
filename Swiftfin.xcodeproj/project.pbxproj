@@ -135,6 +135,7 @@
 		E1F002122F01000000000212 /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = E176EBDD2D050067009F4CF1 /* IdentifiedCollections */; };
 		E1F002152F01000000000215 /* StatefulMacros in Frameworks */ = {isa = PBXBuildFile; productRef = E14000BC2EF622AC00354A3C /* StatefulMacros */; };
 		E1F002162F01000000000216 /* JellyfinAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E1BD95B12FBE8E44001CDA57 /* JellyfinAPI */; };
+		E2F002012F02000000000201 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = E13DD3D227168E65009D4DAF /* Defaults */; };
 		E1F003012F01000000000301 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4AE267D40B5000E2F71 /* AudioToolbox.framework */; };
 		E1F003022F01000000000302 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4AA267D40AD000E2F71 /* AVFoundation.framework */; };
 		E1F003032F01000000000303 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4B0267D40B9000E2F71 /* CFNetwork.framework */; };
@@ -151,6 +152,16 @@
 		E1F0030E2F0100000000030E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C8267D40F7000E2F71 /* UIKit.framework */; };
 		E1F0030F2F0100000000030F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62666E0F27E501B400EC0ECD /* VideoToolbox.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E2F0000A2F0200000000000A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5377CBE9263B596A003A4E83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1F000022F01000000000002;
+			remoteInfo = "Swiftfin visionOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		62666DF927E5012C00EC0ECD /* Embed Frameworks */ = {
@@ -180,6 +191,7 @@
 /* Begin PBXFileReference section */
 		535870602669D21600D05A09 /* Swiftfin tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1F000012F01000000000001 /* Swiftfin visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2F000012F02000000000001 /* Swiftfin visionOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swiftfin visionOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5362E4A7267D4067000E2F71 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = "../../Downloads/GoogleCastSDK-ios-4.6.0_dynamic/GoogleCast.framework"; sourceTree = "<group>"; };
 		5362E4AA267D40AD000E2F71 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5362E4AC267D40B1000E2F71 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -489,6 +501,7 @@
 		E1456FC82DFCB323008FF700 /* Translations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Translations; sourceTree = "<group>"; };
 		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XcodeConfig; sourceTree = "<group>"; };
 		E1F000092F01000000000009 /* Swiftfin visionOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E1F0000C2F0100000000000C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOS"; sourceTree = "<group>"; };
+		E2F000092F02000000000009 /* Swiftfin visionOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOSTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,6 +667,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2F000042F02000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2F002012F02000000000201 /* Defaults in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -663,6 +684,7 @@
 				E14560852DFCAE51008FF700 /* Swiftfin */,
 				E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */,
 				E1F000092F01000000000009 /* Swiftfin visionOS */,
+				E2F000092F02000000000009 /* Swiftfin visionOSTests */,
 				E14563272DFCAE6E008FF700 /* Shared */,
 				E1456FC82DFCB323008FF700 /* Translations */,
 				5377CBF2263B596A003A4E83 /* Products */,
@@ -678,6 +700,7 @@
 				5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */,
 				535870602669D21600D05A09 /* Swiftfin tvOS.app */,
 				E1F000012F01000000000001 /* Swiftfin visionOS.app */,
+				E2F000012F02000000000001 /* Swiftfin visionOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -923,6 +946,30 @@
 			productReference = E1F000012F01000000000001 /* Swiftfin visionOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E2F000022F02000000000002 /* Swiftfin visionOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2F000062F02000000000006 /* Build configuration list for PBXNativeTarget "Swiftfin visionOSTests" */;
+			buildPhases = (
+				E2F000032F02000000000003 /* Sources */,
+				E2F000042F02000000000004 /* Frameworks */,
+				E2F000052F02000000000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E2F0000B2F0200000000000B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E2F000092F02000000000009 /* Swiftfin visionOSTests */,
+			);
+			name = "Swiftfin visionOSTests";
+			packageProductDependencies = (
+				E13DD3D227168E65009D4DAF /* Defaults */,
+			);
+			productName = "Swiftfin visionOSTests";
+			productReference = E2F000012F02000000000001 /* Swiftfin visionOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -944,6 +991,10 @@
 					};
 					E1F000022F01000000000002 = {
 						CreatedOnToolsVersion = 16.1;
+					};
+					E2F000022F02000000000002 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = E1F000022F01000000000002;
 					};
 				};
 			};
@@ -1041,6 +1092,7 @@
 				5377CBF0263B596A003A4E83 /* Swiftfin iOS */,
 				5358705F2669D21600D05A09 /* Swiftfin tvOS */,
 				E1F000022F01000000000002 /* Swiftfin visionOS */,
+				E2F000022F02000000000002 /* Swiftfin visionOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1061,6 +1113,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E1F000052F01000000000005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2F000052F02000000000005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1325,7 +1384,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2F000032F02000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E2F0000B2F0200000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1F000022F01000000000002 /* Swiftfin visionOS */;
+			targetProxy = E2F0000A2F0200000000000A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		535870722669D21700D05A09 /* Debug */ = {
@@ -1663,6 +1737,60 @@
 			};
 			name = Release;
 		};
+		E2F000072F02000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin.visionOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swiftfin visionOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swiftfin visionOS";
+				TEST_TARGET_NAME = "Swiftfin visionOS";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		E2F000082F02000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin.visionOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swiftfin visionOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swiftfin visionOS";
+				TEST_TARGET_NAME = "Swiftfin visionOS";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1698,6 +1826,15 @@
 			buildConfigurations = (
 				E1F000072F01000000000007 /* Debug */,
 				E1F000082F01000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2F000062F02000000000006 /* Build configuration list for PBXNativeTarget "Swiftfin visionOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2F000072F02000000000007 /* Debug */,
+				E2F000082F02000000000008 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

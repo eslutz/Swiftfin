@@ -49,6 +49,8 @@ Swiftfin can be tested using Xcode's built-in Simulator or on real hardware. See
 
 > **Note:** Some functionality behaves differently between the Simulator and real devices, including picture-in-picture, device storage, and local network access. In these scenarios, it is recommended to test code changes on real hardware to ensure correct behavior.
 
+See [Testing](testing.md) for automated test coverage and local test commands.
+
 ## Git Flow
 
 Swiftfin follows the same Pull Request Guidelines as outlined in the [Jellyfin Pull Request Guidelines](https://jellyfin.org/docs/general/contributing/development.html#pull-request-guidelines).
