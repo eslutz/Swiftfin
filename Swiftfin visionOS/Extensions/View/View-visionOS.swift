@@ -10,25 +10,39 @@ import SwiftUI
 
 extension View {
 
+    // MARK: No-op stubs
+
     /// - Important: This does nothing on visionOS.
+    @ViewBuilder
     func detectOrientation(_ orientation: Binding<UIDeviceOrientation>) -> some View {
         self
     }
 
     /// - Important: This does nothing on visionOS.
+    @ViewBuilder
     func focusSection() -> some View {
         self
     }
 
     /// - Important: This does nothing on visionOS.
+    @ViewBuilder
     func navigationBarOffset(_ scrollViewOffset: Binding<CGFloat>, start: CGFloat, end: CGFloat) -> some View {
         self
     }
 
     /// - Important: This does nothing on visionOS.
+    @ViewBuilder
     func navigationBarDrawer(@ViewBuilder _ drawer: @escaping () -> some View) -> some View {
         self
     }
+
+    /// - Important: This does nothing on visionOS.
+    @ViewBuilder
+    func prefersStatusBarHidden(_ hidden: Bool = true) -> some View {
+        self
+    }
+
+    // MARK: Navigation modifiers
 
     func navigationBarFilterDrawer(
         viewModel: FilterViewModel,
@@ -40,11 +54,6 @@ extension View {
                 types: types
             )
         )
-    }
-
-    /// - Important: This does nothing on visionOS.
-    func prefersStatusBarHidden(_ hidden: Bool = true) -> some View {
-        self
     }
 
     func navigationBarCloseButton(
@@ -82,6 +91,8 @@ extension View {
         clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }
+
+// MARK: Filter modifier
 
 private struct VisionNavigationBarFilterModifier: ViewModifier {
 
@@ -122,6 +133,8 @@ private struct VisionNavigationBarFilterModifier: ViewModifier {
         }
     }
 }
+
+// MARK: Menu modifier
 
 private struct VisionNavigationBarMenuModifier<MenuItems: View>: ViewModifier {
 

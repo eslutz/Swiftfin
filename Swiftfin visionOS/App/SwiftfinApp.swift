@@ -16,6 +16,9 @@ struct SwiftfinApp: App {
     @StateObject
     private var valueObservation = ValueObservation()
 
+    @State
+    private var hasEnteredBackground = false
+
     init() {
         Self.configure()
     }
@@ -23,10 +26,14 @@ struct SwiftfinApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .onAppDidEnterBackground {
+                .onScenePhase(.background) {
+                    hasEnteredBackground = true
                     Defaults[.backgroundTimeStamp] = Date.now
                 }
-                .onAppWillEnterForeground {
+                .onScenePhase(.active) {
+                    guard hasEnteredBackground else { return }
+
+                    hasEnteredBackground = false
 
                     // TODO: needs to check if any background playback is happening
                     let backgroundedInterval = Date.now.timeIntervalSince(Defaults[.backgroundTimeStamp])

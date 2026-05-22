@@ -116,6 +116,8 @@ struct PagingLibraryViewModelTests {
 
             try await Task.sleep(nanoseconds: 10_000_000)
         }
+
+        #expect(Bool(false), "Timed out waiting for next-page background work to finish")
     }
 
     private static func waitForBackgroundState(
@@ -129,6 +131,8 @@ struct PagingLibraryViewModelTests {
 
             try await Task.sleep(nanoseconds: 10_000_000)
         }
+
+        #expect(Bool(false), "Timed out waiting for the expected background state")
     }
 
     private static func waitForRequestedPages(
@@ -142,6 +146,8 @@ struct PagingLibraryViewModelTests {
 
             try await Task.sleep(nanoseconds: 10_000_000)
         }
+
+        #expect(Bool(false), "Timed out waiting for requested pages")
     }
 }
 
