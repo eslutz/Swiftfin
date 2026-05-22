@@ -78,7 +78,7 @@ Swiftfin is developed using SwiftUI. The iOS, tvOS, and visionOS Jellyfin client
 
 Playback is done with [VLCKit](https://code.videolan.org/videolan/VLCKit) for its great codec support. Becoming familiar with VLCKit will be necessary for video playback development and debugging.
 
-Vision Pro playback currently uses the Native player with AVKit. VLCKit/VLCUI player surfaces are not included in the visionOS target.
+Vision Pro playback currently uses the Native player with AVKit. VLCKit/VLCUI player surfaces are not included in the visionOS target. VLC playback on visionOS may be revisited after Swiftfin migrates to the unified VLCKit 4.x line with visionOS support and adapts its VLC player integration for visionOS.
 
 ## Design
 

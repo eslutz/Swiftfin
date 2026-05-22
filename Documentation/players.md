@@ -1,6 +1,6 @@
 # Player Differences
 
-Swiftfin offers two player options: **Swiftfin** (VLCKit) and **Native** (AVPlayer). The Swiftfin team recommends using Swiftfin (VLCKit) for optimal compatibility and features, though Native (AVPlayer) is also available for certain cases that benefit from Apple's native capabilities. Apple Vision Pro currently uses Native (AVPlayer) only, including its current container, codec, track selection, and subtitle limitations. All video, audio, and subtitle formats listed are supported for direct playback but may be repackaged based on container support. If transcoding is enabled on your server, any unsupported formats will be converted automatically.
+Swiftfin offers two player options: **Swiftfin** (VLCKit) and **Native** (AVPlayer). The Swiftfin team recommends using Swiftfin (VLCKit) for optimal compatibility and features, though Native (AVPlayer) is also available for certain cases that benefit from Apple's native capabilities. Apple Vision Pro currently uses Native (AVPlayer) only, including its current container, codec, track selection, and subtitle limitations. VLC playback on visionOS may become possible in the future after Swiftfin migrates to the unified VLCKit 4.x line with visionOS support and adapts its VLC player integration for visionOS. All video, audio, and subtitle formats listed are supported for direct playback but may be repackaged based on container support. If transcoding is enabled on your server, any unsupported formats will be converted automatically.
 
 ---
 
