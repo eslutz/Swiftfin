@@ -54,8 +54,15 @@ struct ImageView<Failure: View>: View {
                             .eraseToAnyView()
                     }
                     #else
-                    image(_image.resizable())
-                        .eraseToAnyView()
+                    if state.imageContainer?.data != nil, state.imageContainer?.image.size == .zero {
+                        failure
+                            .onAppear {
+                                sources.removeFirstSafe()
+                            }
+                    } else {
+                        image(_image.resizable())
+                            .eraseToAnyView()
+                    }
                     #endif
                 } else if state.error != nil {
                     failure

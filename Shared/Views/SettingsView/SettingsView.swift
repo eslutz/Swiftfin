@@ -103,18 +103,19 @@ struct SettingsView: View {
             ListRowMenu(L10n.videoPlayerType, selection: $videoPlayerType)
             #endif
 
+            #if !os(visionOS)
             ChevronButton(L10n.videoPlayer) {
                 router.route(to: .videoPlayerSettings)
             }
+            #endif
 
             ChevronButton(L10n.playbackQuality) {
                 router.route(to: .playbackQualitySettings)
             }
         } learnMore: {
-            LabeledContent(
-                L10n.swiftfin,
-                value: L10n.playerSwiftfinDescription
-            )
+            #if !os(visionOS)
+            LabeledContent(L10n.swiftfin, value: L10n.playerSwiftfinDescription)
+            #endif
             LabeledContent(
                 L10n.native,
                 value: L10n.playerNativeDescription

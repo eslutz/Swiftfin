@@ -7,9 +7,9 @@
 //
 
 import CoreGraphics
+import UIKit
 
 #if !os(visionOS)
-import UIKit
 
 extension UIScreen {
 
@@ -27,7 +27,7 @@ enum PlatformScreen {
 
     static func scale(_ x: CGFloat) -> Int {
         #if os(visionOS)
-        Int(2 * x)
+        Int(max(UITraitCollection.current.displayScale, 1) * x)
         #else
         UIScreen.main.scale(x)
         #endif
