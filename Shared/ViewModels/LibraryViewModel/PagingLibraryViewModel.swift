@@ -253,6 +253,7 @@ class PagingLibraryViewModel<Element: Poster>: ViewModel, Eventful, Stateful {
 
             pagingTask?.cancel()
             randomItemTask?.cancel()
+            backgroundStates.remove(.gettingNextPage)
 
             filterViewModel?.getQueryFilters()
 
@@ -280,7 +281,7 @@ class PagingLibraryViewModel<Element: Poster>: ViewModel, Eventful, Stateful {
             return .refreshing
         case .getNextPage:
 
-            guard hasNextPage else { return state }
+            guard hasNextPage, !backgroundStates.contains(.gettingNextPage) else { return state }
 
             backgroundStates.insert(.gettingNextPage)
 
@@ -288,19 +289,21 @@ class PagingLibraryViewModel<Element: Poster>: ViewModel, Eventful, Stateful {
                 do {
                     try await self?.getNextPage()
 
-                    guard !Task.isCancelled else { return }
-
-                    await MainActor.run {
-                        self?.backgroundStates.remove(.gettingNextPage)
-                        self?.state = .content
+                    if !Task.isCancelled {
+                        await MainActor.run {
+                            self?.state = .content
+                        }
                     }
                 } catch {
-                    guard !Task.isCancelled else { return }
-
-                    await MainActor.run {
-                        self?.backgroundStates.remove(.gettingNextPage)
-                        self?.state = .error(.init(error.localizedDescription))
+                    if !Task.isCancelled {
+                        await MainActor.run {
+                            self?.state = .error(.init(error.localizedDescription))
+                        }
                     }
+                }
+
+                await MainActor.run {
+                    self?.backgroundStates.remove(.gettingNextPage)
                 }
             }
             .asAnyCancellable()
