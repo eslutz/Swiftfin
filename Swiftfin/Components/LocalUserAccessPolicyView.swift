@@ -89,15 +89,15 @@ struct LocalUserAccessPolicyView: View {
         .navigationBarCloseButton {
             router.dismiss()
         }
-        .onChange(of: updatePinHint) { newValue in
+        .backport.onChange(of: updatePinHint) { _, newValue in
             let truncated = String(newValue.prefix(120))
             updatePinHint = truncated
             pinHint = truncated
         }
-        .onChange(of: updatePinHint) { newValue in
+        .backport.onChange(of: updatePinHint) { _, newValue in
             pinHint = newValue
         }
-        .onChange(of: updateSignInPolicy) { newValue in
+        .backport.onChange(of: updateSignInPolicy) { _, newValue in
             accessPolicy = newValue
         }
         .trackingSize($listSize)

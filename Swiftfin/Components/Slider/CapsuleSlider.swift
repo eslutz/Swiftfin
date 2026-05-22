@@ -96,14 +96,14 @@ struct CapsuleSlider<Value: BinaryFloatingPoint>: View {
                     }
             }
             .trackingSize($contentSize)
-            .onChange(of: value) { newValue in
+            .backport.onChange(of: value) { _, newValue in
                 guard isEditing else { return }
 
                 if newValue == 0 || newValue == total {
                     UIDevice.impact(.light)
                 }
             }
-            .onChange(of: gestureTranslation) { newValue in
+            .backport.onChange(of: gestureTranslation) { _, newValue in
                 if isEditing {
                     translationBinding.wrappedValue = newValue
                 }

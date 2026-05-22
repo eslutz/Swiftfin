@@ -62,6 +62,8 @@ struct IsPressedButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .onChange(of: configuration.isPressed, perform: isPressed)
+            .backport.onChange(of: configuration.isPressed) { _, newValue in
+                isPressed(newValue)
+            }
     }
 }

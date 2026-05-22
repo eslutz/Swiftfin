@@ -217,7 +217,7 @@ struct SearchView: View {
         .onFirstAppear {
             viewModel.getSuggestions()
         }
-        .onChange(of: searchQuery) { newValue in
+        .backport.onChange(of: searchQuery) { _, newValue in
             viewModel.search(query: newValue)
         }
         .searchable(

@@ -377,7 +377,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 types: enabledDrawerFilters
             )
         }
-        .onChange(of: defaultDisplayType) { newValue in
+        .backport.onChange(of: defaultDisplayType) { _, newValue in
             guard !Defaults[.Customization.Library.rememberLayout] else { return }
 
             if UIDevice.isPhone {
@@ -393,7 +393,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
         }
-        .onChange(of: defaultListColumnCount) { newValue in
+        .backport.onChange(of: defaultListColumnCount) { _, newValue in
             guard !Defaults[.Customization.Library.rememberLayout] else { return }
 
             if UIDevice.isPad {
@@ -404,7 +404,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
         }
-        .onChange(of: defaultPosterType) { newValue in
+        .backport.onChange(of: defaultPosterType) { _, newValue in
             guard !Defaults[.Customization.Library.rememberLayout] else { return }
 
             if UIDevice.isPhone {
@@ -443,7 +443,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 #endif
             }
         }
-        .onChange(of: displayType) { newValue in
+        .backport.onChange(of: displayType) { _, newValue in
             if UIDevice.isPhone {
                 layout = Self.phoneLayout(
                     posterType: posterType,
@@ -457,7 +457,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
         }
-        .onChange(of: listColumnCount) { newValue in
+        .backport.onChange(of: listColumnCount) { _, newValue in
             if UIDevice.isPad {
                 layout = Self.padLayout(
                     posterType: posterType,
@@ -466,7 +466,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
         }
-        .onChange(of: posterType) { newValue in
+        .backport.onChange(of: posterType) { _, newValue in
             if UIDevice.isPhone {
                 #if os(visionOS)
                 layout = Self.phoneLayout(
@@ -503,7 +503,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 #endif
             }
         }
-        .onChange(of: rememberLayout) { newValue in
+        .backport.onChange(of: rememberLayout) { _, newValue in
             let newDisplayType = newValue ? displayType : defaultDisplayType
             let newListColumnCount = newValue ? listColumnCount : defaultListColumnCount
             let newPosterType = newValue ? posterType : defaultPosterType
@@ -521,7 +521,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
         }
-        .onChange(of: viewModel.filterViewModel?.currentFilters) { newValue in
+        .backport.onChange(of: viewModel.filterViewModel?.currentFilters) { _, newValue in
             guard let newValue, let id = viewModel.parent?.id else { return }
 
             if Defaults[.Customization.Library.rememberSort] {

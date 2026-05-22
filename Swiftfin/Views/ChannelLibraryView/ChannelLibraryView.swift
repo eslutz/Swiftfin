@@ -190,7 +190,7 @@ struct ChannelLibraryView: View {
         .refreshable {
             viewModel.send(.refresh)
         }
-        .onChange(of: channelDisplayType) { newValue in
+        .backport.onChange(of: channelDisplayType) { _, newValue in
             if UIDevice.isPhone {
                 layout = Self.phonelayout(channelDisplayType: newValue)
             } else {

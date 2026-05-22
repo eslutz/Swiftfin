@@ -80,7 +80,7 @@ struct SeriesEpisodeSelector: View {
                 selection = viewModel.seasons.first?.id
             }
         }
-        .onChange(of: selection) { _ in
+        .backport.onChange(of: selection) {
             guard let selectionViewModel else { return }
 
             if selectionViewModel.state == .initial {
