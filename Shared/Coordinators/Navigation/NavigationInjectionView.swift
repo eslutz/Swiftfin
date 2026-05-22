@@ -89,18 +89,7 @@ struct NavigationInjectionView: View {
                 .environmentObject(rootCoordinator)
             }
         #endif
-        #if os(tvOS)
-        .fullScreenCover(
-            item: $coordinator.presentedFullScreen
-        ) { route in
-            let newCoordinator = NavigationCoordinator()
-
-            NavigationInjectionView(coordinator: newCoordinator) {
-                route.destination
-            }
-            .environmentObject(rootCoordinator)
-        }
-        #elseif os(visionOS)
+        #if os(tvOS) || os(visionOS)
         .fullScreenCover(
             item: $coordinator.presentedFullScreen
         ) { route in

@@ -51,6 +51,10 @@ private typealias PagingCollectionLayout = CollectionVGridLayout
 
 struct PagingLibraryView<Element: Poster>: View {
 
+    private static var nextPagePrefetchThreshold: Int {
+        5
+    }
+
     @Default(.Customization.Library.enabledDrawerFilters)
     private var enabledDrawerFilters
     @Default(.Customization.Library.rememberLayout)
@@ -292,7 +296,7 @@ struct PagingLibraryView<Element: Poster>: View {
                         }
                     }
                     .onAppear {
-                        if offset == viewModel.elements.count - 1 {
+                        if offset >= max(viewModel.elements.count - Self.nextPagePrefetchThreshold, 0) {
                             viewModel.send(.getNextPage)
                         }
                     }

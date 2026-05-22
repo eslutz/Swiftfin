@@ -74,5 +74,8 @@ struct MainTabView: View {
                 .tag(tab.item.id)
             }
         }
+        #if os(visionOS)
+        .tabViewStyle(.sidebarAdaptable)
+        #endif
     }
 }
