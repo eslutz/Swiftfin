@@ -31,13 +31,15 @@ struct PillHStack<Item: Displayable>: View {
                             Text(item.displayTitle)
                                 .font(.caption)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.primary)
-                                .padding(10)
-                                .background {
-                                    Color.systemFill
-                                        .cornerRadius(10)
-                                }
+                                .foregroundStyle(.primary)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(.thinMaterial, in: Capsule())
                         }
+                        .buttonStyle(.plain)
+                        #if os(visionOS)
+                            .hoverEffect(.lift)
+                        #endif
                     }
                 }
                 .edgePadding(.horizontal)

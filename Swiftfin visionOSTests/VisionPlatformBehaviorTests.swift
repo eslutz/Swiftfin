@@ -7,6 +7,7 @@
 //
 
 import Defaults
+import Factory
 import Foundation
 @testable import Swiftfin_visionOS
 import SwiftUI
@@ -48,11 +49,165 @@ struct VisionVideoPlayerDefaultsTests {
         defer {
             Defaults[.lastSignedInUserID] = originalSignInState
             UserDefaults.standard.removePersistentDomain(forName: temporaryUserID)
+            Container.shared.currentUserSession.reset()
         }
 
         Defaults[.lastSignedInUserID] = .signedIn(userID: temporaryUserID)
 
         #expect(Defaults[.VideoPlayer.videoPlayerType] == .native)
+    }
+
+    @Test
+    func `vision OS uses native player for AVKit immersive experiences`() {
+        let originalSignInState = Defaults[.lastSignedInUserID]
+        let temporaryUserID = "visionos-tests-\(UUID().uuidString)"
+
+        defer {
+            Defaults[.lastSignedInUserID] = originalSignInState
+            UserDefaults.standard.removePersistentDomain(forName: temporaryUserID)
+            Container.shared.currentUserSession.reset()
+        }
+
+        Defaults[.lastSignedInUserID] = .signedIn(userID: temporaryUserID)
+
+        #expect(VideoPlayerType.allCases == [.native])
+        #expect(Defaults[.VideoPlayer.videoPlayerType] == .native)
+    }
+}
+
+@Suite("visionOS public user identity")
+struct VisionPublicUserIdentityTests {
+
+    @Test
+    func `public user identity prefers server id`() {
+        #expect(UserSignInViewModel.publicUserIdentifier(id: "abc", name: "Lindsey") == "abc")
+    }
+
+    @Test
+    func `public user identity falls back to normalized name`() {
+        #expect(UserSignInViewModel.publicUserIdentifier(id: nil, name: " Eric ") == "public-user-eric")
+    }
+
+    @Test
+    func `public user identity ignores blank id`() {
+        #expect(UserSignInViewModel.publicUserIdentifier(id: "  ", name: "Claire") == "public-user-claire")
+    }
+
+    @Test
+    func `public user identity has stable unknown fallback`() {
+        #expect(UserSignInViewModel.publicUserIdentifier(id: nil, name: nil) == "public-user-unknown")
+    }
+}
+
+@Suite("visionOS server connection", .serialized)
+@MainActor
+struct VisionServerConnectionTests {
+
+    @Test
+    func `saving a new current server url persists url and current selection`() async throws {
+        try await SwiftfinStore.setupDataStack()
+
+        let originalServers = StoredValues[.Server.servers]
+        let originalSignInState = Defaults[.lastSignedInUserID]
+        defer {
+            StoredValues[.Server.servers] = originalServers
+            Defaults[.lastSignedInUserID] = originalSignInState
+            Container.shared.currentUserSession.reset()
+        }
+
+        Defaults[.lastSignedInUserID] = .signedOut
+        Container.shared.currentUserSession.reset()
+
+        let originalURL = try #require(URL(string: "http://192.168.1.10:8096"))
+        let newURL = try #require(URL(string: "https://jellyfin.example.com"))
+        let server = ServerState(
+            urls: [originalURL],
+            currentURL: originalURL,
+            name: "Test Server",
+            id: "visionos-server-\(UUID().uuidString)",
+            userIDs: []
+        )
+        StoredValues[.Server.servers] = [server]
+
+        let viewModel = ServerConnectionViewModel(server: server)
+        try viewModel.saveCurrentURL(to: newURL)
+
+        let storedServer = try #require(StoredValues[.Server.servers].first { $0.id == server.id })
+        #expect(storedServer.currentURL == newURL)
+        #expect(storedServer.urls.contains(originalURL))
+        #expect(storedServer.urls.contains(newURL))
+        #expect(viewModel.server.currentURL == newURL)
+    }
+}
+
+@Suite("visionOS search history")
+struct VisionSearchHistoryTests {
+
+    @Test
+    func `search history deduplicates case insensitively`() {
+        let result = SearchViewModel.updatedSearchHistory(["Prey", "Tokyo Zombie"], inserting: "prey")
+
+        #expect(result == ["prey", "Tokyo Zombie"])
+    }
+
+    @Test
+    func `search history caps at ten entries`() {
+        let history = (0 ..< 12).map { "Item \($0)" }
+        let result = SearchViewModel.updatedSearchHistory(history, inserting: "Newest")
+
+        #expect(result.count == 10)
+        #expect(result.first == "Newest")
+    }
+
+    @Test
+    func `search history ignores blank entries`() {
+        let history = ["Prey"]
+        let result = SearchViewModel.updatedSearchHistory(history, inserting: "  ")
+
+        #expect(result == history)
+    }
+}
+
+@Suite("visionOS search library parameters")
+struct VisionSearchLibraryParameterTests {
+
+    @Test
+    func `search paging parameters preserve query filters and page offset`() {
+        var filters = ItemFilterCollection.default
+        filters.genres = ["Comedy"]
+        filters.sortBy = [.dateCreated]
+        filters.sortOrder = [.descending]
+        filters.tags = ["Classic"]
+        filters.traits = [.isFavorite]
+        filters.years = [1934]
+
+        let firstPage = SearchItemParameters.items(
+            query: "The Three Stooges",
+            itemType: .episode,
+            filters: filters,
+            page: 0,
+            pageSize: 50
+        )
+        let secondPage = SearchItemParameters.items(
+            query: "The Three Stooges",
+            itemType: .episode,
+            filters: filters,
+            page: 1,
+            pageSize: 50
+        )
+
+        #expect(firstPage.searchTerm == "The Three Stooges")
+        #expect(firstPage.includeItemTypes == [.episode])
+        #expect(firstPage.limit == 50)
+        #expect(firstPage.startIndex == 0)
+        #expect(firstPage.isRecursive == true)
+        #expect(firstPage.genres == ["Comedy"])
+        #expect(firstPage.sortBy == [.dateCreated])
+        #expect(firstPage.sortOrder == [.descending])
+        #expect(firstPage.tags == ["Classic"])
+        #expect(firstPage.filters == [.isFavorite])
+        #expect(firstPage.years == [1934])
+        #expect(secondPage.startIndex == 50)
     }
 }
 

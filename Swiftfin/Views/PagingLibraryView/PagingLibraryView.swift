@@ -304,6 +304,7 @@ struct PagingLibraryView<Element: Poster>: View {
             }
             .padding(layout.padding)
         }
+        .contentMargins(.top, 72, for: .scrollContent)
         .scrollIndicators(.hidden)
         #else
         CollectionVGrid(
@@ -361,7 +362,7 @@ struct PagingLibraryView<Element: Poster>: View {
             }
         }
         .animation(.linear(duration: 0.1), value: viewModel.state)
-        .ignoresSafeArea(.all, edges: .vertical)
+        .platformIgnoresVerticalSafeArea()
         .letterPickerBar(filterViewModel: viewModel.filterViewModel)
         .onSizeChanged { _, safeArea in
             self.safeArea = safeArea
@@ -545,6 +546,7 @@ struct PagingLibraryView<Element: Poster>: View {
                 }
             }
         }
+
         .onFirstAppear {
             if viewModel.state == .initial {
                 viewModel.send(.refresh)
@@ -572,5 +574,17 @@ struct PagingLibraryView<Element: Poster>: View {
             }
             .disabled(viewModel.elements.isEmpty)
         }
+    }
+}
+
+private extension View {
+
+    @ViewBuilder
+    func platformIgnoresVerticalSafeArea() -> some View {
+        #if os(visionOS)
+        self
+        #else
+        ignoresSafeArea(.all, edges: .vertical)
+        #endif
     }
 }

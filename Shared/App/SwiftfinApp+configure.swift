@@ -55,6 +55,12 @@ extension SwiftfinApp {
 
         // Swiftfin
 
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            Defaults[.lastSignedInUserID] = .signedOut
+        }
+        #endif
+
         // Don't keep last user id.
         if Defaults[.signOutOnClose] {
             Defaults[.lastSignedInUserID] = .signedOut

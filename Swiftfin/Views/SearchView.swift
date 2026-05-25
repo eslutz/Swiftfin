@@ -10,7 +10,6 @@ import Defaults
 import JellyfinAPI
 import SwiftUI
 
-// TODO: have a `SearchLibraryViewModel` that allows paging on searched items?
 // TODO: implement search view result type between `PosterHStack`
 //       and `ListHStack` (3 row list columns)? (iOS only)
 // TODO: have programs only pull recommended/current?
@@ -19,6 +18,8 @@ struct SearchView: View {
 
     @Default(.Customization.Search.enabledDrawerFilters)
     private var enabledDrawerFilters
+    @Default(.Customization.Search.history)
+    private var searchHistory
     @Default(.Customization.searchPosterType)
     private var searchPosterType
 
@@ -39,13 +40,40 @@ struct SearchView: View {
 
     @ViewBuilder
     private var suggestionsView: some View {
-        VStack(spacing: 20) {
-            ForEach(viewModel.suggestions) { item in
-                Button(item.displayTitle) {
-                    searchQuery = item.displayTitle
+        ScrollView {
+            VStack(alignment: .leading, spacing: 28) {
+                if searchHistory.isNotEmpty {
+                    searchChipSection(
+                        title: L10n.recent,
+                        items: searchHistory
+                    ) {
+                        Button(role: .destructive, action: clearSearchHistory) {
+                            Label(L10n.clear, systemImage: "trash")
+                        }
+                        #if os(visionOS)
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                        #else
+                        .buttonStyle(.plain)
+                        #endif
+                    }
+                }
+
+                searchChipSection(
+                    title: L10n.suggestions,
+                    items: viewModel.suggestions.map(\.displayTitle)
+                ) {
+                    EmptyView()
                 }
             }
+            .padding(.horizontal, 36)
+            .padding(.vertical, 32)
+            .frame(maxWidth: 860, alignment: .topLeading)
+            .frame(maxWidth: .infinity, alignment: .top)
         }
+        #if os(visionOS)
+        .contentMargins(.top, 72, for: .scrollContent)
+        #endif
     }
 
     @ViewBuilder
@@ -144,15 +172,67 @@ struct SearchView: View {
             }
             .edgePadding(.vertical)
         }
+        #if os(visionOS)
+        .contentMargins(.top, 72, for: .scrollContent)
+        #endif
     }
 
     private func select(_ item: BaseItemDto, in namespace: Namespace.ID) {
+        commitSearchQuery(searchQuery)
+
         switch item.type {
         case .program, .tvChannel:
             let provider = item.getPlaybackItemProvider(userSession: viewModel.userSession)
             router.route(to: .videoPlayer(provider: provider))
         default:
             router.route(to: .item(item: item), in: namespace)
+        }
+    }
+
+    private func commitSearchQuery(_ query: String) {
+        searchHistory = SearchViewModel.updatedSearchHistory(searchHistory, inserting: query)
+    }
+
+    private func clearSearchHistory() {
+        searchHistory.removeAll()
+    }
+
+    private func chooseSearchSuggestion(_ query: String) {
+        searchQuery = query
+        commitSearchQuery(query)
+    }
+
+    private func searchChipSection(
+        title: String,
+        items: [String],
+        @ViewBuilder trailing: () -> some View
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(title)
+                    .font(.headline)
+
+                Spacer()
+
+                trailing()
+            }
+
+            FlowLayout(alignment: .leading, spacing: 10, lineSpacing: 10) {
+                ForEach(items, id: \.self) { item in
+                    Button {
+                        chooseSearchSuggestion(item)
+                    } label: {
+                        Text(item)
+                            .font(.callout.weight(.semibold))
+                            .foregroundStyle(.primary)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 9)
+                            .background(.thinMaterial, in: Capsule())
+                    }
+                    .buttonStyle(.plain)
+                    .hoverEffect(.lift)
+                }
+            }
         }
     }
 
@@ -170,13 +250,17 @@ struct SearchView: View {
             action: select
         )
         .trailing {
-            SeeAllButton {
-                let viewModel = PagingLibraryViewModel(
-                    title: title,
-                    id: "search-\(type.hashValue)",
-                    items
-                )
-                router.route(to: .library(viewModel: viewModel))
+            if type != .person {
+                SeeAllButton {
+                    let libraryViewModel = SearchLibraryViewModel(
+                        title: title,
+                        id: "search-\(type.rawValue)",
+                        query: searchQuery,
+                        itemType: type,
+                        filters: viewModel.filterViewModel.currentFilters
+                    )
+                    router.route(to: .library(viewModel: libraryViewModel))
+                }
             }
         }
     }
@@ -225,6 +309,9 @@ struct SearchView: View {
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: L10n.search
         )
+        .onSubmit(of: .search) {
+            commitSearchQuery(searchQuery)
+        }
         .backport
         .searchFocused($isSearchFocused)
         .onReceive(tabItemSelected) { event in

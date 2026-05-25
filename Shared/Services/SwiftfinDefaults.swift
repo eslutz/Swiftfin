@@ -251,6 +251,10 @@ extension Defaults.Keys {
                     default: ItemFilterType.allCases
                 )
             }
+
+            static var history: Key<[String]> {
+                UserKey("searchHistory", default: [])
+            }
         }
     }
 

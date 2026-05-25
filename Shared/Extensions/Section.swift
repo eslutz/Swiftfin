@@ -104,11 +104,18 @@ private struct LearnMoreButton: View {
     }
 
     var body: some View {
-        Button(L10n.learnMore + .ellipsis) {
+        Button {
             isPresented = true
+        } label: {
+            Label(L10n.learnMore + .ellipsis, systemImage: "info.circle")
         }
-        .foregroundStyle(Color.accentColor)
+        #if os(visionOS)
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        #else
         .buttonStyle(.plain)
+        .foregroundStyle(Color.accentColor)
+        #endif
         .sheet(isPresented: $isPresented) {
             NavigationStack {
                 ScrollView {

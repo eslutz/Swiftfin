@@ -58,6 +58,17 @@ final class SearchViewModel: ViewModel {
         searchQuery.value.isNotEmpty || filterViewModel.currentFilters.hasQueryableFilters
     }
 
+    nonisolated static func updatedSearchHistory(_ history: [String], inserting query: String) -> [String] {
+        let normalizedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard normalizedQuery.isNotEmpty else { return history }
+
+        var updated = history
+        updated.removeAll { $0.caseInsensitiveCompare(normalizedQuery) == .orderedSame }
+        updated.insert(normalizedQuery, at: 0)
+
+        return Array(updated.prefix(10))
+    }
+
     // MARK: init
 
     @MainActor
@@ -147,31 +158,11 @@ final class SearchViewModel: ViewModel {
 
     private func _getItems(query: String, itemType: BaseItemKind) async throws -> [BaseItemDto] {
 
-        var parameters = Paths.GetItemsParameters()
-        parameters.enableUserData = true
-        parameters.fields = .MinimumFields
-        parameters.includeItemTypes = [itemType]
-        parameters.isRecursive = true
-        parameters.limit = 20
-        parameters.searchTerm = query
-
-        // Filters
-        let filters = filterViewModel.currentFilters
-        parameters.filters = filters.traits
-        parameters.genres = filters.genres.map(\.value)
-        parameters.sortBy = filters.sortBy
-        parameters.sortOrder = filters.sortOrder
-        parameters.tags = filters.tags.map(\.value)
-        parameters.years = filters.years.map(\.intValue)
-
-        if filters.letter.first?.value == "#" {
-            parameters.nameLessThan = "A"
-        } else {
-            parameters.nameStartsWith = filters.letter
-                .map(\.value)
-                .filter { $0 != "#" }
-                .first
-        }
+        let parameters = SearchItemParameters.items(
+            query: query,
+            itemType: itemType,
+            filters: filterViewModel.currentFilters
+        )
 
         let request = Paths.getItems(parameters: parameters)
         let response = try await userSession.client.send(request)
@@ -181,10 +172,7 @@ final class SearchViewModel: ViewModel {
 
     private func _getPeople(query: String) async throws -> [BaseItemDto] {
 
-        var parameters = Paths.GetPersonsParameters()
-        parameters.limit = 20
-        parameters.searchTerm = query
-
+        let parameters = SearchItemParameters.people(query: query)
         let request = Paths.getPersons(parameters: parameters)
         let response = try await userSession.client.send(request)
 
