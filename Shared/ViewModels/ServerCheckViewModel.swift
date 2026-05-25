@@ -36,6 +36,8 @@ final class ServerCheckViewModel: ViewModel {
     @Function(\Action.Cases.checkServer)
     private func _checkServer() async throws {
 
+        guard let userSession else { return }
+
         try await userSession.server.updateServerInfo()
 
         let request = Paths.getCurrentUser

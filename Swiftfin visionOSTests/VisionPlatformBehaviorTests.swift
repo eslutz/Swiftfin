@@ -31,6 +31,44 @@ struct VisionPlatformBehaviorTests {
     func `platform screen scale does not downscale`() {
         #expect(PlatformScreen.scale(100) >= 100)
     }
+
+    @Test
+    @MainActor
+    func `server check view can render after current session is cleared`() {
+        let originalSignInState = Defaults[.lastSignedInUserID]
+
+        defer {
+            Defaults[.lastSignedInUserID] = originalSignInState
+            Container.shared.currentUserSession.reset()
+        }
+
+        Defaults[.lastSignedInUserID] = .signedOut
+        Container.shared.currentUserSession.reset()
+
+        let hostingController = UIHostingController(rootView: NavigationStack {
+            ServerCheckView()
+        })
+
+        _ = hostingController.view
+        hostingController.view.layoutIfNeeded()
+    }
+
+    @Test
+    @MainActor
+    func `server check action ignores requests without a current session`() async {
+        let originalSignInState = Defaults[.lastSignedInUserID]
+
+        defer {
+            Defaults[.lastSignedInUserID] = originalSignInState
+            Container.shared.currentUserSession.reset()
+        }
+
+        Defaults[.lastSignedInUserID] = .signedOut
+        Container.shared.currentUserSession.reset()
+
+        let viewModel = ServerCheckViewModel()
+        await viewModel.checkServer()
+    }
 }
 
 @Suite("visionOS video player defaults", .serialized)

@@ -33,10 +33,10 @@ struct ServerCheckView: View {
         }
         .animation(.linear(duration: 0.1), value: viewModel.state)
         .refreshable {
-            viewModel.checkServer()
+            checkServerOrSelectUser()
         }
         .onFirstAppear {
-            viewModel.checkServer()
+            checkServerOrSelectUser()
         }
         .onReceive(viewModel.events) { event in
             switch event {
@@ -46,12 +46,23 @@ struct ServerCheckView: View {
         }
         .topBarTrailing {
 
-            SettingsBarButton(
-                server: viewModel.userSession.server,
-                user: viewModel.userSession.user
-            ) {
-                router.route(to: .settings)
+            if let userSession = viewModel.userSession {
+                SettingsBarButton(
+                    server: userSession.server,
+                    user: userSession.user
+                ) {
+                    router.route(to: .settings)
+                }
             }
         }
+    }
+
+    private func checkServerOrSelectUser() {
+        guard viewModel.userSession != nil else {
+            router.root(.selectUser)
+            return
+        }
+
+        viewModel.checkServer()
     }
 }
