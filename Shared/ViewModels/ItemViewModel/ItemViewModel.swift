@@ -109,8 +109,8 @@ class ItemViewModel: ViewModel, Stateful {
             .sink { [weak self] itemID in
                 guard itemID == self?.item.id else { return }
 
-                Task {
-                    await self?.send(.backgroundRefresh)
+                Task { @MainActor [weak self] in
+                    self?.send(.backgroundRefresh)
                 }
             }
             .store(in: &cancellables)
@@ -120,8 +120,8 @@ class ItemViewModel: ViewModel, Stateful {
             .sink { [weak self] newItem in
                 guard let newItemID = newItem.id, newItemID == self?.item.id else { return }
 
-                Task {
-                    await self?.send(.replace(newItem))
+                Task { @MainActor [weak self] in
+                    self?.send(.replace(newItem))
                 }
             }
             .store(in: &cancellables)

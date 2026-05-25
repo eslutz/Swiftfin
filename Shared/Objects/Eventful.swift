@@ -14,5 +14,6 @@ protocol Eventful {
 
     associatedtype Event
 
+    @MainActor
     var events: AnyPublisher<Event, Never> { get }
 }

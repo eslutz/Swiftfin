@@ -68,10 +68,11 @@ final class SeriesItemViewModel: ItemViewModel {
                 }
             }
             .store(in: &cancellables)
-        default: ()
-        }
 
-        return super.respond(to: action)
+            return parentState
+        default:
+            return super.respond(to: action)
+        }
     }
 
     // MARK: - Get Next Up Item

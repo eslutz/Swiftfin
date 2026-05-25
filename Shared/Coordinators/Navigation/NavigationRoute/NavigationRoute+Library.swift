@@ -23,6 +23,7 @@ extension NavigationRoute {
         }
     }
 
+    @MainActor
     static func library(
         viewModel: PagingLibraryViewModel<some Poster>
     ) -> NavigationRoute {

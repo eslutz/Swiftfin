@@ -303,7 +303,7 @@ class PagingLibraryViewModel<Element: Poster>: ViewModel, Eventful, Stateful {
                 }
 
                 await MainActor.run {
-                    self?.backgroundStates.remove(.gettingNextPage)
+                    _ = self?.backgroundStates.remove(.gettingNextPage)
                 }
             }
             .asAnyCancellable()

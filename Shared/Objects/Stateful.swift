@@ -17,8 +17,10 @@ protocol Stateful: AnyObject {
     /// Background states that the conformer can be in.
     /// Usually used to indicate background events that shouldn't
     /// set the conformer to a primary state.
+    @MainActor
     var backgroundStates: Set<BackgroundState> { get set }
 
+    @MainActor
     var state: State { get set }
 
     /// Respond to a sent action and return the new state
@@ -41,6 +43,7 @@ extension Stateful {
 
 extension Stateful where BackgroundState == Never {
 
+    @MainActor
     var backgroundStates: Set<Never> {
         get {
             assertionFailure("Attempted to access `backgroundStates` when there are none")

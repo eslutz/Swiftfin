@@ -70,8 +70,8 @@ final class HomeViewModel: ViewModel, Stateful {
                 // Necessary because when this notification is posted, even with asyncAfter,
                 // the view will cause layout issues since it will redraw while in landscape.
                 // TODO: look for better solution
-                DispatchQueue.main.async {
-                    self.notificationsReceived.insert(.itemMetadataDidChange)
+                Task { @MainActor [weak self] in
+                    self?.notificationsReceived.insert(.itemMetadataDidChange)
                 }
             }
             .store(in: &cancellables)
@@ -84,30 +84,26 @@ final class HomeViewModel: ViewModel, Stateful {
             backgroundRefreshTask?.cancel()
             backgroundStates.insert(.refresh)
 
-            backgroundRefreshTask = Task { [weak self] in
-                do {
-                    self?.nextUpViewModel.send(.refresh)
-                    self?.recentlyAddedViewModel.send(.refresh)
+            backgroundRefreshTask = Task { @MainActor [weak self] in
+                guard let self else { return }
 
-                    let resumeItems = try await self?.getResumeItems() ?? []
+                do {
+                    nextUpViewModel.send(.refresh)
+                    recentlyAddedViewModel.send(.refresh)
+
+                    let resumeItems = try await getResumeItems()
 
                     guard !Task.isCancelled else { return }
 
-                    await MainActor.run {
-                        guard let self else { return }
-                        self.resumeItems.elements = resumeItems
-                        self.backgroundStates.remove(.refresh)
-                    }
+                    self.resumeItems.elements = resumeItems
+                    _ = self.backgroundStates.remove(.refresh)
                 } catch is CancellationError {
                     // cancelled
                 } catch {
                     guard !Task.isCancelled else { return }
 
-                    await MainActor.run {
-                        guard let self else { return }
-                        self.backgroundStates.remove(.refresh)
-                        self.send(.error(.init(error.localizedDescription)))
-                    }
+                    _ = self.backgroundStates.remove(.refresh)
+                    self.send(.error(.init(error.localizedDescription)))
                 }
             }
             .asAnyCancellable()
@@ -116,8 +112,10 @@ final class HomeViewModel: ViewModel, Stateful {
         case let .error(error):
             return .error(error)
         case let .setIsPlayed(isPlayed, item): ()
-            Task {
-                try await setIsPlayed(isPlayed, for: item)
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+
+                try await self.setIsPlayed(isPlayed, for: item)
 
                 self.send(.backgroundRefresh)
             }
@@ -128,25 +126,21 @@ final class HomeViewModel: ViewModel, Stateful {
             backgroundRefreshTask?.cancel()
             refreshTask?.cancel()
 
-            refreshTask = Task { [weak self] in
+            refreshTask = Task { @MainActor [weak self] in
+                guard let self else { return }
+
                 do {
-                    try await self?.refresh()
+                    try await refresh()
 
                     guard !Task.isCancelled else { return }
 
-                    await MainActor.run {
-                        guard let self else { return }
-                        self.state = .content
-                    }
+                    self.state = .content
                 } catch is CancellationError {
                     // cancelled
                 } catch {
                     guard !Task.isCancelled else { return }
 
-                    await MainActor.run {
-                        guard let self else { return }
-                        self.send(.error(.init(error.localizedDescription)))
-                    }
+                    self.send(.error(.init(error.localizedDescription)))
                 }
             }
             .asAnyCancellable()
@@ -157,20 +151,18 @@ final class HomeViewModel: ViewModel, Stateful {
 
     private func refresh() async throws {
 
-        await nextUpViewModel.send(.refresh)
-        await recentlyAddedViewModel.send(.refresh)
+        nextUpViewModel.send(.refresh)
+        recentlyAddedViewModel.send(.refresh)
 
         let resumeItems = try await getResumeItems()
         let libraries = try await getLibraries()
 
         for library in libraries {
-            await library.send(.refresh)
+            library.send(.refresh)
         }
 
-        await MainActor.run {
-            self.resumeItems.elements = resumeItems
-            self.libraries = libraries
-        }
+        self.resumeItems.elements = resumeItems
+        self.libraries = libraries
     }
 
     private func getResumeItems() async throws -> [BaseItemDto] {

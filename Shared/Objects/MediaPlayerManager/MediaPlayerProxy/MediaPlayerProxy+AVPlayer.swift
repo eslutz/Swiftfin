@@ -80,14 +80,20 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
         timeObserver = player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
             queue: .main
-        ) { newTime in
-            let newSeconds = Duration.seconds(newTime.seconds)
+        ) { [weak self] newTime in
+            let seconds = newTime.seconds
 
-            if !self.isScrubbing.wrappedValue {
-                self.scrubbedSeconds.wrappedValue = newSeconds
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+
+                let newSeconds = Duration.seconds(seconds)
+
+                if !self.isScrubbing.wrappedValue {
+                    self.scrubbedSeconds.wrappedValue = newSeconds
+                }
+
+                self.manager?.seconds = newSeconds
             }
-
-            self.manager?.seconds = newSeconds
         }
     }
 
@@ -176,7 +182,9 @@ extension AVMediaPlayerProxy {
         timeControlStatusObserver = player.observe(\.timeControlStatus, options: [.new, .initial]) { player, _ in
             let timeControlStatus = player.timeControlStatus
 
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+
                 switch timeControlStatus {
                 case .paused:
                     self.manager?.setPlaybackRequestStatus(status: .paused)
@@ -194,25 +202,31 @@ extension AVMediaPlayerProxy {
             guard let newValue = value.newValue else { return }
             switch newValue {
             case .failed:
-                if let error = self.player.error {
-                    DispatchQueue.main.async {
-                        self.manager?.error(ErrorMessage("AVPlayer error: \(error.localizedDescription)"))
-                    }
+                Task { @MainActor [weak self] in
+                    guard let self, let error = self.player.error else { return }
+
+                    self.manager?.error(ErrorMessage("AVPlayer error: \(error.localizedDescription)"))
                 }
             case .none, .readyToPlay, .unknown:
                 let startSeconds = max(.zero, (baseItem.startSeconds ?? .zero) - Duration.seconds(Defaults[.VideoPlayer.resumeOffset]))
 
-                self.player.seek(
-                    to: CMTimeMake(
-                        value: startSeconds.components.seconds,
-                        timescale: 1
-                    ),
-                    toleranceBefore: .zero,
-                    toleranceAfter: .zero,
-                    completionHandler: { _ in
-                        self.play()
-                    }
-                )
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+
+                    self.player.seek(
+                        to: CMTimeMake(
+                            value: startSeconds.components.seconds,
+                            timescale: 1
+                        ),
+                        toleranceBefore: .zero,
+                        toleranceAfter: .zero,
+                        completionHandler: { [weak self] _ in
+                            Task { @MainActor [weak self] in
+                                self?.play()
+                            }
+                        }
+                    )
+                }
             @unknown default: ()
             }
         }

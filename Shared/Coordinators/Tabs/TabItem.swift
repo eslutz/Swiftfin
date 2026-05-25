@@ -10,7 +10,7 @@ import SwiftUI
 
 // TODO: selected icon
 @MainActor
-struct TabItem: Identifiable, Hashable {
+struct TabItem: Identifiable {
 
     let content: AnyView
     let id: String
@@ -22,7 +22,7 @@ struct TabItem: Identifiable, Hashable {
         id: String,
         title: String,
         systemImage: String,
-        labelStyle: some LabelStyle = .titleAndIcon,
+        labelStyle: some LabelStyle = TitleAndIconLabelStyle(),
         @ViewBuilder content: () -> some View
     ) {
         self.content = AnyView(content())
@@ -30,14 +30,6 @@ struct TabItem: Identifiable, Hashable {
         self.title = title
         self.systemImage = systemImage
         self.labelStyle = labelStyle
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
     }
 }
 
