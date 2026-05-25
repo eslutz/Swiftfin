@@ -9,7 +9,6 @@
 import AVKit
 import Factory
 import JellyfinAPI
-import Logging
 import SwiftUI
 #if !os(visionOS)
 import Transmission
@@ -124,6 +123,21 @@ extension NativeVideoPlayer {
             updatesNowPlayingInfoCenter = false
             #endif
         }
+
+        #if os(visionOS)
+        private func configureVisionExperienceController() {
+            if #available(visionOS 26.0, *) {
+                experienceController.allowedExperiences = .recommended(including: [.expanded, .immersive])
+            } else if #available(visionOS 2.0, *) {
+                experienceController.allowedExperiences = .recommended(including: [.expanded])
+            }
+        }
+
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            configureVisionExperienceController()
+        }
+        #endif
 
         @available(*, unavailable)
         required init?(coder: NSCoder) {
