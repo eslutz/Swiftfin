@@ -124,21 +124,6 @@ extension NativeVideoPlayer {
             #endif
         }
 
-        #if os(visionOS)
-        private func configureVisionExperienceController() {
-            if #available(visionOS 26.0, *) {
-                experienceController.allowedExperiences = .recommended(including: [.expanded, .immersive])
-            } else if #available(visionOS 2.0, *) {
-                experienceController.allowedExperiences = .recommended(including: [.expanded])
-            }
-        }
-
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            configureVisionExperienceController()
-        }
-        #endif
-
         @available(*, unavailable)
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")

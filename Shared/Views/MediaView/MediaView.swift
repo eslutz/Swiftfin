@@ -92,7 +92,6 @@ struct MediaView: View {
             .frame(maxWidth: 1120, alignment: .topLeading)
             .frame(maxWidth: .infinity, alignment: .top)
         }
-        .contentMargins(.top, 72, for: .scrollContent)
         .scrollIndicators(.hidden)
         #else
         CollectionVGrid(

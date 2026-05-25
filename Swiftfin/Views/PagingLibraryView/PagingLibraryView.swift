@@ -304,7 +304,6 @@ struct PagingLibraryView<Element: Poster>: View {
             }
             .padding(layout.padding)
         }
-        .contentMargins(.top, 72, for: .scrollContent)
         .scrollIndicators(.hidden)
         #else
         CollectionVGrid(
