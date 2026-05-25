@@ -327,7 +327,7 @@ struct UserSignInView: View {
                 ProgressView()
             }
 
-            Button(L10n.security, systemImage: "lock.shield") {
+            Button(L10n.security, systemImage: "gearshape") {
                 router.route(
                     to: .userSecurity(
                         pinHint: $pinHint,
