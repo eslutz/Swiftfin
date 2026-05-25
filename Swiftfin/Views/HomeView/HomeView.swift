@@ -80,12 +80,14 @@ struct HomeView: View {
                 ProgressView()
             }
 
+            #if !os(visionOS)
             SettingsBarButton(
                 server: viewModel.userSession.server,
                 user: viewModel.userSession.user
             ) {
                 router.route(to: .settings)
             }
+            #endif
         }
         .sinceLastDisappear { interval in
             if interval > 60 || viewModel.notificationsReceived.contains(.itemMetadataDidChange) {

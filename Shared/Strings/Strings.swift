@@ -312,6 +312,8 @@ internal enum L10n {
   internal static let chapterSlider = L10n.tr("Localizable", "chapterSlider", fallback: "Chapter slider")
   /// Cinematic
   internal static let cinematic = L10n.tr("Localizable", "cinematic", fallback: "Cinematic")
+  /// Clear
+  internal static let clear = L10n.tr("Localizable", "clear", fallback: "Clear")
   /// Client
   internal static let client = L10n.tr("Localizable", "client", fallback: "Client")
   /// Clip
@@ -816,6 +818,8 @@ internal enum L10n {
   internal static let interview = L10n.tr("Localizable", "interview", fallback: "Interview")
   /// Invalid format
   internal static let invalidFormat = L10n.tr("Localizable", "invalidFormat", fallback: "Invalid format")
+  /// Invalid URL
+  internal static let invalidURL = L10n.tr("Localizable", "invalidURL", fallback: "Invalid URL")
   /// Invalid %@
   internal static func invalidX(_ p1: Any) -> String {
     return L10n.tr("Localizable", "invalidX", String(describing: p1), fallback: "Invalid %@")
@@ -1262,6 +1266,8 @@ internal enum L10n {
   internal static let rating = L10n.tr("Localizable", "rating", fallback: "Rating")
   /// Ratings
   internal static let ratings = L10n.tr("Localizable", "ratings", fallback: "Ratings")
+  /// Recent
+  internal static let recent = L10n.tr("Localizable", "recent", fallback: "Recent")
   /// Recently Added
   internal static let recentlyAdded = L10n.tr("Localizable", "recentlyAdded", fallback: "Recently Added")
   /// Recommended
@@ -1366,6 +1372,8 @@ internal enum L10n {
   internal static let sample = L10n.tr("Localizable", "sample", fallback: "Sample")
   /// Save
   internal static let save = L10n.tr("Localizable", "save", fallback: "Save")
+  /// Saved URLs
+  internal static let savedURLs = L10n.tr("Localizable", "savedURLs", fallback: "Saved URLs")
   /// Save the user to this device without any local authentication.
   internal static let saveUserWithoutAuthDescription = L10n.tr("Localizable", "saveUserWithoutAuthDescription", fallback: "Save the user to this device without any local authentication.")
   /// Scan for new and update files
@@ -1564,6 +1572,8 @@ internal enum L10n {
   internal static let subtitleSize = L10n.tr("Localizable", "subtitleSize", fallback: "Subtitle size")
   /// Success
   internal static let success = L10n.tr("Localizable", "success", fallback: "Success")
+  /// Suggestions
+  internal static let suggestions = L10n.tr("Localizable", "suggestions", fallback: "Suggestions")
   /// Supplements
   internal static let supplements = L10n.tr("Localizable", "supplements", fallback: "Supplements")
   /// Media control

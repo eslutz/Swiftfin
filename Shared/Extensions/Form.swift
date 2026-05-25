@@ -70,6 +70,11 @@ private struct PlatformForm<Image: View, Content: View>: PlatformView {
             content
         }
         .navigationBarTitleDisplayMode(.inline)
+        #if os(visionOS)
+            .frame(maxWidth: 860)
+            .padding(.vertical, 24)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        #endif
     }
 
     var tvOSView: some View {

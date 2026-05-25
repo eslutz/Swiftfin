@@ -70,7 +70,12 @@ struct PrimaryButtonStyle: PrimitiveButtonStyle {
             contentView(configuration: configuration)
         }
         .listRowInsets(.zero)
-        .buttonStyle(.card)
-        .focused($isFocused)
+        #if os(visionOS)
+            .buttonStyle(.plain)
+            .hoverEffect(.highlight)
+        #else
+            .buttonStyle(.card)
+        #endif
+            .focused($isFocused)
     }
 }

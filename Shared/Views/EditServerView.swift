@@ -9,8 +9,6 @@
 import JellyfinAPI
 import SwiftUI
 
-// TODO: change URL picker from menu to list with network-url mapping
-
 /// - Note: Set the environment `isEditing` to `true` to
 ///         allow server deletion
 struct EditServerView: View {
@@ -18,11 +16,15 @@ struct EditServerView: View {
     @Router
     private var router
 
+    @Environment(\.dismiss)
+    private var dismiss
     @Environment(\.isEditing)
     private var isEditing
 
     @State
-    private var currentServerURL: URL
+    private var serverURLString: String
+    @State
+    private var saveError: Error? = nil
     @State
     private var isPresentingConfirmDeletion: Bool = false
 
@@ -31,7 +33,40 @@ struct EditServerView: View {
 
     init(server: ServerState) {
         self._viewModel = StateObject(wrappedValue: ServerConnectionViewModel(server: server))
-        self._currentServerURL = State(initialValue: server.currentURL)
+        self._serverURLString = State(initialValue: server.currentURL.absoluteString)
+    }
+
+    private var normalizedServerURLString: String {
+        serverURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var parsedServerURL: URL? {
+        guard let url = URL(string: normalizedServerURLString),
+              let scheme = url.scheme?.lowercased(),
+              ["http", "https"].contains(scheme),
+              url.host?.isNotEmpty == true
+        else {
+            return nil
+        }
+
+        return url
+    }
+
+    private var canSave: Bool {
+        guard let parsedServerURL else { return false }
+
+        return parsedServerURL.absoluteString != viewModel.server.currentURL.absoluteString
+    }
+
+    private func save() {
+        guard let parsedServerURL else { return }
+
+        do {
+            try viewModel.saveCurrentURL(to: parsedServerURL)
+            dismiss()
+        } catch {
+            saveError = error
+        }
     }
 
     var body: some View {
@@ -60,26 +95,39 @@ struct EditServerView: View {
 
             Section {
                 #if os(tvOS)
-                ListRowMenu(L10n.url, subtitle: currentServerURL.absoluteString) {
-                    Picker(L10n.serverURL, selection: $currentServerURL) {
+                ListRowMenu(L10n.savedURLs, subtitle: serverURLString) {
+                    Picker(L10n.savedURLs, selection: $serverURLString) {
                         ForEach(viewModel.server.urls.sorted(using: \.absoluteString), id: \.self) { url in
                             Text(url.absoluteString)
-                                .tag(url)
+                                .tag(url.absoluteString)
                         }
                     }
                 }
                 #else
-                Picker(L10n.url, selection: $currentServerURL) {
-                    ForEach(viewModel.server.urls.sorted(using: \.absoluteString), id: \.self) { url in
-                        Text(url.absoluteString)
-                            .tag(url)
+                TextField(L10n.url, text: $serverURLString)
+                    .textContentType(.URL)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .keyboardType(.URL)
+
+                #if !os(visionOS)
+                if viewModel.server.urls.count > 1 {
+                    Picker(L10n.savedURLs, selection: $serverURLString) {
+                        ForEach(viewModel.server.urls.sorted(using: \.absoluteString), id: \.self) { url in
+                            Text(url.absoluteString)
+                                .tag(url.absoluteString)
+                        }
                     }
                 }
+                #endif
                 #endif
             } header: {
                 Text(L10n.serverURL)
             } footer: {
-                if !viewModel.server.isVersionCompatible {
+                if parsedServerURL == nil {
+                    Label(L10n.invalidURL, systemImage: "exclamationmark.circle.fill")
+                        .labelStyle(.sectionFooterWithImage(imageStyle: .orange))
+                } else if !viewModel.server.isVersionCompatible {
                     Label(
                         L10n.serverVersionWarning(viewModel.server.client.version.majorMinor.description),
                         systemImage: "exclamationmark.circle.fill"
@@ -93,15 +141,21 @@ struct EditServerView: View {
                     Button(L10n.delete, role: .destructive) {
                         isPresentingConfirmDeletion = true
                     }
+                    #if !os(visionOS)
                     .buttonStyle(.primary)
+                    #endif
                 }
             }
         }
         .navigationTitle(L10n.server)
-        .backport
-        .onChange(of: currentServerURL) { _, newValue in
-            viewModel.setCurrentURL(to: newValue)
+        .navigationBarCloseButton {
+            dismiss()
         }
+        .topBarTrailing {
+            Button(L10n.save, action: save)
+                .disabled(!canSave)
+        }
+        .errorMessage($saveError)
         .alert(L10n.deleteServer, isPresented: $isPresentingConfirmDeletion) {
             Button(L10n.delete, role: .destructive) {
                 viewModel.delete()

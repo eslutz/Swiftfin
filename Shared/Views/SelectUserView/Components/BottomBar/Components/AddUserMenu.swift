@@ -22,6 +22,14 @@ extension SelectUserView {
 
         let servers: OrderedSet<ServerState>
 
+        private var systemImage: String {
+            #if os(visionOS)
+            "person.crop.circle.badge.plus"
+            #else
+            "plus"
+            #endif
+        }
+
         var body: some View {
             ConditionalMenu(tracking: serverSelection.server(from: servers)) { server in
                 router.route(to: .userSignIn(server: server))
@@ -35,7 +43,7 @@ extension SelectUserView {
                     }
                 }
             } label: {
-                Label(L10n.addUser, systemImage: "plus")
+                Label(L10n.addUser, systemImage: systemImage)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .fontWeight(.bold)
             }

@@ -77,4 +77,28 @@ final class ServerConnectionViewModel: ViewModel {
             logger.critical("\(error.localizedDescription)")
         }
     }
+
+    func saveCurrentURL(to url: URL) throws {
+        var servers = StoredValues[.Server.servers]
+
+        guard let index = servers.firstIndex(where: { $0.id == self.server.id }) else {
+            throw ErrorMessage("Unable to find server for URL change: \(self.server.name)")
+        }
+
+        let existingServer = servers[index]
+        let newState = ServerState(
+            urls: existingServer.urls.union([url]),
+            currentURL: url,
+            name: existingServer.name,
+            id: existingServer.id,
+            userIDs: existingServer.userIDs
+        )
+
+        servers[index] = newState
+        StoredValues[.Server.servers] = servers
+
+        Notifications[.didChangeCurrentServerURL].post(newState)
+
+        self.server = newState
+    }
 }

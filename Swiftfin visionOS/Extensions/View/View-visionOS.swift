@@ -65,8 +65,9 @@ extension View {
                 Button {
                     action()
                 } label: {
-                    Image(systemName: "xmark.circle.fill")
+                    Image(systemName: "chevron.left")
                 }
+                .accessibilityLabel(L10n.previous)
                 .disabled(disabled)
             }
         }

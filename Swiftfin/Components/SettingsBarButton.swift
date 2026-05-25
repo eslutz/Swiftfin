@@ -28,8 +28,17 @@ struct SettingsBarButton: View {
                     ),
                     pipeline: .Swiftfin.local
                 )
+                #if os(visionOS)
+                .frame(width: 28, height: 28)
+                #endif
             }
         }
         .accessibilityLabel(L10n.settings)
+        #if os(visionOS)
+            .buttonStyle(.plain)
+            .padding(8)
+            .background(.thinMaterial, in: Circle())
+            .hoverEffect(.lift)
+        #endif
     }
 }

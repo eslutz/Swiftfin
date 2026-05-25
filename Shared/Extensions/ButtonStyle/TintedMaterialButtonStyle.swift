@@ -49,7 +49,11 @@ struct TintedMaterialButtonStyle: ButtonStyle {
                 .foregroundStyle(foregroundStyle)
                 .symbolRenderingMode(.monochrome)
         }
+        #if os(visionOS)
+        .contentShape(RoundedRectangle(cornerRadius: 10))
+        #else
         .hoverEffect(.lift)
+        #endif
     }
 
     private var buttonTint: Color {

@@ -39,8 +39,10 @@ struct SettingsView: View {
             customizeSection
             diagnosticsSection
         }
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         .navigationTitle(L10n.settings)
+        #endif
+        #if os(iOS)
         .navigationBarCloseButton {
             router.dismiss()
         }

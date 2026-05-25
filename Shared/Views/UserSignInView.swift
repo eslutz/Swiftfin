@@ -23,6 +23,11 @@ struct UserSignInView: View {
         case password
     }
 
+    private struct IdentifiedPublicUser: Identifiable {
+        let id: String
+        let user: UserDto
+    }
+
     @Environment(\.localUserAuthenticationAction)
     private var authenticationAction
 
@@ -97,6 +102,25 @@ struct UserSignInView: View {
         return evaluatedPolicy
     }
 
+    private func selectPublicUser(_ user: UserDto) {
+        username = user.name ?? ""
+        password = ""
+        focusedTextField = .password
+    }
+
+    private func publicUserIdentifier(for user: UserDto) -> String {
+        UserSignInViewModel.publicUserIdentifier(id: user.id, name: user.name)
+    }
+
+    private var identifiedPublicUsers: [IdentifiedPublicUser] {
+        viewModel.publicUsers.map {
+            IdentifiedPublicUser(
+                id: publicUserIdentifier(for: $0),
+                user: $0
+            )
+        }
+    }
+
     // MARK: - Sign In Section
 
     @ViewBuilder
@@ -148,7 +172,11 @@ struct UserSignInView: View {
                 viewModel.cancel()
             }
             .buttonStyle(.primary)
-            .frame(maxHeight: 75)
+            #if os(visionOS)
+                .controlSize(.regular)
+            #else
+                .frame(maxHeight: 75)
+            #endif
         } else {
             Button(L10n.signIn) {
                 viewModel.signIn(
@@ -157,13 +185,17 @@ struct UserSignInView: View {
                 )
             }
             .buttonStyle(.primary)
-            .frame(maxHeight: 75)
-            .disabled(username.isEmpty)
-            .foregroundStyle(
-                Color.jellyfinPurple.overlayColor,
-                Color.jellyfinPurple
-            )
-            .opacity(username.isEmpty ? 0.5 : 1)
+            #if os(visionOS)
+                .controlSize(.regular)
+            #else
+                .frame(maxHeight: 75)
+            #endif
+                .disabled(username.isEmpty)
+                .foregroundStyle(
+                    Color.jellyfinPurple.overlayColor,
+                    Color.jellyfinPurple
+                )
+                .opacity(username.isEmpty ? 0.5 : 1)
         }
 
         if viewModel.isQuickConnectEnabled {
@@ -178,12 +210,16 @@ struct UserSignInView: View {
                     )
                 }
                 .buttonStyle(.primary)
-                .frame(maxHeight: 75)
-                .disabled(viewModel.state == .signingIn)
-                .foregroundStyle(
-                    Color.jellyfinPurple.overlayColor,
-                    Color.jellyfinPurple
-                )
+                #if os(visionOS)
+                    .controlSize(.regular)
+                #else
+                    .frame(maxHeight: 75)
+                #endif
+                    .disabled(viewModel.state == .signingIn)
+                    .foregroundStyle(
+                        Color.jellyfinPurple.overlayColor,
+                        Color.jellyfinPurple
+                    )
             }
         }
 
@@ -207,11 +243,11 @@ struct UserSignInView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             } else {
                 #if os(iOS)
-                ForEach(viewModel.publicUsers) { user in
+                ForEach(identifiedPublicUsers) { publicUser in
+                    let user = publicUser.user
+
                     ChevronButton {
-                        username = user.name ?? ""
-                        password = ""
-                        focusedTextField = .password
+                        selectPublicUser(user)
                     } label: {
                         HStack {
                             UserProfileImage(
@@ -229,19 +265,42 @@ struct UserSignInView: View {
                         }
                     }
                 }
+                #elseif os(visionOS)
+                LazyVGrid(
+                    columns: Array(
+                        repeating: GridItem(.fixed(92), spacing: 24),
+                        count: min(viewModel.publicUsers.count, 4)
+                    ),
+                    alignment: .center,
+                    spacing: 18
+                ) {
+                    ForEach(identifiedPublicUsers) { publicUser in
+                        let user = publicUser.user
+
+                        UserButton(
+                            user: user,
+                            client: viewModel.server.client
+                        ) {
+                            selectPublicUser(user)
+                        }
+                        .frame(width: 92)
+                        .environment(\.isOverComplexContent, true)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
                 #else
                 LazyVGrid(
                     columns: Array(repeating: GridItem(.flexible()), count: 4),
                     spacing: 30
                 ) {
-                    ForEach(viewModel.publicUsers) { user in
+                    ForEach(identifiedPublicUsers) { publicUser in
+                        let user = publicUser.user
+
                         UserButton(
                             user: user,
                             client: viewModel.server.client
                         ) {
-                            username = user.name ?? ""
-                            password = ""
-                            focusedTextField = .password
+                            selectPublicUser(user)
                         }
                         .environment(\.isOverComplexContent, true)
                     }
@@ -268,7 +327,7 @@ struct UserSignInView: View {
                 ProgressView()
             }
 
-            Button(L10n.security, systemImage: "gearshape.fill") {
+            Button(L10n.security, systemImage: "lock.shield") {
                 router.route(
                     to: .userSecurity(
                         pinHint: $pinHint,

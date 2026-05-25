@@ -16,9 +16,17 @@ extension SelectUserView {
 
         private let columns: CGFloat = UIDevice.isPhone ? 2 : 5
 
+        private var imageSystemName: String {
+            #if os(visionOS)
+            "person.crop.circle.badge.plus"
+            #else
+            "plus"
+            #endif
+        }
+
         @ViewBuilder
         private var imageView: some View {
-            RelativeSystemImageView(systemName: "plus")
+            RelativeSystemImageView(systemName: imageSystemName)
                 .foregroundStyle(Color.secondary)
                 .background(.thinMaterial)
                 .aspectRatio(1, contentMode: .fit)
@@ -37,6 +45,17 @@ extension SelectUserView {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .lineLimit(1)
+                #elseif os(visionOS)
+                VStack(spacing: 8) {
+                    imageView
+                        .frame(width: 120, height: 120)
+
+                    Text(L10n.addUser)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                }
+                .contentShape(RoundedRectangle(cornerRadius: 18))
                 #else
                 VStack {
                     imageView
@@ -53,6 +72,9 @@ extension SelectUserView {
                 .buttonStyle(.borderless)
                 .backport
                 .buttonBorderShape(.circle)
+            #elseif os(visionOS)
+                .buttonStyle(.plain)
+                .hoverEffect(.lift)
             #endif
         }
 

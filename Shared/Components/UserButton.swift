@@ -50,7 +50,10 @@ struct UserButton: View {
             }
         }
         .foregroundStyle(.primary, .secondary)
-        #if os(tvOS)
+        #if os(visionOS)
+            .buttonStyle(.plain)
+            .hoverEffect(.lift)
+        #elseif os(tvOS)
             .buttonStyle(.borderless)
             .backport
             .buttonBorderShape(.circle)

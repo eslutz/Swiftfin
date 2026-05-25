@@ -27,6 +27,10 @@ extension UserState {
 
     typealias Key = StoredValues.Key
 
+    var hasAccessToken: Bool {
+        Container.shared.keychainService().get("\(id)-accessToken") != nil
+    }
+
     var accessToken: String {
         get {
             guard let accessToken = Container.shared.keychainService().get("\(id)-accessToken") else {

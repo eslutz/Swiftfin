@@ -131,6 +131,7 @@ extension SelectUserView {
 
         @ViewBuilder
         private var contentView: some View {
+            #if !os(visionOS)
             Menu {
                 AdvancedMenu(
                     hasUsers: allUsers.isNotEmpty,
@@ -143,6 +144,7 @@ extension SelectUserView {
             }
             .menuOrder(.fixed)
             .frame(width: buttonHeight, height: buttonHeight)
+            #endif
 
             ServerMenu(servers: servers)
                 .frame(maxWidth: UIDevice.isTV ? 600 : 400)

@@ -42,6 +42,14 @@ extension SelectUserView {
                     }
                 }
 
+                #if os(visionOS)
+                Section {
+                    Button(L10n.advanced, systemImage: "gearshape.fill") {
+                        router.route(to: .appSettings)
+                    }
+                }
+                #endif
+
                 Picker(L10n.servers, selection: $serverSelection) {
 
                     if servers.count > 1 {

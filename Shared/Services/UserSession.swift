@@ -59,6 +59,11 @@ extension Container {
                 return nil
             }
 
+            guard user.hasAccessToken else {
+                Defaults[.lastSignedInUserID] = .signedOut
+                return nil
+            }
+
             return .init(
                 server: server,
                 user: user

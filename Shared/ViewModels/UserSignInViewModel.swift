@@ -103,6 +103,22 @@ final class UserSignInViewModel: ViewModel {
         super.init()
     }
 
+    nonisolated static func publicUserIdentifier(id: String?, name: String?) -> String {
+        if let id = id?.trimmingCharacters(in: .whitespacesAndNewlines), id.isNotEmpty {
+            return id
+        }
+
+        let normalizedName = name?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+
+        if let normalizedName, normalizedName.isNotEmpty {
+            return "public-user-\(normalizedName)"
+        }
+
+        return "public-user-unknown"
+    }
+
     @Function(\Action.Cases.getPublicData)
     private func _getPublicData() async throws {
         async let isQuickConnectEnabled = try retrieveIsQuickConnectEnabled()
