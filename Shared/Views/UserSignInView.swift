@@ -171,11 +171,12 @@ struct UserSignInView: View {
             Button(L10n.cancel, role: .cancel) {
                 viewModel.cancel()
             }
-            .buttonStyle(.primary)
             #if os(visionOS)
-                .controlSize(.regular)
+            .buttonStyle(.compactPrimary)
+            .frame(maxWidth: .infinity, alignment: .center)
             #else
-                .frame(maxHeight: 75)
+            .buttonStyle(.primary)
+            .frame(maxHeight: 75)
             #endif
         } else {
             Button(L10n.signIn) {
@@ -184,18 +185,19 @@ struct UserSignInView: View {
                     password: password
                 )
             }
-            .buttonStyle(.primary)
             #if os(visionOS)
-                .controlSize(.regular)
+            .buttonStyle(.compactPrimary)
+            .frame(maxWidth: .infinity, alignment: .center)
             #else
-                .frame(maxHeight: 75)
+            .buttonStyle(.primary)
+            .frame(maxHeight: 75)
             #endif
-                .disabled(username.isEmpty)
-                .foregroundStyle(
-                    Color.jellyfinPurple.overlayColor,
-                    Color.jellyfinPurple
-                )
-                .opacity(username.isEmpty ? 0.5 : 1)
+            .disabled(username.isEmpty)
+            .foregroundStyle(
+                Color.jellyfinPurple.overlayColor,
+                Color.jellyfinPurple
+            )
+            .opacity(username.isEmpty ? 0.5 : 1)
         }
 
         if viewModel.isQuickConnectEnabled {
@@ -209,17 +211,18 @@ struct UserSignInView: View {
                         }
                     )
                 }
-                .buttonStyle(.primary)
                 #if os(visionOS)
-                    .controlSize(.regular)
+                .buttonStyle(.compactPrimary)
+                .frame(maxWidth: .infinity, alignment: .center)
                 #else
-                    .frame(maxHeight: 75)
+                .buttonStyle(.primary)
+                .frame(maxHeight: 75)
                 #endif
-                    .disabled(viewModel.state == .signingIn)
-                    .foregroundStyle(
-                        Color.jellyfinPurple.overlayColor,
-                        Color.jellyfinPurple
-                    )
+                .disabled(viewModel.state == .signingIn)
+                .foregroundStyle(
+                    Color.jellyfinPurple.overlayColor,
+                    Color.jellyfinPurple
+                )
             }
         }
 

@@ -31,6 +31,8 @@ struct SearchView: View {
 
     @State
     private var searchQuery = ""
+    @State
+    private var pendingHistoryQuery: String?
 
     @TabItemSelected
     private var tabItemSelected
@@ -47,15 +49,18 @@ struct SearchView: View {
                         title: L10n.recent,
                         items: searchHistory
                     ) {
-                        Button(role: .destructive, action: clearSearchHistory) {
-                            Label(L10n.clear, systemImage: "trash")
+                        Button(action: clearSearchHistory) {
+                            Label(L10n.clear, systemImage: "xmark.circle.fill")
                         }
                         #if os(visionOS)
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
+                        .buttonStyle(.plain)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .hoverEffect(.highlight)
                         #else
                         .buttonStyle(.plain)
                         #endif
+                        .accessibilityLabel(L10n.clear)
                     }
                 }
 
@@ -71,9 +76,6 @@ struct SearchView: View {
             .frame(maxWidth: 860, alignment: .topLeading)
             .frame(maxWidth: .infinity, alignment: .top)
         }
-        #if os(visionOS)
-        .contentMargins(.top, 72, for: .scrollContent)
-        #endif
     }
 
     @ViewBuilder
@@ -172,9 +174,6 @@ struct SearchView: View {
             }
             .edgePadding(.vertical)
         }
-        #if os(visionOS)
-        .contentMargins(.top, 72, for: .scrollContent)
-        #endif
     }
 
     private func select(_ item: BaseItemDto, in namespace: Namespace.ID) {
@@ -193,13 +192,31 @@ struct SearchView: View {
         searchHistory = SearchViewModel.updatedSearchHistory(searchHistory, inserting: query)
     }
 
+    private func commitPendingHistoryQueryIfNeeded() {
+        guard let pendingHistoryQuery, viewModel.state == .initial else { return }
+
+        commitSearchQuery(pendingHistoryQuery)
+        self.pendingHistoryQuery = nil
+    }
+
+    private func submitSearchQuery(_ query: String) {
+        let normalizedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard normalizedQuery.isNotEmpty else { return }
+
+        pendingHistoryQuery = normalizedQuery
+
+        if viewModel.canSearch {
+            commitPendingHistoryQueryIfNeeded()
+        }
+    }
+
     private func clearSearchHistory() {
         searchHistory.removeAll()
     }
 
     private func chooseSearchSuggestion(_ query: String) {
         searchQuery = query
-        commitSearchQuery(query)
+        submitSearchQuery(query)
     }
 
     private func searchChipSection(
@@ -304,13 +321,16 @@ struct SearchView: View {
         .backport.onChange(of: searchQuery) { _, newValue in
             viewModel.search(query: newValue)
         }
+        .backport.onChange(of: viewModel.state) { _, _ in
+            commitPendingHistoryQueryIfNeeded()
+        }
         .searchable(
             text: $searchQuery,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: L10n.search
         )
         .onSubmit(of: .search) {
-            commitSearchQuery(searchQuery)
+            submitSearchQuery(searchQuery)
         }
         .backport
         .searchFocused($isSearchFocused)

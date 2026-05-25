@@ -110,8 +110,10 @@ private struct LearnMoreButton: View {
             Label(L10n.learnMore + .ellipsis, systemImage: "info.circle")
         }
         #if os(visionOS)
-        .buttonStyle(.bordered)
-        .controlSize(.small)
+        .buttonStyle(.plain)
+        .font(.footnote.weight(.semibold))
+        .foregroundStyle(.secondary)
+        .hoverEffect(.highlight)
         #else
         .buttonStyle(.plain)
         .foregroundStyle(Color.accentColor)

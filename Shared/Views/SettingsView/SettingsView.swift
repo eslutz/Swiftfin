@@ -89,7 +89,12 @@ struct SettingsView: View {
                 viewModel.signOut()
                 router.dismiss()
             }
+            #if os(visionOS)
+            .buttonStyle(.compactPrimary)
+            .frame(maxWidth: .infinity, alignment: .center)
+            #else
             .buttonStyle(.primary)
+            #endif
             .foregroundStyle(accentColor.overlayColor, accentColor)
         }
     }

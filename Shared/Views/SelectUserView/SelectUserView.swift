@@ -72,8 +72,8 @@ struct SelectUserView: View {
             viewModel
                 .servers
                 .keys
-                .shuffled()
-                .map(\.splashScreenImageSource)
+                .first
+                .map { [$0.splashScreenImageSource] } ?? []
 
         case let (.server(id), _), let (.all, .server(id)):
             viewModel

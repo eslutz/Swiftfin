@@ -44,14 +44,26 @@ struct AppSettingsView: View {
     }
     #endif
 
-    private var serverPicker: some View {
-        Picker(L10n.servers, selection: $selectUserAllServersSplashscreen) {
-            Label(L10n.random, systemImage: "dice.fill")
-                .tag(SelectUserServerSelection.all)
+    private var selectedSplashscreenServerID: Binding<String> {
+        Binding {
+            if case let .server(id) = selectUserAllServersSplashscreen,
+               viewModel.servers.contains(where: { $0.id == id })
+            {
+                return id
+            }
 
+            return viewModel.servers.first?.id ?? ""
+        } set: { newValue in
+            guard newValue.isNotEmpty else { return }
+            selectUserAllServersSplashscreen = .server(id: newValue)
+        }
+    }
+
+    private var serverPicker: some View {
+        Picker(L10n.servers, selection: selectedSplashscreenServerID) {
             ForEach(viewModel.servers) { server in
                 Text(server.name)
-                    .tag(SelectUserServerSelection.server(id: server.id))
+                    .tag(server.id)
             }
         }
     }
@@ -87,28 +99,26 @@ struct AppSettingsView: View {
 
                 if selectUserUseSplashscreen {
 
-                    #if os(tvOS)
-                    ListRowMenu(L10n.servers) {
-                        if selectUserAllServersSplashscreen == .all {
-                            Label(L10n.random, systemImage: "dice.fill")
-                        } else if let selectedServer {
-                            Text(selectedServer.name)
-                        } else {
-                            Text(L10n.none)
+                    if viewModel.servers.isNotEmpty {
+                        #if os(tvOS)
+                        ListRowMenu(L10n.servers) {
+                            if let selectedServer {
+                                Text(selectedServer.name)
+                            } else {
+                                Text(viewModel.servers.first?.name ?? L10n.none)
+                            }
+                        } content: {
+                            serverPicker
                         }
-                    } content: {
+                        #else
                         serverPicker
+                        #endif
                     }
-                    #else
-                    serverPicker
-                    #endif
                 }
             } header: {
                 Text(L10n.splashscreen)
             } footer: {
-                if selectUserUseSplashscreen {
-                    Text(L10n.splashscreenFooter)
-                }
+                EmptyView()
             }
 
             Section {
@@ -143,5 +153,21 @@ struct AppSettingsView: View {
         .navigationBarCloseButton {
             router.dismiss()
         }
+        .onAppear(perform: normalizeSplashscreenServerSelection)
+        .backport.onChange(of: viewModel.servers.map(\.id)) { _, _ in
+            normalizeSplashscreenServerSelection()
+        }
+    }
+
+    private func normalizeSplashscreenServerSelection() {
+        guard viewModel.servers.isNotEmpty else { return }
+
+        if case let .server(id) = selectUserAllServersSplashscreen,
+           viewModel.servers.contains(where: { $0.id == id })
+        {
+            return
+        }
+
+        selectUserAllServersSplashscreen = .server(id: viewModel.servers[0].id)
     }
 }
