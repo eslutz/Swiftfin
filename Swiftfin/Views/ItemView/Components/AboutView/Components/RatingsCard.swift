@@ -16,7 +16,7 @@ extension ItemView.AboutView {
         let item: BaseItemDto
 
         var body: some View {
-            Card(title: L10n.ratings, action: {}) {
+            Card(title: L10n.ratings) {
                 HStack(alignment: .bottom, spacing: 20) {
                     if let criticRating = item.criticRating {
                         VStack {

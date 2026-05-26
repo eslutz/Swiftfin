@@ -12,7 +12,7 @@ extension ItemView.AboutView {
 
     struct Card<Content: View>: View {
 
-        private let action: () -> Void
+        private let action: (() -> Void)?
         private let content: Content
         private let title: String
         private let subtitle: String?
@@ -20,7 +20,7 @@ extension ItemView.AboutView {
         init(
             title: String,
             subtitle: String? = nil,
-            action: @escaping () -> Void,
+            action: (() -> Void)? = nil,
             @ViewBuilder content: @escaping () -> Content
         ) {
             self.title = title
@@ -29,36 +29,51 @@ extension ItemView.AboutView {
             self.content = content()
         }
 
-        var body: some View {
-            Button(action: action) {
-                ZStack(alignment: .leading) {
+        @ViewBuilder
+        private var cardContent: some View {
+            ZStack(alignment: .leading) {
 
-                    Rectangle()
-                        .fill(Color.systemFill)
-                        .cornerRadius(ratio: 1 / 45, of: \.height)
+                Rectangle()
+                    .fill(Color.systemFill)
+                    .cornerRadius(ratio: 1 / 45, of: \.height)
 
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(title)
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(title)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                             .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
-
-                        if let subtitle {
-                            Text(subtitle)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(2)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-
-                        content
-                            .frame(maxHeight: .infinity, alignment: .bottomLeading)
                     }
-                    .padding()
+
+                    content
+                        .frame(maxHeight: .infinity, alignment: .bottomLeading)
                 }
+                .padding()
             }
-            .buttonStyle(.plain)
+            #if os(visionOS)
+            .containerShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            #endif
+        }
+
+        var body: some View {
+            if let action {
+                Button(action: action) {
+                    cardContent
+                }
+                .buttonStyle(.plain)
+                #if os(visionOS)
+                    .visionHoverEffect(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                #endif
+            } else {
+                cardContent
+            }
         }
     }
 }

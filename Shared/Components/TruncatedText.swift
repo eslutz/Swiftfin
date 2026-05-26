@@ -37,6 +37,9 @@ struct TruncatedText: View {
 
     @ViewBuilder
     private var textView: some View {
+        #if os(visionOS)
+        Text(text)
+        #else
         ZStack(alignment: .bottomTrailing) {
             Text(text)
                 .inverseMask(alignment: .bottomTrailing) {
@@ -106,9 +109,13 @@ struct TruncatedText: View {
         .backport.onChange(of: isTruncated) { _, newValue in
             isTruncatedBinding.wrappedValue = newValue
         }
+        #endif
     }
 
     var body: some View {
+        #if os(visionOS)
+        textView
+        #else
         if seeMoreType == .button {
             textView
         } else {
@@ -119,6 +126,7 @@ struct TruncatedText: View {
             }
             .buttonStyle(.plain)
         }
+        #endif
     }
 }
 

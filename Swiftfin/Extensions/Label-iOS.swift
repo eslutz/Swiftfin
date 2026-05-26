@@ -22,6 +22,15 @@ extension LabelStyle where Self == EpisodeSelectorLabelStyle {
 struct EpisodeSelectorLabelStyle: LabelStyle {
 
     func makeBody(configuration: Configuration) -> some View {
+        #if os(visionOS)
+        HStack(spacing: 6) {
+            configuration.title
+
+            configuration.icon
+                .font(.caption.weight(.semibold))
+        }
+        .font(.subheadline.weight(.semibold))
+        #else
         HStack {
             configuration.title
 
@@ -37,6 +46,7 @@ struct EpisodeSelectorLabelStyle: LabelStyle {
         .compositingGroup()
         .shadow(radius: 1)
         .font(.caption)
+        #endif
     }
 }
 

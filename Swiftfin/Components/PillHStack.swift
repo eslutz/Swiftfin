@@ -38,7 +38,7 @@ struct PillHStack<Item: Displayable>: View {
                         }
                         .buttonStyle(.plain)
                         #if os(visionOS)
-                            .hoverEffect(.lift)
+                            .visionHoverEffect(Capsule())
                         #endif
                     }
                 }

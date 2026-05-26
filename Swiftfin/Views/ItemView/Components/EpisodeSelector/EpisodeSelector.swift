@@ -51,6 +51,10 @@ struct SeriesEpisodeSelector: View {
                 )
                 .labelStyle(.episodeSelector)
             }
+            #if os(visionOS)
+            .buttonStyle(.bordered)
+            .controlSize(.regular)
+            #endif
         }
     }
 

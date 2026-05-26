@@ -37,7 +37,14 @@ extension ItemView {
                         }
                     }
                 }
+                #if os(visionOS)
+                .foregroundStyle(.primary)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(.regularMaterial, in: Capsule())
+                #else
                 .foregroundStyle(Color(UIColor.darkGray))
+                #endif
                 .lineLimit(1)
             }
         }

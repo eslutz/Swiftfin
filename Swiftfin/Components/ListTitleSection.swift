@@ -34,6 +34,12 @@ struct ListTitleSection: View {
 
                 if let onLearnMore {
                     Button(L10n.learnMore + .ellipsis, action: onLearnMore)
+                    #if os(visionOS)
+                        .buttonStyle(.plain)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .visionHoverEffect(Capsule(), .highlight)
+                    #endif
                 }
             }
             .font(.subheadline)
@@ -82,32 +88,40 @@ struct InsetGroupedListHeader<Content: View>: View {
 
     @ViewBuilder
     private var header: some View {
-        Button {
-            onLearnMore?()
-        } label: {
-            VStack(alignment: .center, spacing: 10) {
-
-                if let title {
-                    title
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                }
-
-                if let description {
-                    description
-                        .multilineTextAlignment(.center)
-                }
-
-                if onLearnMore != nil {
-                    Text(L10n.learnMore + .ellipsis)
-                        .foregroundStyle(accentColor)
-                }
+        let content = VStack(alignment: .center, spacing: 10) {
+            if let title {
+                title
+                    .font(.title3)
+                    .fontWeight(.semibold)
             }
-            .font(.subheadline)
-            .frame(maxWidth: .infinity)
-            .padding(16)
+
+            if let description {
+                description
+                    .multilineTextAlignment(.center)
+            }
+
+            if onLearnMore != nil {
+                Text(L10n.learnMore + .ellipsis)
+                    .foregroundStyle(accentColor)
+            }
         }
-        .foregroundStyle(.primary, .secondary)
+        .font(.subheadline)
+        .frame(maxWidth: .infinity)
+        .padding(16)
+
+        if let onLearnMore {
+            Button(action: onLearnMore) {
+                content
+            }
+            .foregroundStyle(.primary, .secondary)
+            #if os(visionOS)
+                .buttonStyle(.plain)
+                .visionHoverEffect(RoundedRectangle(cornerRadius: 16, style: .continuous), .highlight)
+            #endif
+        } else {
+            content
+                .foregroundStyle(.primary, .secondary)
+        }
     }
 
     var body: some View {

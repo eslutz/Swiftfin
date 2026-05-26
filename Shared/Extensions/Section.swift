@@ -111,9 +111,10 @@ private struct LearnMoreButton: View {
         }
         #if os(visionOS)
         .buttonStyle(.plain)
-        .font(.footnote.weight(.semibold))
-        .foregroundStyle(.secondary)
-        .hoverEffect(.highlight)
+        .font(.footnote)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .visionHoverEffect(Capsule(), .highlight)
         #else
         .buttonStyle(.plain)
         .foregroundStyle(Color.accentColor)

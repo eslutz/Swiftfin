@@ -154,8 +154,15 @@ extension ItemView.iPadOSCinematicScrollView {
                                     }
                                 }
                                 .font(.footnote)
-                                .foregroundStyle(Color(UIColor.lightGray))
-                                .fixedSize(horizontal: true, vertical: false)
+                                #if os(visionOS)
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(.regularMaterial, in: Capsule())
+                                #else
+                                    .foregroundStyle(Color(UIColor.lightGray))
+                                #endif
+                                    .fixedSize(horizontal: true, vertical: false)
 
                                 ItemView.AttributesHStack(
                                     attributes: attributes,

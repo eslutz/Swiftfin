@@ -130,8 +130,15 @@ extension ItemView.CinematicScrollView {
                         }
                     }
                     .font(.caption)
-                    .foregroundColor(Color(UIColor.lightGray))
-                    .padding(.horizontal)
+                    #if os(visionOS)
+                        .foregroundStyle(.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.regularMaterial, in: Capsule())
+                    #else
+                        .foregroundColor(Color(UIColor.lightGray))
+                    #endif
+                        .padding(.horizontal)
 
                     Group {
                         if viewModel.item.presentPlayButton {
