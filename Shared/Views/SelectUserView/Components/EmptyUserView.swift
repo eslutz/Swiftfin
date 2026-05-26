@@ -27,6 +27,9 @@ extension SelectUserView {
         @ViewBuilder
         private var imageView: some View {
             RelativeSystemImageView(systemName: imageSystemName)
+            #if os(visionOS)
+                .padding(24)
+            #endif
                 .foregroundStyle(Color.secondary)
                 .background(.thinMaterial)
                 .aspectRatio(1, contentMode: .fit)
@@ -74,7 +77,7 @@ extension SelectUserView {
                 .buttonBorderShape(.circle)
             #elseif os(visionOS)
                 .buttonStyle(.plain)
-                .hoverEffect(.lift)
+                .visionHoverEffect(RoundedRectangle(cornerRadius: 18, style: .continuous))
             #endif
         }
 

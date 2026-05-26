@@ -199,7 +199,15 @@ extension NavigationRoute {
         }
     }
 
-    #if os(iOS)
+    #if os(visionOS)
+    static func quickConnectAuthorize(user: UserDto) -> NavigationRoute {
+        NavigationRoute(id: "quickConnectAuthorize") {
+            QuickConnectAuthorizeView(user: user)
+        }
+    }
+    #endif
+
+    #if os(iOS) || os(visionOS)
     static func resetUserPassword(userID: String) -> NavigationRoute {
         NavigationRoute(
             id: "resetUserPassword",

@@ -28,6 +28,14 @@ extension SelectUserView {
         private let allUsers: [UserItem]
         private let onDelete: () -> Void
 
+        private var showsStandaloneAddUserButton: Bool {
+            #if os(visionOS)
+            false
+            #else
+            true
+            #endif
+        }
+
         private func toggleUsers() {
             if selectedUsers.count == allUsers.count {
                 selectedUsers.removeAll()
@@ -64,14 +72,20 @@ extension SelectUserView {
         private var compactView: some View {
             if !isEditing {
                 HStack(spacing: EdgeInsets.edgePadding / 2) {
+                    #if os(visionOS)
+                    advancedMenuButton
+                    #endif
+
                     ServerMenu(servers: servers)
                         .frame(height: buttonHeight)
                         .frame(maxWidth: 400)
 
-                    AddUserMenu(servers: servers)
-                        .labelStyle(.iconOnly)
-                        .menuOrder(.fixed)
-                        .frame(width: buttonHeight, height: buttonHeight)
+                    if showsStandaloneAddUserButton {
+                        AddUserMenu(servers: servers)
+                            .labelStyle(.iconOnly)
+                            .menuOrder(.fixed)
+                            .frame(width: buttonHeight, height: buttonHeight)
+                    }
                 }
                 .buttonStyle(.material)
                 .edgePadding([.bottom, .horizontal])
@@ -131,11 +145,29 @@ extension SelectUserView {
 
         @ViewBuilder
         private var contentView: some View {
-            #if !os(visionOS)
+            advancedMenuButton
+
+            ServerMenu(servers: servers)
+                .frame(maxWidth: UIDevice.isTV ? 600 : 400)
+                .frame(height: buttonHeight)
+                .focused($isCenterButtonFocused)
+
+            if showsStandaloneAddUserButton {
+                AddUserMenu(servers: servers)
+                    .labelStyle(.iconOnly)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .menuOrder(.fixed)
+                    .frame(width: buttonHeight, height: buttonHeight)
+                    .hidden(allUsers.isEmpty)
+            }
+        }
+
+        private var advancedMenuButton: some View {
             Menu {
                 AdvancedMenu(
                     hasUsers: allUsers.isNotEmpty,
-                    isEditing: $isEditing
+                    isEditing: $isEditing,
+                    servers: servers
                 )
             } label: {
                 Label(L10n.advanced, systemImage: "gearshape.fill")
@@ -144,19 +176,6 @@ extension SelectUserView {
             }
             .menuOrder(.fixed)
             .frame(width: buttonHeight, height: buttonHeight)
-            #endif
-
-            ServerMenu(servers: servers)
-                .frame(maxWidth: UIDevice.isTV ? 600 : 400)
-                .frame(height: buttonHeight)
-                .focused($isCenterButtonFocused)
-
-            AddUserMenu(servers: servers)
-                .labelStyle(.iconOnly)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .menuOrder(.fixed)
-                .frame(width: buttonHeight, height: buttonHeight)
-                .hidden(allUsers.isEmpty)
         }
     }
 }

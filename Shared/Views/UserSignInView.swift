@@ -173,7 +173,7 @@ struct UserSignInView: View {
             }
             #if os(visionOS)
             .buttonStyle(.compactPrimary)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .visionFormActionRow()
             #else
             .buttonStyle(.primary)
             .frame(maxHeight: 75)
@@ -187,7 +187,7 @@ struct UserSignInView: View {
             }
             #if os(visionOS)
             .buttonStyle(.compactPrimary)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .visionFormActionRow()
             #else
             .buttonStyle(.primary)
             .frame(maxHeight: 75)
@@ -213,7 +213,7 @@ struct UserSignInView: View {
                 }
                 #if os(visionOS)
                 .buttonStyle(.compactPrimary)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .visionFormActionRow()
                 #else
                 .buttonStyle(.primary)
                 .frame(maxHeight: 75)

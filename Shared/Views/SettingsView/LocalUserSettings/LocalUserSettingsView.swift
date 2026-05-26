@@ -56,6 +56,9 @@ struct LocalUserSettingsView: View {
                 }
             }
 
+            #endif
+
+            #if os(iOS) || os(visionOS)
             Section {
                 ChevronButton(L10n.quickConnect) {
                     router.route(to: .quickConnectAuthorize(user: imageViewModel.userSession.user.data))

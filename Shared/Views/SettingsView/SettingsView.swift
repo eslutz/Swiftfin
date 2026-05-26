@@ -91,7 +91,7 @@ struct SettingsView: View {
             }
             #if os(visionOS)
             .buttonStyle(.compactPrimary)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .visionFormActionRow()
             #else
             .buttonStyle(.primary)
             #endif

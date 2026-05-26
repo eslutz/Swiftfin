@@ -7,6 +7,7 @@
 //
 
 import Defaults
+import OrderedCollections
 import SwiftUI
 
 extension SelectUserView {
@@ -23,8 +24,38 @@ extension SelectUserView {
 
         let hasUsers: Bool
         let isEditing: Binding<Bool>
+        let servers: OrderedSet<ServerState>
+
+        init(
+            hasUsers: Bool,
+            isEditing: Binding<Bool>,
+            servers: OrderedSet<ServerState> = []
+        ) {
+            self.hasUsers = hasUsers
+            self.isEditing = isEditing
+            self.servers = servers
+        }
 
         var body: some View {
+            #if os(visionOS)
+            if servers.isNotEmpty {
+                ConditionalMenu(tracking: servers.first) { server in
+                    router.route(to: .userSignIn(server: server))
+                } menuContent: {
+                    ForEach(servers) { server in
+                        Button {
+                            router.route(to: .userSignIn(server: server))
+                        } label: {
+                            Text(server.name)
+                            Text(server.currentURL.absoluteString)
+                        }
+                    }
+                } label: {
+                    Label(L10n.addUser, systemImage: "person.crop.circle.badge.plus")
+                }
+            }
+            #endif
+
             if hasUsers {
                 Toggle(
                     L10n.editUsers,
