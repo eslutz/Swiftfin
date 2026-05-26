@@ -53,6 +53,7 @@ struct UserButton: View {
         #if os(visionOS)
             .buttonStyle(.plain)
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .containerShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .hoverEffect(.lift)
         #elseif os(tvOS)
             .buttonStyle(.borderless)

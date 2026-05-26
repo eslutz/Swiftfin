@@ -59,20 +59,25 @@ struct PosterButton<Item: Poster>: View {
         }
         .foregroundStyle(.primary, .secondary)
         .buttonStyle(.plain)
-        .matchedContextMenu(for: item) {
-            let frameScale = 1.3
+        #if os(visionOS)
+            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .containerShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .hoverEffect(.lift)
+        #endif
+            .matchedContextMenu(for: item) {
+                let frameScale = 1.3
 
-            posterView()
-                .frame(
-                    width: posterSize.width * frameScale,
-                    height: posterSize.height * frameScale
-                )
-                .padding(20)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color(uiColor: UIColor.secondarySystemGroupedBackground))
-                }
-        }
+                posterView()
+                    .frame(
+                        width: posterSize.width * frameScale,
+                        height: posterSize.height * frameScale
+                    )
+                    .padding(20)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color(uiColor: UIColor.secondarySystemGroupedBackground))
+                    }
+            }
     }
 }
 

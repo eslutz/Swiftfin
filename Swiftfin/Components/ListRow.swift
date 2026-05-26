@@ -51,7 +51,12 @@ struct ListRow<Leading: View, Content: View>: View {
                 .padding(insets)
             }
             .foregroundStyle(.primary, .secondary)
-            .contentShape(.contextMenuPreview, Rectangle())
+            #if os(visionOS)
+                .buttonStyle(.plain)
+                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .visionHoverEffect(RoundedRectangle(cornerRadius: 16, style: .continuous), .highlight)
+            #endif
+                .contentShape(.contextMenuPreview, Rectangle())
 
             Color.secondarySystemFill
                 .frame(width: contentSize.width, height: 1)

@@ -38,7 +38,7 @@ struct SettingsBarButton: View {
             .buttonStyle(.plain)
             .padding(8)
             .background(.thinMaterial, in: Circle())
-            .hoverEffect(.lift)
+            .visionHoverEffect(Circle())
         #endif
     }
 }

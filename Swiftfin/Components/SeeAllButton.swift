@@ -20,5 +20,11 @@ struct SeeAllButton: View {
         )
         .font(.subheadline.weight(.bold))
         .labelStyle(.titleAndIcon.trailingIcon)
+        #if os(visionOS)
+            .buttonStyle(.plain)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .visionHoverEffect(Capsule(), .highlight)
+        #endif
     }
 }

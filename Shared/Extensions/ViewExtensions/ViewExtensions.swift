@@ -367,6 +367,25 @@ extension View {
         padding(edges, EdgeInsets.edgePadding)
     }
 
+    #if os(visionOS)
+    func visionHoverEffect(
+        _ shape: some InsettableShape,
+        _ effect: HoverEffect = .lift
+    ) -> some View {
+        contentShape(shape)
+            .clipShape(shape)
+            .containerShape(shape)
+            .hoverEffect(effect)
+    }
+
+    func visionFormActionRow() -> some View {
+        frame(maxWidth: .infinity, alignment: .center)
+            .listRowInsets(.init(vertical: 8, horizontal: EdgeInsets.edgePadding))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+    }
+    #endif
+
     var backport: Backport<Self> {
         Backport(content: self)
     }

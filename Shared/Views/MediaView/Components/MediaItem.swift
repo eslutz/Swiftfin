@@ -119,6 +119,8 @@ extension MediaView {
             }
             #if os(visionOS)
             .buttonStyle(.plain)
+            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .containerShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .hoverEffect(.lift)
             #else
             .buttonStyle(.card)
