@@ -64,6 +64,10 @@ extension SeriesEpisodeSelector {
                         .foregroundStyle(accentColor)
                 }
             }
+            #if os(visionOS)
+            .buttonStyle(.plain)
+            .visionHoverEffect(RoundedRectangle(cornerRadius: 10, style: .continuous), .highlight)
+            #endif
         }
     }
 }

@@ -60,9 +60,7 @@ struct PosterButton<Item: Poster>: View {
         .foregroundStyle(.primary, .secondary)
         .buttonStyle(.plain)
         #if os(visionOS)
-            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .containerShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .hoverEffect(.lift)
+            .visionHoverEffect(RoundedRectangle(cornerRadius: 14, style: .continuous))
         #endif
             .matchedContextMenu(for: item) {
                 let frameScale = 1.3

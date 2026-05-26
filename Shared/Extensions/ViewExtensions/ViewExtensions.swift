@@ -373,6 +373,7 @@ extension View {
         _ effect: HoverEffect = .lift
     ) -> some View {
         contentShape(shape)
+            .contentShape(.hoverEffect, shape)
             .clipShape(shape)
             .containerShape(shape)
             .hoverEffect(effect)

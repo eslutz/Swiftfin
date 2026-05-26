@@ -354,8 +354,11 @@ struct SearchView: View {
         #if os(visionOS)
         VStack(spacing: 0) {
             visionSearchField
+
             stateContent
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         #else
         stateContent
         #endif
