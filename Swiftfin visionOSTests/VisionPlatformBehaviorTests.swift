@@ -9,6 +9,7 @@
 import Defaults
 import Factory
 import Foundation
+import JellyfinAPI
 @testable import Swiftfin_visionOS
 import SwiftUI
 import Testing
@@ -246,6 +247,15 @@ struct VisionSearchLibraryParameterTests {
         #expect(firstPage.filters == [.isFavorite])
         #expect(firstPage.years == [1934])
         #expect(secondPage.startIndex == 50)
+    }
+}
+
+@Suite("visionOS library layout controls")
+struct VisionLibraryLayoutControlTests {
+
+    @Test
+    func `vision OS hides list column controls`() {
+        #expect(PagingLibraryView<BaseItemDto>.LibraryViewTypeToggle.supportsListColumnControls == false)
     }
 }
 

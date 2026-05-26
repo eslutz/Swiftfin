@@ -17,6 +17,14 @@ extension PagingLibraryView {
 
     struct LibraryViewTypeToggle: View {
 
+        static var supportsListColumnControls: Bool {
+            #if os(visionOS)
+            false
+            #else
+            UIDevice.isPad
+            #endif
+        }
+
         @Binding
         private var listColumnCount: Int
         @Binding
@@ -81,7 +89,7 @@ extension PagingLibraryView {
                     }
                 }
 
-                if viewType == .list, UIDevice.isPad {
+                if viewType == .list, Self.supportsListColumnControls {
                     Stepper(L10n.columnsWithCount(listColumnCount), value: $listColumnCount, in: 1 ... 3)
                 }
             } label: {

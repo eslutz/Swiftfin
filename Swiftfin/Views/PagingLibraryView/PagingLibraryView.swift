@@ -92,6 +92,14 @@ struct PagingLibraryView<Element: Poster>: View {
     @StateObject
     private var viewModel: PagingLibraryViewModel<Element>
 
+    private var activeDisplayType: LibraryDisplayType {
+        Defaults[.Customization.Library.rememberLayout] ? displayType : defaultDisplayType
+    }
+
+    private var activePosterType: PosterDisplayType {
+        Defaults[.Customization.Library.rememberLayout] ? posterType : defaultPosterType
+    }
+
     // MARK: init
 
     init(viewModel: PagingLibraryViewModel<Element>) {
@@ -186,9 +194,9 @@ struct PagingLibraryView<Element: Poster>: View {
         case (_, .list):
             #if os(visionOS)
             .init(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: listColumnCount),
-                lineSpacing: 0,
-                padding: .zero
+                columns: [GridItem(.flexible(), spacing: 0)],
+                lineSpacing: 14,
+                padding: .init(EdgeInsets.edgePadding)
             )
             #else
             .columns(listColumnCount, insets: .zero, itemSpacing: 0, lineSpacing: 0)
@@ -235,8 +243,8 @@ struct PagingLibraryView<Element: Poster>: View {
             #if os(visionOS)
             .init(
                 columns: [GridItem(.flexible(), spacing: 0)],
-                lineSpacing: 0,
-                padding: .zero
+                lineSpacing: 14,
+                padding: .init(EdgeInsets.edgePadding)
             )
             #else
             .columns(1, insets: .zero, itemSpacing: 0, lineSpacing: 0)
@@ -284,8 +292,8 @@ struct PagingLibraryView<Element: Poster>: View {
         ScrollView {
             LazyVGrid(columns: layout.columns, spacing: layout.lineSpacing) {
                 ForEach(Array(viewModel.elements.enumerated()), id: \.element.unwrappedIDHashOrZero) { offset, item in
-                    let displayType = Defaults[.Customization.Library.rememberLayout] ? displayType : defaultDisplayType
-                    let posterType = Defaults[.Customization.Library.rememberLayout] ? posterType : defaultPosterType
+                    let displayType = activeDisplayType
+                    let posterType = activePosterType
 
                     Group {
                         switch displayType {
@@ -303,6 +311,8 @@ struct PagingLibraryView<Element: Poster>: View {
                 }
             }
             .padding(layout.padding)
+            .frame(maxWidth: activeDisplayType == .list ? 940 : .infinity, alignment: .top)
+            .frame(maxWidth: .infinity, alignment: .top)
         }
         .scrollIndicators(.hidden)
         #else

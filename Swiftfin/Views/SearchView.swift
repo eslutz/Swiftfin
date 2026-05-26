@@ -247,7 +247,11 @@ struct SearchView: View {
                             .background(.thinMaterial, in: Capsule())
                     }
                     .buttonStyle(.plain)
-                    .hoverEffect(.lift)
+                    #if os(visionOS)
+                        .visionHoverEffect(Capsule())
+                    #else
+                        .hoverEffect(.lift)
+                    #endif
                 }
             }
         }
@@ -282,7 +286,8 @@ struct SearchView: View {
         }
     }
 
-    var body: some View {
+    @ViewBuilder
+    private var stateContent: some View {
         ZStack {
             switch viewModel.state {
             case .error:
@@ -303,41 +308,98 @@ struct SearchView: View {
                 ProgressView()
             }
         }
-        .animation(.linear(duration: 0.2), value: viewModel.items)
-        .animation(.linear(duration: 0.2), value: viewModel.state)
-        .ignoresSafeArea(.keyboard, edges: .bottom)
-        .navigationTitle(L10n.search)
-        .navigationBarTitleDisplayMode(.inline)
-        .refreshable {
-            viewModel.search(query: searchQuery)
-        }
-        .navigationBarFilterDrawer(
-            viewModel: viewModel.filterViewModel,
-            types: enabledDrawerFilters
-        )
-        .onFirstAppear {
-            viewModel.getSuggestions()
-        }
-        .backport.onChange(of: searchQuery) { _, newValue in
-            viewModel.search(query: newValue)
-        }
-        .backport.onChange(of: viewModel.state) { _, _ in
-            commitPendingHistoryQueryIfNeeded()
-        }
-        .searchable(
-            text: $searchQuery,
-            placement: .navigationBarDrawer(displayMode: .always),
-            prompt: L10n.search
-        )
-        .onSubmit(of: .search) {
-            submitSearchQuery(searchQuery)
-        }
-        .backport
-        .searchFocused($isSearchFocused)
-        .onReceive(tabItemSelected) { event in
-            if event.isRepeat, event.isRoot {
-                isSearchFocused = true
+    }
+
+    #if os(visionOS)
+    @ViewBuilder
+    private var visionSearchField: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(.secondary)
+
+            TextField(L10n.search, text: $searchQuery)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .focused($isSearchFocused)
+                .onSubmit {
+                    submitSearchQuery(searchQuery)
+                }
+
+            if searchQuery.isNotEmpty {
+                Button {
+                    searchQuery = ""
+                    isSearchFocused = true
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.secondary)
+                .visionHoverEffect(Circle(), .highlight)
+                .accessibilityLabel(L10n.clear)
             }
         }
+        .font(.body)
+        .padding(.horizontal, 16)
+        .frame(height: 44)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .visionHoverEffect(RoundedRectangle(cornerRadius: 14, style: .continuous), .highlight)
+        .frame(maxWidth: 860)
+        .padding(.horizontal, 36)
+        .padding(.top, 24)
+    }
+    #endif
+
+    @ViewBuilder
+    private var contentView: some View {
+        #if os(visionOS)
+        VStack(spacing: 0) {
+            visionSearchField
+            stateContent
+        }
+        #else
+        stateContent
+        #endif
+    }
+
+    var body: some View {
+        contentView
+            .animation(.linear(duration: 0.2), value: viewModel.items)
+            .animation(.linear(duration: 0.2), value: viewModel.state)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .navigationTitle(L10n.search)
+            .navigationBarTitleDisplayMode(.inline)
+            .refreshable {
+                viewModel.search(query: searchQuery)
+            }
+            .navigationBarFilterDrawer(
+                viewModel: viewModel.filterViewModel,
+                types: enabledDrawerFilters
+            )
+            .onFirstAppear {
+                viewModel.getSuggestions()
+            }
+            .backport.onChange(of: searchQuery) { _, newValue in
+                viewModel.search(query: newValue)
+            }
+            .backport.onChange(of: viewModel.state) { _, _ in
+                commitPendingHistoryQueryIfNeeded()
+            }
+        #if !os(visionOS)
+            .searchable(
+                text: $searchQuery,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: L10n.search
+            )
+            .onSubmit(of: .search) {
+                submitSearchQuery(searchQuery)
+            }
+            .backport
+            .searchFocused($isSearchFocused)
+        #endif
+            .onReceive(tabItemSelected) { event in
+                if event.isRepeat, event.isRoot {
+                    isSearchFocused = true
+                }
+            }
     }
 }
