@@ -113,14 +113,6 @@ extension NativeVideoPlayer {
             player = proxy.player
 
             player?.appliesMediaSelectionCriteriaAutomatically = false
-            #if os(visionOS)
-            if #available(visionOS 26.0, *) {
-                experienceController.allowedExperiences = .recommended(including: [.immersive])
-            } else {
-                experienceController.allowedExperiences = .recommended()
-            }
-            #endif
-
             #if !os(visionOS)
             player?.allowsExternalPlayback = true
             player?.usesExternalPlaybackWhileExternalScreenIsActive = true
