@@ -112,6 +112,19 @@ struct VisionVideoPlayerDefaultsTests {
         #expect(VideoPlayerType.allCases == [.native])
         #expect(Defaults[.VideoPlayer.videoPlayerType] == .native)
     }
+
+    @Test
+    func `vision OS native player disappear is unexpected while playback is active`() {
+        #expect(!MediaPlayerManager._State.loadingItem.isExpectedNativeVideoPlayerDisappearState)
+        #expect(!MediaPlayerManager._State.playback.isExpectedNativeVideoPlayerDisappearState)
+        #expect(!MediaPlayerManager._State.initial.isExpectedNativeVideoPlayerDisappearState)
+    }
+
+    @Test
+    func `vision OS native player disappear is expected after stop or error`() {
+        #expect(MediaPlayerManager._State.stopped.isExpectedNativeVideoPlayerDisappearState)
+        #expect(MediaPlayerManager._State.error.isExpectedNativeVideoPlayerDisappearState)
+    }
 }
 
 @Suite("visionOS public user identity")
@@ -135,6 +148,45 @@ struct VisionPublicUserIdentityTests {
     @Test
     func `public user identity has stable unknown fallback`() {
         #expect(UserSignInViewModel.publicUserIdentifier(id: nil, name: nil) == "public-user-unknown")
+    }
+
+    @Test
+    func `public user identities disambiguate duplicate fallback identifiers`() {
+        let users = [
+            UserDto(id: nil, name: " Alice "),
+            UserDto(id: nil, name: "alice"),
+            UserDto(id: nil, name: "Bob"),
+        ]
+
+        #expect(
+            UserSignInViewModel.publicUserIdentifiers(for: users) == [
+                "public-user-alice-0",
+                "public-user-alice-1",
+                "public-user-bob",
+            ]
+        )
+    }
+}
+
+@Suite("home view model played status")
+struct HomeViewModelPlayedStatusTests {
+
+    @Test
+    func `successful played status update schedules background refresh`() {
+        #expect(HomeViewModel.setIsPlayedCompletionAction(error: nil) == .backgroundRefresh)
+    }
+
+    @Test
+    func `failed played status update emits error action`() {
+        #expect(
+            HomeViewModel.setIsPlayedCompletionAction(error: PlayedStatusError()) == .error(.init("Unable to update played status"))
+        )
+    }
+
+    private struct PlayedStatusError: LocalizedError {
+        var errorDescription: String? {
+            "Unable to update played status"
+        }
     }
 }
 

@@ -134,10 +134,17 @@ private extension NativeVideoPlayer {
     }
 
     var isExpectedVisionDisappearState: Bool {
-        switch manager.state {
-        case .loadingItem, .playback:
+        manager.state.isExpectedNativeVideoPlayerDisappearState
+    }
+}
+
+extension MediaPlayerManager._State {
+
+    var isExpectedNativeVideoPlayerDisappearState: Bool {
+        switch self {
+        case .error, .stopped:
             true
-        case .error, .initial, .stopped:
+        case .initial, .loadingItem, .playback:
             false
         }
     }

@@ -108,15 +108,13 @@ struct UserSignInView: View {
         focusedTextField = .password
     }
 
-    private func publicUserIdentifier(for user: UserDto) -> String {
-        UserSignInViewModel.publicUserIdentifier(id: user.id, name: user.name)
-    }
-
     private var identifiedPublicUsers: [IdentifiedPublicUser] {
-        viewModel.publicUsers.map {
+        let identifiers = UserSignInViewModel.publicUserIdentifiers(for: viewModel.publicUsers)
+
+        return zip(identifiers, viewModel.publicUsers).map {
             IdentifiedPublicUser(
-                id: publicUserIdentifier(for: $0),
-                user: $0
+                id: $0,
+                user: $1
             )
         }
     }

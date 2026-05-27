@@ -6,9 +6,10 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import SwiftUI
 
+#if os(iOS)
 extension DeviceType {
 
     // MARK: - Client Image
@@ -58,4 +59,15 @@ extension DeviceType {
         }
     }
 }
+
+#elseif os(visionOS)
+extension DeviceType {
+
+    // Device icon resources currently live in the iOS asset catalog only.
+    @available(*, unavailable, message: "Device icon resources are only included in the iOS target.")
+    var image: ImageResource {
+        fatalError()
+    }
+}
+#endif
 #endif

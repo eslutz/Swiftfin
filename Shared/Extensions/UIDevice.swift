@@ -16,6 +16,7 @@ extension UIDevice {
 
     static var isPad: Bool {
         #if os(visionOS)
+        // Reuse the iPad layout path until visionOS has dedicated spatial layouts.
         true
         #else
         current.userInterfaceIdiom == .pad

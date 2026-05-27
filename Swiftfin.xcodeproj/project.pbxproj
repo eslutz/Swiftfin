@@ -247,6 +247,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B43350CB2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DevelopmentTeam.xcconfig,
+				Shared.xcconfig,
+			);
+			target = 5377CBF0263B596A003A4E83 /* Swiftfin iOS */;
+		};
+		B43350CC2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DevelopmentTeam.xcconfig,
+				Shared.xcconfig,
+			);
+			target = 5358705F2669D21600D05A09 /* Swiftfin tvOS */;
+		};
+		B43350CD2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DevelopmentTeam.xcconfig,
+				Shared.xcconfig,
+			);
+			target = E1F000022F01000000000002 /* Swiftfin visionOS */;
+		};
 		E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -488,7 +512,7 @@
 		E14565DD2DFCAE78008FF700 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
 		E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14567272DFCAEFD008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin tvOS"; sourceTree = "<group>"; };
 		E1456FC82DFCB323008FF700 /* Translations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Translations; sourceTree = "<group>"; };
-		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XcodeConfig; sourceTree = "<group>"; };
+		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (B43350CB2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, B43350CC2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, B43350CD2FC6F0AC00410EDD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = XcodeConfig; sourceTree = "<group>"; };
 		E1F000092F01000000000009 /* Swiftfin visionOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E1F0000C2F0100000000000C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOS"; sourceTree = "<group>"; };
 		E2F000092F02000000000009 /* Swiftfin visionOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOSTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -970,7 +994,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					5358705F2669D21600D05A09 = {
 						CreatedOnToolsVersion = 12.5;
@@ -1514,6 +1538,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1573,6 +1598,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -1664,6 +1690,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				EXCLUDED_ARCHS = "";
@@ -1701,6 +1728,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				EXCLUDED_ARCHS = "";

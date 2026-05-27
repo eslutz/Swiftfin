@@ -77,6 +77,14 @@ final class HomeViewModel: ViewModel, Stateful {
             .store(in: &cancellables)
     }
 
+    nonisolated static func setIsPlayedCompletionAction(error: (any Error)?) -> Action {
+        if let error {
+            return .error(.init(error.localizedDescription))
+        }
+
+        return .backgroundRefresh
+    }
+
     func respond(to action: Action) -> State {
         switch action {
         case .backgroundRefresh:
@@ -115,9 +123,12 @@ final class HomeViewModel: ViewModel, Stateful {
             Task { @MainActor [weak self] in
                 guard let self else { return }
 
-                try await self.setIsPlayed(isPlayed, for: item)
-
-                self.send(.backgroundRefresh)
+                do {
+                    try await self.setIsPlayed(isPlayed, for: item)
+                    self.send(Self.setIsPlayedCompletionAction(error: nil))
+                } catch {
+                    self.send(Self.setIsPlayedCompletionAction(error: error))
+                }
             }
             .store(in: &cancellables)
 
