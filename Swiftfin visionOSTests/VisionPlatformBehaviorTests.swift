@@ -300,6 +300,42 @@ struct VisionSearchLibraryParameterTests {
         #expect(firstPage.years == [1934])
         #expect(secondPage.startIndex == 50)
     }
+
+    @Test
+    @MainActor
+    func `search result paging parameters use updated library filters`() throws {
+        var originalFilters = ItemFilterCollection.default
+        originalFilters.genres = ["Comedy"]
+
+        var updatedFilters = ItemFilterCollection.default
+        updatedFilters.genres = ["Drama"]
+        updatedFilters.sortBy = [.dateCreated]
+        updatedFilters.sortOrder = [.descending]
+        updatedFilters.tags = ["Classic"]
+        updatedFilters.traits = [.isFavorite]
+        updatedFilters.years = [1934]
+
+        let viewModel = SearchLibraryViewModel(
+            title: "Movies",
+            id: nil,
+            query: "The Three Stooges",
+            itemType: .movie,
+            filters: originalFilters
+        )
+
+        let filterViewModel = try #require(viewModel.filterViewModel)
+        filterViewModel.currentFilters = updatedFilters
+
+        let parameters = viewModel.itemParameters(for: 1)
+
+        #expect(parameters.genres == ["Drama"])
+        #expect(parameters.sortBy == [.dateCreated])
+        #expect(parameters.sortOrder == [.descending])
+        #expect(parameters.tags == ["Classic"])
+        #expect(parameters.filters == [.isFavorite])
+        #expect(parameters.years == [1934])
+        #expect(parameters.startIndex == viewModel.pageSize)
+    }
 }
 
 @Suite("visionOS library layout controls")
@@ -308,6 +344,49 @@ struct VisionLibraryLayoutControlTests {
     @Test
     func `vision OS hides list column controls`() {
         #expect(PagingLibraryView<BaseItemDto>.LibraryViewTypeToggle.supportsListColumnControls == false)
+    }
+}
+
+@Suite("app settings splashscreen selection")
+struct AppSettingsSplashscreenSelectionTests {
+
+    @Test
+    func `normalization preserves all servers splashscreen selection`() throws {
+        let servers = try [
+            Self.server(id: "server-1", name: "Server 1"),
+        ]
+
+        let selection = AppSettingsView.normalizedSplashscreenServerSelection(
+            .all,
+            servers: servers
+        )
+
+        #expect(selection == .all)
+    }
+
+    @Test
+    func `normalization replaces missing concrete splashscreen server`() throws {
+        let servers = try [
+            Self.server(id: "server-1", name: "Server 1"),
+        ]
+
+        let selection = AppSettingsView.normalizedSplashscreenServerSelection(
+            .server(id: "missing-server"),
+            servers: servers
+        )
+
+        #expect(selection == .server(id: "server-1"))
+    }
+
+    private static func server(id: String, name: String) throws -> ServerState {
+        let url = try #require(URL(string: "https://\(id).example.com"))
+        return ServerState(
+            urls: [url],
+            currentURL: url,
+            name: name,
+            id: id,
+            userIDs: []
+        )
     }
 }
 

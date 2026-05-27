@@ -74,7 +74,7 @@ enum SearchItemParameters {
 @MainActor
 final class SearchLibraryViewModel: PagingLibraryViewModel<BaseItemDto> {
 
-    private let filters: ItemFilterCollection
+    private let initialFilters: ItemFilterCollection
     private let itemType: BaseItemKind
     private let query: String
 
@@ -85,7 +85,7 @@ final class SearchLibraryViewModel: PagingLibraryViewModel<BaseItemDto> {
         itemType: BaseItemKind,
         filters: ItemFilterCollection
     ) {
-        self.filters = filters
+        self.initialFilters = filters
         self.itemType = itemType
         self.query = query
 
@@ -99,16 +99,20 @@ final class SearchLibraryViewModel: PagingLibraryViewModel<BaseItemDto> {
     }
 
     override func get(page: Int) async throws -> [BaseItemDto] {
-        let parameters = SearchItemParameters.items(
-            query: query,
-            itemType: itemType,
-            filters: filters,
-            page: page,
-            pageSize: pageSize
-        )
+        let parameters = itemParameters(for: page)
         let request = Paths.getItems(parameters: parameters)
         let response = try await userSession.client.send(request)
 
         return response.value.items ?? []
+    }
+
+    func itemParameters(for page: Int) -> Paths.GetItemsParameters {
+        SearchItemParameters.items(
+            query: query,
+            itemType: itemType,
+            filters: filterViewModel?.currentFilters ?? initialFilters,
+            page: page,
+            pageSize: pageSize
+        )
     }
 }
