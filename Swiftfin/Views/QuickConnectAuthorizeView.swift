@@ -97,7 +97,7 @@ struct QuickConnectAuthorizeView: View {
         .onFirstAppear {
             isCodeFocused = true
         }
-        .onChange(of: code) { newValue in
+        .onChange(of: code) { _, newValue in
             code = String(newValue.prefix(6))
         }
         .onReceive(viewModel.$error) { error in
