@@ -97,7 +97,8 @@ struct QuickConnectAuthorizeView: View {
         .onFirstAppear {
             isCodeFocused = true
         }
-        .onChange(of: code) { _, newValue in
+        // Use the deprecated overload until Swiftfin raises its minimum iOS target to 17.0.
+        .onChange(of: code) { newValue in
             code = String(newValue.prefix(6))
         }
         .onReceive(viewModel.$error) { error in
