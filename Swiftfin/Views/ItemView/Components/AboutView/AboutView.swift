@@ -139,6 +139,7 @@ extension ItemView {
                     .padding(.horizontal, EdgeInsets.edgePadding)
                 }
                 .scrollIndicators(.hidden)
+                .lookToScroll(.horizontal)
                 #else
                 CollectionHStack(
                     uniqueElements: items,

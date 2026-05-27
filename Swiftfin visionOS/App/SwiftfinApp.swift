@@ -26,6 +26,7 @@ struct SwiftfinApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .lookToScroll()
                 .onScenePhase(.background) {
                     hasEnteredBackground = true
                     Defaults[.backgroundTimeStamp] = Date.now

@@ -44,6 +44,7 @@ struct PillHStack<Item: Displayable>: View {
                 }
                 .edgePadding(.horizontal)
             }
+            .lookToScroll(.horizontal)
         }
     }
 }

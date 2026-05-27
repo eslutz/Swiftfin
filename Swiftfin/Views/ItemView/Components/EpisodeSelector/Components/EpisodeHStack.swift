@@ -46,6 +46,7 @@ extension SeriesEpisodeSelector {
                     .padding(.horizontal, EdgeInsets.edgePadding)
                 }
                 .scrollIndicators(.hidden)
+                .lookToScroll(.horizontal)
                 .onFirstAppear {
                     guard !didScrollToPlayButtonItem else { return }
                     didScrollToPlayButtonItem = true

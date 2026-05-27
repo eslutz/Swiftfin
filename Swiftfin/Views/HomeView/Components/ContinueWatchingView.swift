@@ -57,6 +57,7 @@ extension HomeView {
                 .padding(.horizontal, EdgeInsets.edgePadding)
             }
             .scrollIndicators(.hidden)
+            .lookToScroll(.horizontal)
             .contextMenu(for: BaseItemDto.self) { item in
                 Button {
                     viewModel.send(.setIsPlayed(true, item))

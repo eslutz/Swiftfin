@@ -35,6 +35,7 @@ struct ProgramsView: View {
             }
             .edgePadding(.horizontal)
         }
+        .lookToScroll(.horizontal)
     }
 
     // TODO: probably make own pill view

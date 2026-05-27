@@ -61,6 +61,7 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
             .padding(.horizontal, EdgeInsets.edgePadding)
         }
         .scrollIndicators(.hidden)
+        .lookToScroll(.horizontal)
         #else
         CollectionHStack(
             uniqueElements: data,

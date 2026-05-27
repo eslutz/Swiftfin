@@ -56,5 +56,6 @@ struct NavigationBarFilterDrawer: View {
             .padding(.bottom, 5)
             .labelStyle(NavigationDrawerLabelStyle())
         }
+        .lookToScroll(.horizontal)
     }
 }
