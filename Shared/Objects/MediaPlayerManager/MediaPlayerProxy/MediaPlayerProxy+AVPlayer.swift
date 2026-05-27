@@ -35,6 +35,7 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
     let player: AVPlayer
 
 //    private var rateObserver: NSKeyValueObservation!
+    private var itemDidPlayToEndObserver: NSObjectProtocol?
     private var statusObserver: NSKeyValueObservation!
     private var timeControlStatusObserver: NSKeyValueObservation!
     private var timeObserver: Any!
@@ -102,6 +103,12 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
         }
     }
 
+    deinit {
+        if let itemDidPlayToEndObserver {
+            NotificationCenter.default.removeObserver(itemDidPlayToEndObserver)
+        }
+    }
+
     func play() {
         player.play()
     }
@@ -150,6 +157,7 @@ extension AVMediaPlayerProxy {
 
     private func playbackStopped() {
         player.pause()
+        removeItemDidPlayToEndObserver()
 
         if let timeObserver {
             DispatchQueue.main.async {
@@ -169,6 +177,37 @@ extension AVMediaPlayerProxy {
         }
     }
 
+    private func observeItemDidPlayToEnd(_ item: AVPlayerItem) {
+        removeItemDidPlayToEndObserver()
+
+        itemDidPlayToEndObserver = NotificationCenter.default.addObserver(
+            forName: AVPlayerItem.didPlayToEndTimeNotification,
+            object: item,
+            queue: .main
+        ) { [weak self, weak item] _ in
+            Task { @MainActor [weak self, weak item] in
+                guard let self, let item else { return }
+                guard self.player.currentItem === item else { return }
+                guard self.manager?.item.isLiveStream != true else { return }
+
+                self.removeItemDidPlayToEndObserver()
+
+                if let runtime = self.manager?.item.runtime {
+                    self.manager?.seconds = runtime
+                }
+
+                self.manager?.ended()
+            }
+        }
+    }
+
+    private func removeItemDidPlayToEndObserver() {
+        guard let itemDidPlayToEndObserver else { return }
+
+        NotificationCenter.default.removeObserver(itemDidPlayToEndObserver)
+        self.itemDidPlayToEndObserver = nil
+    }
+
     private func playNew(item: MediaPlayerItem) {
         let baseItem = item.baseItem
 
@@ -181,6 +220,7 @@ extension AVMediaPlayerProxy {
         newAVPlayerItem.externalMetadata = item.baseItem.avMetadata
 
         player.replaceCurrentItem(with: newAVPlayerItem)
+        observeItemDidPlayToEnd(newAVPlayerItem)
 
         #if os(visionOS)
         logger.debug(
