@@ -123,11 +123,15 @@ extension SwiftfinApp {
 
         @MainActor
         private func applyAppAppearance() {
+            #if os(visionOS)
+            applyAppearance(Defaults[.appAppearance])
+            #else
             if Defaults[.selectUserUseSplashscreen] {
                 applyAppearance(.dark)
             } else {
                 applyAppearance(Defaults[.appAppearance])
             }
+            #endif
         }
     }
 }

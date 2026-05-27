@@ -165,6 +165,9 @@ struct SelectUserView: View {
 
     @ViewBuilder
     private var splashScreenBackground: some View {
+        #if os(visionOS)
+        EmptyView()
+        #else
         if selectUserUseSplashscreen, splashScreenImageSources.isNotEmpty {
             ZStack(alignment: .top) {
                 ImageView(splashScreenImageSources)
@@ -176,6 +179,7 @@ struct SelectUserView: View {
                     .opacity(0.9)
             }
         }
+        #endif
     }
 
     @ViewBuilder
