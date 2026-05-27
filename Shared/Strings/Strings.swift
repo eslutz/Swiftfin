@@ -1510,8 +1510,6 @@ internal enum L10n {
   internal static let specialFeatures = L10n.tr("Localizable", "specialFeatures", fallback: "Special features")
   /// Splashscreen
   internal static let splashscreen = L10n.tr("Localizable", "splashscreen", fallback: "Splashscreen")
-  /// When all servers are selected, use the splashscreen from a single server or a random server.
-  internal static let splashscreenFooter = L10n.tr("Localizable", "splashscreenFooter", fallback: "When all servers are selected, use the splashscreen from a single server or a random server.")
   /// Split
   internal static let split = L10n.tr("Localizable", "split", fallback: "Split")
   /// Sports
