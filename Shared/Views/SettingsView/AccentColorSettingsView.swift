@@ -9,6 +9,7 @@
 import Defaults
 import SwiftUI
 
+#if os(visionOS)
 struct AccentColorSettingsView: View {
 
     @Default(.userAccentColor)
@@ -61,3 +62,4 @@ struct AccentColorSettingsView: View {
         }
     }
 }
+#endif

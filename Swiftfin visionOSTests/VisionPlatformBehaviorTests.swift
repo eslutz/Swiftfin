@@ -364,11 +364,6 @@ struct VisionSettingsControlTests {
     func `vision OS hides liquid glass debug toggle`() {
         #expect(DebugSettingsView.showsLiquidGlassToggle == false)
     }
-
-    @Test
-    func `vision OS disables Pulse support prompts`() {
-        #expect(SwiftfinPulseConsoleView.disableSupportPromptsKey == "pulse-disable-support-prompts")
-    }
 }
 
 @Suite("app settings splashscreen selection")

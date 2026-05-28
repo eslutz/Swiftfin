@@ -7,10 +7,12 @@
 //
 
 import JellyfinAPI
+import PulseUI
 import SwiftUI
 
 extension NavigationRoute {
 
+    #if os(visionOS)
     static var accentColorSettings: NavigationRoute {
         NavigationRoute(
             id: "accentColorSettings"
@@ -18,6 +20,7 @@ extension NavigationRoute {
             AccentColorSettingsView()
         }
     }
+    #endif
 
     static func actionBarButtonSelector(selectedButtonsBinding: Binding<[VideoPlayerActionButton]>) -> NavigationRoute {
         NavigationRoute(id: "actionBarButtonSelector") {
@@ -194,7 +197,7 @@ extension NavigationRoute {
         NavigationRoute(
             id: "log"
         ) {
-            SwiftfinPulseConsoleView()
+            ConsoleView()
         }
     }
 
