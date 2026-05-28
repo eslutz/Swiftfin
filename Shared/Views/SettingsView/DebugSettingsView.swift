@@ -17,6 +17,14 @@ import SwiftUI
 #if DEBUG
 struct DebugSettingsView: View {
 
+    static var showsLiquidGlassToggle: Bool {
+        #if os(visionOS)
+        false
+        #else
+        true
+        #endif
+    }
+
     @Default(.isLiquidGlassEnabled)
     private var isLiquidGlassEnabled
     @Default(.sendProgressReports)
@@ -29,10 +37,12 @@ struct DebugSettingsView: View {
                 Toggle(L10n.sendProgressReports, isOn: $sendProgressReports)
             }
 
-            Section {
-                Toggle("Liquid Glass", isOn: $isLiquidGlassEnabled)
-            } footer: {
-                Text("Requires app restart to take effect.")
+            if Self.showsLiquidGlassToggle {
+                Section {
+                    Toggle("Liquid Glass", isOn: $isLiquidGlassEnabled)
+                } footer: {
+                    Text("Requires app restart to take effect.")
+                }
             }
 
             Section("Device Details") {

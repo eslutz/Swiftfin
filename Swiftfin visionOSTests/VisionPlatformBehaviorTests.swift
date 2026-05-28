@@ -345,6 +345,30 @@ struct VisionLibraryLayoutControlTests {
     func `vision OS hides list column controls`() {
         #expect(PagingLibraryView<BaseItemDto>.LibraryViewTypeToggle.supportsListColumnControls == false)
     }
+
+    @Test
+    func `vision OS exposes library layout controls inline`() {
+        #expect(PagingLibraryView<BaseItemDto>.LibraryViewTypeToggle.presentsInlineControls)
+    }
+
+    @Test
+    func `vision OS hides random library action`() {
+        #expect(PagingLibraryView<BaseItemDto>.supportsRandomItemAction == false)
+    }
+}
+
+@Suite("visionOS settings controls")
+struct VisionSettingsControlTests {
+
+    @Test
+    func `vision OS hides liquid glass debug toggle`() {
+        #expect(DebugSettingsView.showsLiquidGlassToggle == false)
+    }
+
+    @Test
+    func `vision OS disables Pulse support prompts`() {
+        #expect(SwiftfinPulseConsoleView.disableSupportPromptsKey == "pulse-disable-support-prompts")
+    }
 }
 
 @Suite("app settings splashscreen selection")

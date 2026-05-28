@@ -55,6 +55,14 @@ struct PagingLibraryView<Element: Poster>: View {
         5
     }
 
+    static var supportsRandomItemAction: Bool {
+        #if os(visionOS)
+        false
+        #else
+        true
+        #endif
+    }
+
     @Default(.Customization.Library.enabledDrawerFilters)
     private var enabledDrawerFilters
     @Default(.Customization.Library.rememberLayout)
@@ -578,10 +586,12 @@ struct PagingLibraryView<Element: Poster>: View {
                 )
             }
 
-            Button(L10n.random, systemImage: "dice.fill") {
-                viewModel.send(.getRandomItem)
+            if Self.supportsRandomItemAction {
+                Button(L10n.random, systemImage: "dice.fill") {
+                    viewModel.send(.getRandomItem)
+                }
+                .disabled(viewModel.elements.isEmpty)
             }
-            .disabled(viewModel.elements.isEmpty)
         }
     }
 }

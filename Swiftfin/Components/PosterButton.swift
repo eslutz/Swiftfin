@@ -109,6 +109,7 @@ extension PosterButton {
                 .font(.footnote)
                 .fontWeight(.regular)
                 .foregroundStyle(.primary)
+                .padding(.bottom, 1)
         }
     }
 

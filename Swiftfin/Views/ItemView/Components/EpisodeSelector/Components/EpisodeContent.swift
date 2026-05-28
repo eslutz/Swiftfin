@@ -58,10 +58,12 @@ extension SeriesEpisodeSelector {
 
                     contentView
 
+                    #if !os(visionOS)
                     Text(L10n.seeMore)
                         .font(.caption)
                         .fontWeight(.light)
                         .foregroundStyle(accentColor)
+                    #endif
                 }
             }
             #if os(visionOS)

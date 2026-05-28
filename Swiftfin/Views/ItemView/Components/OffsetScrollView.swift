@@ -82,7 +82,7 @@ extension ItemView {
             .backgroundParallaxHeader(
                 $scrollViewOffset,
                 height: headerHeight,
-                multiplier: 0.3
+                multiplier: 1
             ) {
                 header
                     .frame(height: headerHeight)

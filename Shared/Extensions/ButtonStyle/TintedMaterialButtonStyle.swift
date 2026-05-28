@@ -39,10 +39,15 @@ struct TintedMaterialButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
+            #if os(visionOS)
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(buttonTint)
+            #else
             TintedMaterial(tint: buttonTint)
                 .id(isSelected)
             #if !os(tvOS)
                 .cornerRadius(10)
+            #endif
             #endif
 
             configuration.label

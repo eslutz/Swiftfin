@@ -78,11 +78,19 @@ extension ItemView {
                     .edgePadding()
                     .frame(maxWidth: .infinity)
                     .background {
+                        #if os(visionOS)
+                        BlurView(style: .systemUltraThinMaterialDark)
+                            .maskLinearGradient {
+                                (location: 0.55, opacity: 0)
+                                (location: 0.95, opacity: 1)
+                            }
+                        #else
                         BlurView(style: .systemThinMaterialDark)
                             .maskLinearGradient {
                                 (location: 0.4, opacity: 0)
                                 (location: 0.8, opacity: 1)
                             }
+                        #endif
                     }
             } content: {
                 content

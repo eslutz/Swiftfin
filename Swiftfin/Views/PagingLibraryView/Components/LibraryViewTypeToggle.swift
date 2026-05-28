@@ -25,6 +25,14 @@ extension PagingLibraryView {
             #endif
         }
 
+        static var presentsInlineControls: Bool {
+            #if os(visionOS)
+            true
+            #else
+            false
+            #endif
+        }
+
         @Binding
         private var listColumnCount: Int
         @Binding
@@ -42,56 +50,63 @@ extension PagingLibraryView {
             self._viewType = viewType
         }
 
+        @ViewBuilder
+        private var controls: some View {
+            Section(L10n.posters) {
+                Button {
+                    posterType = .landscape
+                } label: {
+                    if posterType == .landscape {
+                        Label(L10n.landscape, systemImage: "checkmark")
+                    } else {
+                        Label(L10n.landscape, systemImage: "rectangle")
+                    }
+                }
+
+                Button {
+                    posterType = .portrait
+                } label: {
+                    if posterType == .portrait {
+                        Label(L10n.portrait, systemImage: "checkmark")
+                    } else {
+                        Label(L10n.portrait, systemImage: "rectangle.portrait")
+                    }
+                }
+            }
+
+            Section(L10n.layout) {
+                Button {
+                    viewType = .grid
+                } label: {
+                    if viewType == .grid {
+                        Label(L10n.grid, systemImage: "checkmark")
+                    } else {
+                        Label(L10n.grid, systemImage: "square.grid.2x2.fill")
+                    }
+                }
+
+                Button {
+                    viewType = .list
+                } label: {
+                    if viewType == .list {
+                        Label(L10n.list, systemImage: "checkmark")
+                    } else {
+                        Label(L10n.list, systemImage: "square.fill.text.grid.1x2")
+                    }
+                }
+            }
+
+            if viewType == .list, Self.supportsListColumnControls {
+                Stepper(L10n.columnsWithCount(listColumnCount), value: $listColumnCount, in: 1 ... 3)
+            }
+        }
+
         var body: some View {
+            #if os(visionOS)
+            controls
+            #else
             Menu {
-
-                Section(L10n.posters) {
-                    Button {
-                        posterType = .landscape
-                    } label: {
-                        if posterType == .landscape {
-                            Label(L10n.landscape, systemImage: "checkmark")
-                        } else {
-                            Label(L10n.landscape, systemImage: "rectangle")
-                        }
-                    }
-
-                    Button {
-                        posterType = .portrait
-                    } label: {
-                        if posterType == .portrait {
-                            Label(L10n.portrait, systemImage: "checkmark")
-                        } else {
-                            Label(L10n.portrait, systemImage: "rectangle.portrait")
-                        }
-                    }
-                }
-
-                Section(L10n.layout) {
-                    Button {
-                        viewType = .grid
-                    } label: {
-                        if viewType == .grid {
-                            Label(L10n.grid, systemImage: "checkmark")
-                        } else {
-                            Label(L10n.grid, systemImage: "square.grid.2x2.fill")
-                        }
-                    }
-
-                    Button {
-                        viewType = .list
-                    } label: {
-                        if viewType == .list {
-                            Label(L10n.list, systemImage: "checkmark")
-                        } else {
-                            Label(L10n.list, systemImage: "square.fill.text.grid.1x2")
-                        }
-                    }
-                }
-
-                if viewType == .list, Self.supportsListColumnControls {
-                    Stepper(L10n.columnsWithCount(listColumnCount), value: $listColumnCount, in: 1 ... 3)
-                }
+                controls
             } label: {
                 switch viewType {
                 case .grid:
@@ -100,6 +115,7 @@ extension PagingLibraryView {
                     Label(L10n.layout, systemImage: "square.fill.text.grid.1x2")
                 }
             }
+            #endif
         }
     }
 }

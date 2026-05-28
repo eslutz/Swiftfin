@@ -314,8 +314,14 @@ struct SearchView: View {
     @ViewBuilder
     private var visionSearchField: some View {
         HStack(spacing: 10) {
-            Image(systemName: "magnifyingglass")
-                .foregroundStyle(.secondary)
+            Button {
+                isSearchFocused = true
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(L10n.search)
 
             TextField(L10n.search, text: $searchQuery)
                 .textInputAutocapitalization(.never)
