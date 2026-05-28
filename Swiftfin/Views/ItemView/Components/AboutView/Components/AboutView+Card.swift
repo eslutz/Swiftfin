@@ -17,6 +17,10 @@ extension ItemView.AboutView {
         private let title: String
         private let subtitle: String?
 
+        private var cardShape: RoundedRectangle {
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+        }
+
         init(
             title: String,
             subtitle: String? = nil,
@@ -30,12 +34,21 @@ extension ItemView.AboutView {
         }
 
         @ViewBuilder
+        private var cardBackground: some View {
+            #if os(visionOS)
+            cardShape
+                .fill(Color.systemFill)
+            #else
+            Rectangle()
+                .fill(Color.systemFill)
+                .cornerRadius(ratio: 1 / 45, of: \.height)
+            #endif
+        }
+
+        @ViewBuilder
         private var cardContent: some View {
             ZStack(alignment: .leading) {
-
-                Rectangle()
-                    .fill(Color.systemFill)
-                    .cornerRadius(ratio: 1 / 45, of: \.height)
+                cardBackground
 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(title)
@@ -55,10 +68,15 @@ extension ItemView.AboutView {
                     content
                         .frame(maxHeight: .infinity, alignment: .bottomLeading)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .padding()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             #if os(visionOS)
-            .containerShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .clipShape(cardShape)
+                .contentShape(cardShape)
+                .contentShape(.hoverEffect, cardShape)
+                .containerShape(cardShape)
             #endif
         }
 
@@ -69,7 +87,8 @@ extension ItemView.AboutView {
                 }
                 .buttonStyle(.plain)
                 #if os(visionOS)
-                    .visionHoverEffect(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .visionHoverEffect(cardShape, .highlight)
                 #endif
             } else {
                 cardContent

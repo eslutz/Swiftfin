@@ -53,20 +53,27 @@ extension ItemView {
             (size.height + safeAreaInsets.vertical) * heightRatio
         }
 
+        private var scrollHeader: some View {
+            ZStack(alignment: .bottom) {
+                header
+                    .frame(maxWidth: .infinity)
+                    .frame(height: headerHeight)
+                    .clipped()
+
+                overlay
+                    .frame(height: headerHeight, alignment: .bottom)
+            }
+            .frame(height: headerHeight, alignment: .bottom)
+            .overlay {
+                Color.systemBackground
+                    .opacity(headerOpacity)
+            }
+        }
+
         var body: some View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    AlternateLayoutView {
-                        Color.clear
-                            .frame(height: headerHeight, alignment: .bottom)
-                    } content: {
-                        overlay
-                            .frame(height: headerHeight, alignment: .bottom)
-                    }
-                    .overlay {
-                        Color.systemBackground
-                            .opacity(headerOpacity)
-                    }
+                    scrollHeader
 
                     content
                 }
@@ -79,14 +86,6 @@ extension ItemView {
                 start: headerHeight - safeAreaInsets.top - 45,
                 end: headerHeight - safeAreaInsets.top - 5
             )
-            .backgroundParallaxHeader(
-                $scrollViewOffset,
-                height: headerHeight,
-                multiplier: 1
-            ) {
-                header
-                    .frame(height: headerHeight)
-            }
         }
     }
 }
