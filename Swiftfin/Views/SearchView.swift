@@ -56,7 +56,7 @@ struct SearchView: View {
                         .buttonStyle(.plain)
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
-                        .hoverEffect(.highlight)
+                        .visionHoverEffect(cornerRadius: 8)
                         #else
                         .buttonStyle(.plain)
                         #endif
@@ -244,11 +244,15 @@ struct SearchView: View {
                             .foregroundStyle(.primary)
                             .padding(.horizontal, 14)
                             .padding(.vertical, 9)
+                        #if os(visionOS)
+                            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        #else
                             .background(.thinMaterial, in: Capsule())
+                        #endif
                     }
                     .buttonStyle(.plain)
                     #if os(visionOS)
-                        .visionHoverEffect(Capsule())
+                        .visionHoverEffect(cornerRadius: 10)
                     #else
                         .hoverEffect(.lift)
                     #endif
@@ -310,73 +314,16 @@ struct SearchView: View {
         }
     }
 
-    #if os(visionOS)
-    @ViewBuilder
-    private var visionSearchField: some View {
-        HStack(spacing: 10) {
-            Button {
-                isSearchFocused = true
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.secondary)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(L10n.search)
-
-            TextField(L10n.search, text: $searchQuery)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .focused($isSearchFocused)
-                .onSubmit {
-                    submitSearchQuery(searchQuery)
-                }
-
-            if searchQuery.isNotEmpty {
-                Button {
-                    searchQuery = ""
-                    isSearchFocused = true
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(.secondary)
-                .visionHoverEffect(Circle(), .highlight)
-                .accessibilityLabel(L10n.clear)
-            }
-        }
-        .font(.body)
-        .padding(.horizontal, 16)
-        .frame(height: 44)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .visionHoverEffect(RoundedRectangle(cornerRadius: 14, style: .continuous), .highlight)
-        .frame(maxWidth: 860)
-        .padding(.horizontal, 36)
-        .padding(.top, 24)
-    }
-    #endif
-
-    @ViewBuilder
-    private var contentView: some View {
-        #if os(visionOS)
-        VStack(spacing: 0) {
-            visionSearchField
-
-            stateContent
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        #else
-        stateContent
-        #endif
-    }
-
     var body: some View {
-        contentView
+        stateContent
             .animation(.linear(duration: 0.2), value: viewModel.items)
             .animation(.linear(duration: 0.2), value: viewModel.state)
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .navigationTitle(L10n.search)
             .navigationBarTitleDisplayMode(.inline)
+        #if os(visionOS)
+            .toolbar(.visible, for: .navigationBar)
+        #endif
             .refreshable {
                 viewModel.search(query: searchQuery)
             }
@@ -393,7 +340,6 @@ struct SearchView: View {
             .backport.onChange(of: viewModel.state) { _, _ in
                 commitPendingHistoryQueryIfNeeded()
             }
-        #if !os(visionOS)
             .searchable(
                 text: $searchQuery,
                 placement: .navigationBarDrawer(displayMode: .always),
@@ -404,7 +350,6 @@ struct SearchView: View {
             }
             .backport
             .searchFocused($isSearchFocused)
-        #endif
             .onReceive(tabItemSelected) { event in
                 if event.isRepeat, event.isRoot {
                     isSearchFocused = true
