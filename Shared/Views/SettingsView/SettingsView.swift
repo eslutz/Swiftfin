@@ -139,17 +139,7 @@ struct SettingsView: View {
             Picker(L10n.appearance, selection: $appearance)
             #endif
 
-            #if os(visionOS)
-            ChevronButton(L10n.accentColor) {
-                router.route(to: .accentColorSettings)
-            } content: {
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                    .fill(accentColor)
-                    .frame(width: 34, height: 24)
-            }
-            #else
             ColorPicker(L10n.accentColor, selection: $accentColor, supportsOpacity: false)
-            #endif
 
             ChevronButton(L10n.advanced) {
                 router.route(to: .customizeSettingsView)

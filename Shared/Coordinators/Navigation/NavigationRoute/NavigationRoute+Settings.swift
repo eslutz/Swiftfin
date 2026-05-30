@@ -12,16 +12,6 @@ import SwiftUI
 
 extension NavigationRoute {
 
-    #if os(visionOS)
-    static var accentColorSettings: NavigationRoute {
-        NavigationRoute(
-            id: "accentColorSettings"
-        ) {
-            AccentColorSettingsView()
-        }
-    }
-    #endif
-
     static func actionBarButtonSelector(selectedButtonsBinding: Binding<[VideoPlayerActionButton]>) -> NavigationRoute {
         NavigationRoute(id: "actionBarButtonSelector") {
             OrderedSectionSelectorView(selection: selectedButtonsBinding, sources: VideoPlayerActionButton.allCases)
