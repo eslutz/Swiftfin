@@ -119,7 +119,7 @@ extension MediaView {
             }
             #if os(visionOS)
             .buttonStyle(.plain)
-            .visionHoverEffect(RoundedRectangle(cornerRadius: 12, style: .continuous), .highlight)
+            .visionHoverEffect(cornerRadius: 12)
             #else
             .buttonStyle(.card)
             #endif

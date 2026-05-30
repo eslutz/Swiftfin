@@ -114,7 +114,7 @@ struct PrimaryButtonStyle: PrimitiveButtonStyle {
         .listRowInsets(.zero)
         #if os(visionOS)
             .buttonStyle(.plain)
-            .visionHoverEffect(RoundedRectangle(cornerRadius: 10, style: .continuous), .highlight)
+            .visionHoverEffect(cornerRadius: 10)
         #else
             .buttonStyle(.card)
         #endif

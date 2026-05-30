@@ -166,7 +166,7 @@ extension ItemView.iPadOSCinematicScrollView {
                                     .foregroundStyle(.primary)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(.regularMaterial, in: Capsule())
+                                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 #else
                                     .foregroundStyle(Color(UIColor.lightGray))
                                 #endif

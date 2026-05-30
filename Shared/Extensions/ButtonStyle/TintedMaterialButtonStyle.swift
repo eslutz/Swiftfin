@@ -55,9 +55,7 @@ struct TintedMaterialButtonStyle: ButtonStyle {
                 .symbolRenderingMode(.monochrome)
         }
         #if os(visionOS)
-        .contentShape(RoundedRectangle(cornerRadius: 10))
-        .containerShape(RoundedRectangle(cornerRadius: 10))
-        .hoverEffect(.highlight)
+        .visionHoverEffect(RoundedRectangle(cornerRadius: 10, style: .continuous))
         #else
         .hoverEffect(.lift)
         #endif

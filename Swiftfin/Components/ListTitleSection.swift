@@ -38,7 +38,7 @@ struct ListTitleSection: View {
                         .buttonStyle(.plain)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
-                        .visionHoverEffect(Capsule(), .highlight)
+                        .visionHoverEffect(cornerRadius: 10)
                     #endif
                 }
             }
@@ -116,7 +116,7 @@ struct InsetGroupedListHeader<Content: View>: View {
             .foregroundStyle(.primary, .secondary)
             #if os(visionOS)
                 .buttonStyle(.plain)
-                .visionHoverEffect(RoundedRectangle(cornerRadius: 16, style: .continuous), .highlight)
+                .visionHoverEffect(cornerRadius: 16)
             #endif
         } else {
             content

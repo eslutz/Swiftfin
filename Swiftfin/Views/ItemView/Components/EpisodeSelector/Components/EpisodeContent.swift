@@ -68,7 +68,7 @@ extension SeriesEpisodeSelector {
             }
             #if os(visionOS)
             .buttonStyle(.plain)
-            .visionHoverEffect(RoundedRectangle(cornerRadius: 10, style: .continuous), .highlight)
+            .visionHoverEffect(cornerRadius: 10)
             #endif
         }
     }

@@ -52,7 +52,7 @@ struct UserButton: View {
         .foregroundStyle(.primary, .secondary)
         #if os(visionOS)
             .buttonStyle(.plain)
-            .visionHoverEffect(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .visionHoverEffect(cornerRadius: 16)
         #elseif os(tvOS)
             .buttonStyle(.borderless)
             .backport

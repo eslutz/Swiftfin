@@ -77,7 +77,7 @@ extension SelectUserView {
                 .buttonBorderShape(.circle)
             #elseif os(visionOS)
                 .buttonStyle(.plain)
-                .visionHoverEffect(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .visionHoverEffect(cornerRadius: 18)
             #endif
         }
 

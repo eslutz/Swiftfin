@@ -114,7 +114,7 @@ private struct LearnMoreButton: View {
         .font(.footnote)
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .visionHoverEffect(Capsule(), .highlight)
+        .visionHoverEffect(cornerRadius: 10)
         #else
         .buttonStyle(.plain)
         .foregroundStyle(Color.accentColor)

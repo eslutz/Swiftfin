@@ -24,7 +24,7 @@ struct SeeAllButton: View {
             .buttonStyle(.plain)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .visionHoverEffect(Capsule(), .highlight)
+            .visionHoverEffect(cornerRadius: 10)
         #endif
     }
 }

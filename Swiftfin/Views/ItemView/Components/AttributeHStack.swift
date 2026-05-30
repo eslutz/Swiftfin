@@ -41,7 +41,7 @@ extension ItemView {
                 .foregroundStyle(.primary)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 6)
-                .background(.regularMaterial, in: Capsule())
+                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                 #else
                 .foregroundStyle(Color(UIColor.darkGray))
                 #endif

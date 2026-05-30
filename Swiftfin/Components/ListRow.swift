@@ -54,7 +54,7 @@ struct ListRow<Leading: View, Content: View>: View {
             #if os(visionOS)
                 .buttonStyle(.plain)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .visionHoverEffect(RoundedRectangle(cornerRadius: 16, style: .continuous), .highlight)
+                .visionHoverEffect(cornerRadius: 16)
             #endif
                 .contentShape(.contextMenuPreview, Rectangle())
 

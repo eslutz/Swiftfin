@@ -134,7 +134,7 @@ extension ItemView.CinematicScrollView {
                         .foregroundStyle(.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(.regularMaterial, in: Capsule())
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                     #else
                         .foregroundColor(Color(UIColor.lightGray))
                     #endif

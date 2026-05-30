@@ -34,11 +34,15 @@ struct PillHStack<Item: Displayable>: View {
                                 .foregroundStyle(.primary)
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 8)
+                            #if os(visionOS)
+                                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            #else
                                 .background(.thinMaterial, in: Capsule())
+                            #endif
                         }
                         .buttonStyle(.plain)
                         #if os(visionOS)
-                            .visionHoverEffect(Capsule())
+                            .visionHoverEffect(cornerRadius: 10)
                         #endif
                     }
                 }

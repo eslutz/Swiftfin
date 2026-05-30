@@ -56,7 +56,12 @@ struct NavigationDrawerLabelStyle: LabelStyle {
             ContainerRelativeShape()
                 .stroke(isHighlighted ? AnyShapeStyle(Color.accentColor) : AnyShapeStyle(ComplexSecondaryShapeStyle()), lineWidth: 2)
         }
+        #if os(visionOS)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .containerShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        #else
         .clipShape(.capsule)
         .containerShape(.capsule)
+        #endif
     }
 }

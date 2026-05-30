@@ -71,6 +71,10 @@ extension SeriesEpisodeSelector {
                         .posterStyle(.landscape)
                         .posterShadow()
                 }
+                #if os(visionOS)
+                .buttonStyle(.plain)
+                .visionHoverEffect(cornerRadius: 12)
+                #endif
 
                 SeriesEpisodeSelector.EpisodeContent(
                     header: episode.displayTitle,

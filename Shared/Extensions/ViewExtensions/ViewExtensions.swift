@@ -368,14 +368,26 @@ extension View {
     }
 
     #if os(visionOS)
+    // Sets the rounded-rectangle hover/highlight shape for a `Button`.
+    //
+    // A Button's hover shape is driven by its *border shape*, not by an
+    // outer `contentShape(.hoverEffect, …)`. Applying a content shape to a
+    // button from the outside leaves the system's default capsule/circle
+    // highlight, so this must be used for buttons instead.
+    func visionHoverEffect(cornerRadius: CGFloat) -> some View {
+        buttonBorderShape(.roundedRectangle(radius: cornerRadius))
+    }
+
+    // Highlights the *content* it is attached to, in the given shape. Use
+    // this for non-button views, or inside a `ButtonStyle`'s `makeBody`
+    // (where the modified view is the button's own content). For a plain
+    // `Button`, attach `visionHoverEffect(cornerRadius:)` to the button
+    // itself instead.
     func visionHoverEffect(
-        _ shape: some InsettableShape,
-        _ effect: HoverEffect = .lift
+        _ shape: some InsettableShape
     ) -> some View {
-        contentShape(shape)
-            .contentShape(.hoverEffect, shape)
-            .containerShape(shape)
-            .hoverEffect(effect)
+        contentShape(.hoverEffect, shape)
+            .hoverEffect()
     }
 
     func visionFormActionRow() -> some View {

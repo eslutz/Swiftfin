@@ -88,7 +88,7 @@ extension ItemView.AboutView {
                 .buttonStyle(.plain)
                 #if os(visionOS)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .visionHoverEffect(cardShape, .highlight)
+                    .visionHoverEffect(cornerRadius: 18)
                 #endif
             } else {
                 cardContent
