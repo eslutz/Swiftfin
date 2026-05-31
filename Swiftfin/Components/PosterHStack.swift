@@ -56,17 +56,12 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
     @ViewBuilder
     private var stack: some View {
         #if os(visionOS)
-        ScrollView(.horizontal) {
-            LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
-                ForEach(Array(data.prefix(20)), id: \.unwrappedIDHashOrZero) { item in
-                    posterButton(for: item)
-                        .frame(width: type == .landscape ? 220 : 140)
-                }
+        VisionHorizontalScroll {
+            ForEach(Array(data.prefix(20)), id: \.unwrappedIDHashOrZero) { item in
+                posterButton(for: item)
+                    .frame(width: type == .landscape ? 220 : 140)
             }
-            .padding(.horizontal, EdgeInsets.edgePadding)
         }
-        .scrollIndicators(.hidden)
-        .lookToScroll(.horizontal)
         #else
         CollectionHStack(
             uniqueElements: data,

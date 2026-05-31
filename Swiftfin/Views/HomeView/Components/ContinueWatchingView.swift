@@ -53,17 +53,12 @@ extension HomeView {
         @ViewBuilder
         private var collection: some View {
             #if os(visionOS)
-            ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
-                    ForEach(viewModel.resumeItems, id: \.unwrappedIDHashOrZero) { item in
-                        poster(for: item)
-                            .frame(width: 260)
-                    }
+            VisionHorizontalScroll {
+                ForEach(viewModel.resumeItems, id: \.unwrappedIDHashOrZero) { item in
+                    poster(for: item)
+                        .frame(width: 260)
                 }
-                .padding(.horizontal, EdgeInsets.edgePadding)
             }
-            .scrollIndicators(.hidden)
-            .lookToScroll(.horizontal)
             #else
             CollectionHStack(
                 uniqueElements: viewModel.resumeItems,

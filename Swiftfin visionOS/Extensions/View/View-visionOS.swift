@@ -160,3 +160,112 @@ private struct VisionNavigationBarMenuModifier<MenuItems: View>: ViewModifier {
         }
     }
 }
+
+// MARK: Vision collection fallbacks
+
+// On visionOS the UIKit-backed `CollectionHStack` / `CollectionVGrid`
+// components are unavailable, so native scroll views with lazy stacks are
+// used instead. These wrap the shared scaffolding (insets, hidden scroll
+// indicators, look-to-scroll, and paging prefetch) so each call site only
+// supplies its data, layout, and item content.
+
+struct VisionHorizontalScroll<Content: View>: View {
+
+    private let scrollDisabled: Bool
+    private let content: Content
+
+    init(
+        scrollDisabled: Bool = false,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.scrollDisabled = scrollDisabled
+        self.content = content()
+    }
+
+    var body: some View {
+        ScrollView(.horizontal) {
+            LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
+                content
+            }
+            .padding(.horizontal, EdgeInsets.edgePadding)
+        }
+        .scrollIndicators(.hidden)
+        .scrollDisabled(scrollDisabled)
+        .lookToScroll(.horizontal)
+    }
+}
+
+struct VisionVGrid<Data: RandomAccessCollection, ID: Hashable, Content: View>: View {
+
+    private let data: Data
+    private let id: KeyPath<Data.Element, ID>
+    private let columns: [GridItem]
+    private let spacing: CGFloat
+    private let padding: EdgeInsets
+    private let contentMaxWidth: CGFloat?
+    private let prefetchMargin: Int
+    private let onReachedEnd: () -> Void
+    private let content: (Data.Element) -> Content
+
+    init(
+        _ data: Data,
+        id: KeyPath<Data.Element, ID>,
+        columns: [GridItem],
+        spacing: CGFloat,
+        padding: EdgeInsets,
+        contentMaxWidth: CGFloat? = nil,
+        prefetchMargin: Int = 1,
+        onReachedEnd: @escaping () -> Void,
+        @ViewBuilder content: @escaping (Data.Element) -> Content
+    ) {
+        self.data = data
+        self.id = id
+        self.columns = columns
+        self.spacing = spacing
+        self.padding = padding
+        self.contentMaxWidth = contentMaxWidth
+        self.prefetchMargin = prefetchMargin
+        self.onReachedEnd = onReachedEnd
+        self.content = content
+    }
+
+    // The element whose appearance triggers loading the next page. Derived
+    // from the tail so it is O(1) and avoids materializing an enumerated copy
+    // of the whole collection on every render.
+    private var prefetchTriggerID: ID? {
+        data.suffix(Swift.max(prefetchMargin, 1)).first?[keyPath: id]
+    }
+
+    var body: some View {
+        ScrollView {
+            grid
+        }
+        .scrollIndicators(.hidden)
+    }
+
+    @ViewBuilder
+    private var grid: some View {
+        let lazyGrid = LazyVGrid(columns: columns, spacing: spacing) {
+            ForEach(data, id: id) { item in
+                content(item)
+                    .onAppear {
+                        if item[keyPath: id] == prefetchTriggerID {
+                            onReachedEnd()
+                        }
+                    }
+            }
+        }
+        .padding(padding)
+
+        // Only the width-constrained (list) case needs the centering outer
+        // frame; the unconstrained case fills naturally.
+        if let contentMaxWidth {
+            lazyGrid
+                .frame(maxWidth: contentMaxWidth, alignment: .top)
+                .frame(maxWidth: .infinity, alignment: .top)
+        } else {
+            lazyGrid
+                .frame(maxWidth: .infinity, alignment: .top)
+        }
+    }
+}

@@ -297,32 +297,26 @@ struct PagingLibraryView<Element: Poster>: View {
     @ViewBuilder
     private var elementsView: some View {
         #if os(visionOS)
-        ScrollView {
-            LazyVGrid(columns: layout.columns, spacing: layout.lineSpacing) {
-                ForEach(Array(viewModel.elements.enumerated()), id: \.element.unwrappedIDHashOrZero) { offset, item in
-                    let displayType = activeDisplayType
-                    let posterType = activePosterType
+        VisionVGrid(
+            viewModel.elements,
+            id: \.unwrappedIDHashOrZero,
+            columns: layout.columns,
+            spacing: layout.lineSpacing,
+            padding: layout.padding,
+            contentMaxWidth: activeDisplayType == .list ? 940 : nil,
+            prefetchMargin: Self.nextPagePrefetchThreshold
+        ) {
+            viewModel.send(.getNextPage)
+        } content: { item in
+            let posterType = activePosterType
 
-                    Group {
-                        switch displayType {
-                        case .grid:
-                            gridItemView(item: item, posterType: posterType)
-                        case .list:
-                            listItemView(item: item, posterType: posterType)
-                        }
-                    }
-                    .onAppear {
-                        if offset >= max(viewModel.elements.count - Self.nextPagePrefetchThreshold, 0) {
-                            viewModel.send(.getNextPage)
-                        }
-                    }
-                }
+            switch activeDisplayType {
+            case .grid:
+                gridItemView(item: item, posterType: posterType)
+            case .list:
+                listItemView(item: item, posterType: posterType)
             }
-            .padding(layout.padding)
-            .frame(maxWidth: activeDisplayType == .list ? 940 : .infinity, alignment: .top)
-            .frame(maxWidth: .infinity, alignment: .top)
         }
-        .scrollIndicators(.hidden)
         #else
         CollectionVGrid(
             uniqueElements: viewModel.elements,

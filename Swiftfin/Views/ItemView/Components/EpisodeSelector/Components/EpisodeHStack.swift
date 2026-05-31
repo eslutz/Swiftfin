@@ -35,18 +35,13 @@ extension SeriesEpisodeSelector {
         private func contentView(viewModel: SeasonItemViewModel) -> some View {
             #if os(visionOS)
             ScrollViewReader { proxy in
-                ScrollView(.horizontal) {
-                    LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
-                        ForEach(viewModel.elements, id: \.unwrappedIDHashOrZero) { episode in
-                            SeriesEpisodeSelector.EpisodeCard(episode: episode)
-                                .frame(width: 320)
-                                .id(episode.unwrappedIDHashOrZero)
-                        }
+                VisionHorizontalScroll {
+                    ForEach(viewModel.elements, id: \.unwrappedIDHashOrZero) { episode in
+                        SeriesEpisodeSelector.EpisodeCard(episode: episode)
+                            .frame(width: 320)
+                            .id(episode.unwrappedIDHashOrZero)
                     }
-                    .padding(.horizontal, EdgeInsets.edgePadding)
                 }
-                .scrollIndicators(.hidden)
-                .lookToScroll(.horizontal)
                 .onFirstAppear {
                     guard !didScrollToPlayButtonItem else { return }
                     didScrollToPlayButtonItem = true
@@ -103,15 +98,10 @@ extension SeriesEpisodeSelector {
 
         var body: some View {
             #if os(visionOS)
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    SeriesEpisodeSelector.EmptyCard()
-                        .frame(width: 320)
-                }
-                .padding(.horizontal, EdgeInsets.edgePadding)
+            VisionHorizontalScroll(scrollDisabled: true) {
+                SeriesEpisodeSelector.EmptyCard()
+                    .frame(width: 320)
             }
-            .scrollDisabled(true)
-            .scrollIndicators(.hidden)
             #else
             CollectionHStack(
                 count: 1,
@@ -136,17 +126,12 @@ extension SeriesEpisodeSelector {
 
         var body: some View {
             #if os(visionOS)
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    SeriesEpisodeSelector.ErrorCard(error: error) {
-                        viewModel.send(.refresh)
-                    }
-                    .frame(width: 320)
+            VisionHorizontalScroll(scrollDisabled: true) {
+                SeriesEpisodeSelector.ErrorCard(error: error) {
+                    viewModel.send(.refresh)
                 }
-                .padding(.horizontal, EdgeInsets.edgePadding)
+                .frame(width: 320)
             }
-            .scrollDisabled(true)
-            .scrollIndicators(.hidden)
             #else
             CollectionHStack(
                 count: 1,
@@ -167,17 +152,12 @@ extension SeriesEpisodeSelector {
 
         var body: some View {
             #if os(visionOS)
-            ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
-                    ForEach(0 ..< Int.random(in: 2 ..< 5), id: \.self) { _ in
-                        SeriesEpisodeSelector.LoadingCard()
-                            .frame(width: 320)
-                    }
+            VisionHorizontalScroll(scrollDisabled: true) {
+                ForEach(0 ..< Int.random(in: 2 ..< 5), id: \.self) { _ in
+                    SeriesEpisodeSelector.LoadingCard()
+                        .frame(width: 320)
                 }
-                .padding(.horizontal, EdgeInsets.edgePadding)
             }
-            .scrollDisabled(true)
-            .scrollIndicators(.hidden)
             #else
             CollectionHStack(
                 count: Int.random(in: 2 ..< 5),

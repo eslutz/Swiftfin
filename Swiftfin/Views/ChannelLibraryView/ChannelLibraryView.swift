@@ -129,27 +129,22 @@ struct ChannelLibraryView: View {
     @ViewBuilder
     private var contentView: some View {
         #if os(visionOS)
-        ScrollView {
-            LazyVGrid(columns: layout.columns, spacing: layout.spacing) {
-                ForEach(Array(viewModel.elements.enumerated()), id: \.element.unwrappedIDHashOrZero) { offset, channel in
-                    Group {
-                        switch channelDisplayType {
-                        case .grid:
-                            compactChannelView(channel: channel)
-                        case .list:
-                            detailedChannelView(channel: channel)
-                        }
-                    }
-                    .onAppear {
-                        if offset == viewModel.elements.count - 1 {
-                            viewModel.send(.getNextPage)
-                        }
-                    }
-                }
+        VisionVGrid(
+            viewModel.elements,
+            id: \.unwrappedIDHashOrZero,
+            columns: layout.columns,
+            spacing: layout.spacing,
+            padding: EdgeInsets(EdgeInsets.edgePadding)
+        ) {
+            viewModel.send(.getNextPage)
+        } content: { channel in
+            switch channelDisplayType {
+            case .grid:
+                compactChannelView(channel: channel)
+            case .list:
+                detailedChannelView(channel: channel)
             }
-            .padding(EdgeInsets.edgePadding)
         }
-        .scrollIndicators(.hidden)
         #else
         CollectionVGrid(
             uniqueElements: viewModel.elements,
