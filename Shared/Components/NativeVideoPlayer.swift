@@ -9,7 +9,6 @@
 import AVKit
 import Factory
 import JellyfinAPI
-import Logging
 import SwiftUI
 #if !os(visionOS)
 import Transmission
@@ -32,10 +31,6 @@ struct NativeVideoPlayer: View {
 
     @Router
     private var router
-
-    #if os(visionOS)
-    private let logger = Logger.swiftfin()
-    #endif
 
     init() {
         self._proxy = .init(wrappedValue: AVMediaPlayerProxy())
@@ -70,13 +65,6 @@ struct NativeVideoPlayer: View {
             }
         }
         .onAppear {
-            #if os(visionOS)
-            logger.info(
-                "visionOS native player appeared; starting playback",
-                metadata: visionLogMetadata
-            )
-            #endif
-
             manager.proxy = proxy
             manager.start()
         }
@@ -85,18 +73,6 @@ struct NativeVideoPlayer: View {
         #if os(visionOS)
         playerView
             .onDisappear {
-                if !isExpectedVisionDisappearState {
-                    logger.warning(
-                        "visionOS native player disappeared outside playback flow",
-                        metadata: visionLogMetadata
-                    )
-                }
-
-                logger.debug(
-                    "visionOS native player disappeared; cleaning up playback",
-                    metadata: visionLogMetadata
-                )
-
                 Container.shared.mediaPlayerManager.reset()
                 manager.stop()
             }
@@ -111,45 +87,6 @@ struct NativeVideoPlayer: View {
         #endif
     }
 }
-
-#if os(visionOS)
-private extension NativeVideoPlayer {
-
-    var visionLogMetadata: Logger.Metadata {
-        var metadata: Logger.Metadata = [
-            "platform": .string("visionOS"),
-            "player": .string("native-avkit"),
-            "state": .string(String(describing: manager.state)),
-        ]
-
-        if let playbackItem = manager.playbackItem {
-            metadata["itemID"] = .stringConvertible(playbackItem.baseItem.id ?? "Unknown")
-            metadata["itemTitle"] = .stringConvertible(playbackItem.baseItem.displayTitle)
-        } else {
-            metadata["itemID"] = .stringConvertible(manager.item.id ?? "Unknown")
-            metadata["itemTitle"] = .stringConvertible(manager.item.displayTitle)
-        }
-
-        return metadata
-    }
-
-    var isExpectedVisionDisappearState: Bool {
-        manager.state.isExpectedNativeVideoPlayerDisappearState
-    }
-}
-
-extension MediaPlayerManager._State {
-
-    var isExpectedNativeVideoPlayerDisappearState: Bool {
-        switch self {
-        case .error, .stopped:
-            true
-        case .initial, .loadingItem, .playback:
-            false
-        }
-    }
-}
-#endif
 
 extension NativeVideoPlayer {
 

@@ -11,7 +11,6 @@ import Combine
 import Defaults
 import Foundation
 @preconcurrency import JellyfinAPI
-import Logging
 import SwiftUI
 
 // TODO: After NativeVideoPlayer is removed, can move bindings and
@@ -41,10 +40,6 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
     private var timeObserver: Any!
     private var managerItemObserver: AnyCancellable?
     private var managerStateObserver: AnyCancellable?
-
-    #if os(visionOS)
-    private let logger = Logger.swiftfin()
-    #endif
 
     weak var manager: MediaPlayerManager? {
         didSet {
@@ -211,26 +206,11 @@ extension AVMediaPlayerProxy {
     private func playNew(item: MediaPlayerItem) {
         let baseItem = item.baseItem
 
-        #if os(visionOS)
-        let visionItemID = baseItem.id ?? "Unknown"
-        let visionItemTitle = baseItem.displayTitle
-        #endif
-
         let newAVPlayerItem = AVPlayerItem(url: item.url)
         newAVPlayerItem.externalMetadata = item.baseItem.avMetadata
 
         player.replaceCurrentItem(with: newAVPlayerItem)
         observeItemDidPlayToEnd(newAVPlayerItem)
-
-        #if os(visionOS)
-        logger.debug(
-            "visionOS AVPlayer item replaced",
-            metadata: visionLogMetadata(
-                itemID: visionItemID,
-                itemTitle: visionItemTitle
-            )
-        )
-        #endif
 
         // TODO: protect against paused
 //        rateObserver = player.observe(\.rate, options: [.new, .initial]) { _, value in
@@ -249,17 +229,8 @@ extension AVMediaPlayerProxy {
                 case .paused:
                     self.manager?.setPlaybackRequestStatus(status: .paused)
                 case .waitingToPlayAtSpecifiedRate:
-                    #if os(visionOS)
-                    self.logger.warning(
-                        "visionOS AVPlayer waiting to play",
-                        metadata: self.visionLogMetadata(
-                            itemID: visionItemID,
-                            itemTitle: visionItemTitle,
-                            status: self.visionTimeControlStatusDescription(timeControlStatus)
-                        )
-                    )
-                    #endif
-                // TODO: buffering
+                    // TODO: buffering
+                    break
                 case .playing:
                     self.manager?.setPlaybackRequestStatus(status: .playing)
                 @unknown default: ()
@@ -274,33 +245,7 @@ extension AVMediaPlayerProxy {
             case .failed:
                 Task { @MainActor [weak self] in
                     guard let self else { return }
-
-                    guard let error = self.player.error else {
-                        #if os(visionOS)
-                        self.logger.warning(
-                            "visionOS AVPlayer failed without an error",
-                            metadata: self.visionLogMetadata(
-                                itemID: visionItemID,
-                                itemTitle: visionItemTitle,
-                                status: self.visionPlayerItemStatusDescription(newValue)
-                            )
-                        )
-                        #endif
-
-                        return
-                    }
-
-                    #if os(visionOS)
-                    self.logger.error(
-                        "visionOS AVPlayer failed",
-                        metadata: self.visionLogMetadata(
-                            itemID: visionItemID,
-                            itemTitle: visionItemTitle,
-                            status: self.visionPlayerItemStatusDescription(newValue),
-                            error: error.localizedDescription
-                        )
-                    )
-                    #endif
+                    guard let error = self.player.error else { return }
 
                     self.manager?.error(ErrorMessage("AVPlayer error: \(error.localizedDescription)"))
                 }
@@ -309,19 +254,6 @@ extension AVMediaPlayerProxy {
 
                 Task { @MainActor [weak self] in
                     guard let self else { return }
-
-                    if newValue == .readyToPlay {
-                        #if os(visionOS)
-                        self.logger.debug(
-                            "visionOS AVPlayer ready; seeking to start position",
-                            metadata: self.visionLogMetadata(
-                                itemID: visionItemID,
-                                itemTitle: visionItemTitle,
-                                status: self.visionPlayerItemStatusDescription(newValue)
-                            )
-                        )
-                        #endif
-                    }
 
                     self.player.seek(
                         to: CMTimeMake(
@@ -342,63 +274,6 @@ extension AVMediaPlayerProxy {
         }
     }
 }
-
-#if os(visionOS)
-private extension AVMediaPlayerProxy {
-
-    func visionLogMetadata(
-        itemID: String,
-        itemTitle: String,
-        status: String? = nil,
-        error: String? = nil
-    ) -> Logger.Metadata {
-        var metadata: Logger.Metadata = [
-            "platform": .string("visionOS"),
-            "player": .string("native-avkit"),
-            "itemID": .stringConvertible(itemID),
-            "itemTitle": .stringConvertible(itemTitle),
-        ]
-
-        if let status {
-            metadata["status"] = .string(status)
-        }
-
-        if let error {
-            metadata["error"] = .string(error)
-        }
-
-        return metadata
-    }
-
-    func visionPlayerItemStatusDescription(_ status: AVPlayerItem.Status?) -> String {
-        switch status {
-        case .none:
-            "none"
-        case .some(.failed):
-            "failed"
-        case .some(.readyToPlay):
-            "readyToPlay"
-        case .some(.unknown):
-            "unknown"
-        @unknown default:
-            "unknown"
-        }
-    }
-
-    func visionTimeControlStatusDescription(_ status: AVPlayer.TimeControlStatus) -> String {
-        switch status {
-        case .paused:
-            "paused"
-        case .waitingToPlayAtSpecifiedRate:
-            "waitingToPlayAtSpecifiedRate"
-        case .playing:
-            "playing"
-        @unknown default:
-            "unknown"
-        }
-    }
-}
-#endif
 
 // MARK: - AVPlayerView
 

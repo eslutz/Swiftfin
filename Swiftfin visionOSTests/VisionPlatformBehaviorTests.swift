@@ -112,19 +112,6 @@ struct VisionVideoPlayerDefaultsTests {
         #expect(VideoPlayerType.allCases == [.native])
         #expect(Defaults[.VideoPlayer.videoPlayerType] == .native)
     }
-
-    @Test
-    func `vision OS native player disappear is unexpected while playback is active`() {
-        #expect(!MediaPlayerManager._State.loadingItem.isExpectedNativeVideoPlayerDisappearState)
-        #expect(!MediaPlayerManager._State.playback.isExpectedNativeVideoPlayerDisappearState)
-        #expect(!MediaPlayerManager._State.initial.isExpectedNativeVideoPlayerDisappearState)
-    }
-
-    @Test
-    func `vision OS native player disappear is expected after stop or error`() {
-        #expect(MediaPlayerManager._State.stopped.isExpectedNativeVideoPlayerDisappearState)
-        #expect(MediaPlayerManager._State.error.isExpectedNativeVideoPlayerDisappearState)
-    }
 }
 
 @Suite("visionOS public user identity")
