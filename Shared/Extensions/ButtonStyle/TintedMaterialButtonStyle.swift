@@ -41,7 +41,7 @@ struct TintedMaterialButtonStyle: ButtonStyle {
         ZStack {
             #if os(visionOS)
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(buttonTint)
+                .fill(visionButtonBackground)
             #else
             TintedMaterial(tint: buttonTint)
                 .id(isSelected)
@@ -61,6 +61,19 @@ struct TintedMaterialButtonStyle: ButtonStyle {
         #endif
     }
 
+    #if os(visionOS)
+    // On visionOS the tinted material is replaced by system glass: the selected
+    // state keeps the accent tint for a prominent fill, while the unselected /
+    // disabled state uses a translucent material that reads as glass over the
+    // window background.
+    private var visionButtonBackground: AnyShapeStyle {
+        if isEnabled && isSelected {
+            AnyShapeStyle(tint)
+        } else {
+            AnyShapeStyle(.regularMaterial)
+        }
+    }
+    #else
     private var buttonTint: Color {
         if isEnabled && isSelected {
             tint
@@ -69,6 +82,7 @@ struct TintedMaterialButtonStyle: ButtonStyle {
             Color.gray.opacity(0.3)
         }
     }
+    #endif
 
     private var foregroundStyle: AnyShapeStyle {
         if isSelected {
