@@ -34,89 +34,69 @@ extension HomeView {
             }
         }
 
-        var body: some View {
+        @ViewBuilder
+        private func poster(for item: BaseItemDto) -> some View {
+            PosterButton(
+                item: item,
+                type: .landscape
+            ) { namespace in
+                router.route(to: .item(item: item), in: namespace)
+            } label: {
+                if item.type == .episode {
+                    PosterButton.EpisodeContentSubtitleContent(item: item)
+                } else {
+                    PosterButton.TitleSubtitleContentView(item: item)
+                }
+            }
+        }
+
+        @ViewBuilder
+        private var collection: some View {
             #if os(visionOS)
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
                     ForEach(viewModel.resumeItems, id: \.unwrappedIDHashOrZero) { item in
-                        PosterButton(
-                            item: item,
-                            type: .landscape
-                        ) { namespace in
-                            router.route(to: .item(item: item), in: namespace)
-                        } label: {
-                            if item.type == .episode {
-                                PosterButton.EpisodeContentSubtitleContent(item: item)
-                            } else {
-                                PosterButton.TitleSubtitleContentView(item: item)
-                            }
-                        }
-                        .frame(width: 260)
+                        poster(for: item)
+                            .frame(width: 260)
                     }
                 }
                 .padding(.horizontal, EdgeInsets.edgePadding)
             }
             .scrollIndicators(.hidden)
             .lookToScroll(.horizontal)
-            .contextMenu(for: BaseItemDto.self) { item in
-                Button {
-                    viewModel.send(.setIsPlayed(true, item))
-                } label: {
-                    Label(L10n.played, systemImage: "checkmark.circle")
-                }
-
-                Button(role: .destructive) {
-                    viewModel.send(.setIsPlayed(false, item))
-                } label: {
-                    Label(L10n.unplayed, systemImage: "minus.circle")
-                }
-            }
-            .posterOverlay(for: BaseItemDto.self) { item in
-                LandscapePosterProgressBar(
-                    title: item.progressLabel ?? L10n.continue,
-                    progress: (item.userData?.playedPercentage ?? 0) / 100
-                )
-            }
             #else
             CollectionHStack(
                 uniqueElements: viewModel.resumeItems,
                 columns: columnCount
             ) { item in
-                PosterButton(
-                    item: item,
-                    type: .landscape
-                ) { namespace in
-                    router.route(to: .item(item: item), in: namespace)
-                } label: {
-                    if item.type == .episode {
-                        PosterButton.EpisodeContentSubtitleContent(item: item)
-                    } else {
-                        PosterButton.TitleSubtitleContentView(item: item)
-                    }
-                }
+                poster(for: item)
             }
             .clipsToBounds(false)
             .scrollBehavior(.continuousLeadingEdge)
-            .contextMenu(for: BaseItemDto.self) { item in
-                Button {
-                    viewModel.send(.setIsPlayed(true, item))
-                } label: {
-                    Label(L10n.played, systemImage: "checkmark.circle")
-                }
-
-                Button(role: .destructive) {
-                    viewModel.send(.setIsPlayed(false, item))
-                } label: {
-                    Label(L10n.unplayed, systemImage: "minus.circle")
-                }
-            }
-            .posterOverlay(for: BaseItemDto.self) { item in
-                LandscapePosterProgressBar(
-                    title: item.progressLabel ?? L10n.continue,
-                    progress: (item.userData?.playedPercentage ?? 0) / 100
-                )
-            }
             #endif
+        }
+
+        var body: some View {
+            collection
+                .contextMenu(for: BaseItemDto.self) { item in
+                    Button {
+                        viewModel.send(.setIsPlayed(true, item))
+                    } label: {
+                        Label(L10n.played, systemImage: "checkmark.circle")
+                    }
+
+                    Button(role: .destructive) {
+                        viewModel.send(.setIsPlayed(false, item))
+                    } label: {
+                        Label(L10n.unplayed, systemImage: "minus.circle")
+                    }
+                }
+                .posterOverlay(for: BaseItemDto.self) { item in
+                    LandscapePosterProgressBar(
+                        title: item.progressLabel ?? L10n.continue,
+                        progress: (item.userData?.playedPercentage ?? 0) / 100
+                    )
+                }
         }
     }
 }

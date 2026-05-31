@@ -22,14 +22,7 @@ protocol PlatformView: View {
 }
 
 extension PlatformView {
-    #if os(iOS)
-    @ViewBuilder
-    @MainActor
-    var body: some View {
-        iOSView
-    }
-
-    #elseif os(visionOS)
+    #if os(iOS) || os(visionOS)
     @ViewBuilder
     @MainActor
     var body: some View {

@@ -42,20 +42,25 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
     #endif
 
     @ViewBuilder
+    private func posterButton(for item: Element) -> some View {
+        PosterButton(
+            item: item,
+            type: type
+        ) { namespace in
+            action(item, namespace)
+        } label: {
+            label(item).eraseToAnyView()
+        }
+    }
+
+    @ViewBuilder
     private var stack: some View {
         #if os(visionOS)
         ScrollView(.horizontal) {
             LazyHStack(alignment: .top, spacing: EdgeInsets.edgePadding / 2) {
                 ForEach(Array(data.prefix(20)), id: \.unwrappedIDHashOrZero) { item in
-                    PosterButton(
-                        item: item,
-                        type: type
-                    ) { namespace in
-                        action(item, namespace)
-                    } label: {
-                        label(item).eraseToAnyView()
-                    }
-                    .frame(width: type == .landscape ? 220 : 140)
+                    posterButton(for: item)
+                        .frame(width: type == .landscape ? 220 : 140)
                 }
             }
             .padding(.horizontal, EdgeInsets.edgePadding)
@@ -67,14 +72,7 @@ struct PosterHStack<Element: Poster, Data: Collection>: View where Data.Element 
             uniqueElements: data,
             layout: layout
         ) { item in
-            PosterButton(
-                item: item,
-                type: type
-            ) { namespace in
-                action(item, namespace)
-            } label: {
-                label(item).eraseToAnyView()
-            }
+            posterButton(for: item)
         }
         .clipsToBounds(false)
         .dataPrefix(20)
