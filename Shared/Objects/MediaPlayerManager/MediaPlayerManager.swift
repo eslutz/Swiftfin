@@ -136,6 +136,11 @@ final class MediaPlayerManager: ViewModel {
 
     // TODO: replace with graph dependency package
     private func setSupplements() {
+        #if os(visionOS)
+        // visionOS uses the native AVKit player, which does not present the
+        // custom supplement panels, so none are built.
+        self.supplements = []
+        #else
         self.supplements = Defaults[.VideoPlayer.supplements].compactMap { kind -> (any MediaPlayerSupplement)? in
             switch kind {
             case .info:
@@ -153,6 +158,7 @@ final class MediaPlayerManager: ViewModel {
                 return PlaybackInformationSupplement(itemID: itemID)
             }
         }
+        #endif
     }
 
     /// The current seconds media playback is set to.

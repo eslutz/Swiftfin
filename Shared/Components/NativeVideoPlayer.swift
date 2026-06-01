@@ -17,8 +17,10 @@ import Transmission
 
 struct NativeVideoPlayer: View {
 
+    #if !os(visionOS)
     @Environment(\.presentationCoordinator)
     private var presentationCoordinator
+    #endif
 
     @InjectedObject(\.mediaPlayerManager)
     private var manager: MediaPlayerManager
@@ -50,26 +52,33 @@ struct NativeVideoPlayer: View {
             manager.start()
         }
         .prefersStatusBarHidden()
-        .backport
-        .onChange(of: presentationCoordinator.isPresented) { _, isPresented in
-            Container.shared.mediaPlayerManager.reset()
-            guard !isPresented else { return }
-            manager.stop()
-        }
-        .alert(
-            L10n.error,
-            isPresented: .constant(manager.error != nil)
-        ) {
-            Button(L10n.close, role: .cancel) {
+        #if os(visionOS)
+            .onDisappear {
                 Container.shared.mediaPlayerManager.reset()
-                router.dismiss()
+                manager.stop()
             }
-        } message: {
-            Text(L10n.unableToLoadThisItem)
-        }
-        .onFinalDisappear {
-            manager.stop()
-        }
+        #else
+            .backport
+            .onChange(of: presentationCoordinator.isPresented) { _, isPresented in
+                Container.shared.mediaPlayerManager.reset()
+                guard !isPresented else { return }
+                manager.stop()
+            }
+        #endif
+            .alert(
+                    L10n.error,
+                    isPresented: .constant(manager.error != nil)
+                ) {
+                    Button(L10n.close, role: .cancel) {
+                        Container.shared.mediaPlayerManager.reset()
+                        router.dismiss()
+                    }
+                } message: {
+                    Text(L10n.unableToLoadThisItem)
+                }
+                .onFinalDisappear {
+                    manager.stop()
+                }
     }
 }
 
@@ -97,12 +106,15 @@ extension NativeVideoPlayer {
 
             player = proxy.player
 
-            player?.allowsExternalPlayback = true
             player?.appliesMediaSelectionCriteriaAutomatically = false
-            player?.usesExternalPlaybackWhileExternalScreenIsActive = true
             allowsPictureInPicturePlayback = true
 
-            #if !os(tvOS)
+            #if !os(visionOS)
+            player?.allowsExternalPlayback = true
+            player?.usesExternalPlaybackWhileExternalScreenIsActive = true
+            #endif
+
+            #if !os(tvOS) && !os(visionOS)
             updatesNowPlayingInfoCenter = false
             #endif
         }

@@ -60,15 +60,25 @@ struct ConnectToServerView: View {
             Button(L10n.cancel, role: .cancel) {
                 viewModel.cancel()
             }
+            #if os(visionOS)
+            .buttonStyle(.compactPrimary)
+            .visionFormActionRow()
+            #else
             .buttonStyle(.primary)
             .frame(maxHeight: 75)
+            #endif
         } else {
             Button(L10n.connect) {
                 isURLFocused = false
                 viewModel.connect(url: url)
             }
+            #if os(visionOS)
+            .buttonStyle(.compactPrimary)
+            .visionFormActionRow()
+            #else
             .buttonStyle(.primary)
             .frame(maxHeight: 75)
+            #endif
             .disabled(url.isEmpty)
             .foregroundStyle(
                 accentColor.overlayColor,
@@ -101,7 +111,7 @@ struct ConnectToServerView: View {
 
     @ViewBuilder
     private var contentView: some View {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         List {
             connectSection
 

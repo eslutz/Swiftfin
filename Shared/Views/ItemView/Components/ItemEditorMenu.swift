@@ -10,6 +10,16 @@ import Defaults
 import JellyfinAPI
 import SwiftUI
 
+#if os(visionOS)
+struct ItemEditorMenu: View {
+
+    init(item: BaseItemDto) {}
+
+    var body: some View {
+        EmptyView()
+    }
+}
+#else
 struct ItemEditorMenu: View {
 
     @Router
@@ -88,3 +98,4 @@ struct ItemEditorMenu: View {
          #endif */
     }
 }
+#endif

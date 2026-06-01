@@ -42,7 +42,14 @@ extension ConnectToServerView {
                 #endif
             }
             .foregroundStyle(.primary, .secondary)
-            .buttonStyle(.card)
+            #if os(visionOS)
+                .buttonStyle(.plain)
+                .padding()
+                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .visionHoverEffect(cornerRadius: 16)
+            #else
+                .buttonStyle(.card)
+            #endif
         }
     }
 }

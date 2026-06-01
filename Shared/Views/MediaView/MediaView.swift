@@ -62,7 +62,11 @@ struct MediaView: View {
             )
             router.route(to: .library(viewModel: viewModel), in: namespace)
         case .liveTV:
+            #if os(visionOS)
+            break
+            #else
             router.route(to: .liveTV)
+            #endif
         }
     }
 

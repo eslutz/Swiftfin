@@ -8,7 +8,9 @@
 
 import PreferencesView
 import SwiftUI
+#if !os(visionOS)
 import Transmission
+#endif
 
 // TODO: have full screen zoom presentation zoom from/to center
 //       - probably need to make mock view with matching ids
@@ -73,7 +75,7 @@ struct NavigationInjectionView: View {
                 .environmentObject(rootCoordinator)
                 .background(.regularMaterial)
             }
-        #else // <- Start: Use this for both OS when fixed
+        #else
             .sheet(
                 item: $coordinator.presentedSheet
             ) {
@@ -86,8 +88,8 @@ struct NavigationInjectionView: View {
                 }
                 .environmentObject(rootCoordinator)
             }
-        #endif // <- End
-        #if os(tvOS)
+        #endif
+        #if os(tvOS) || os(visionOS)
         .fullScreenCover(
             item: $coordinator.presentedFullScreen
         ) { route in
