@@ -15,24 +15,51 @@ extension UIDevice {
     }
 
     static var isPad: Bool {
+        #if os(visionOS)
+        // Reuse the iPad layout path until visionOS has dedicated spatial layouts.
+        true
+        #else
         current.userInterfaceIdiom == .pad
+        #endif
     }
 
     static var isPhone: Bool {
+        #if os(visionOS)
+        false
+        #else
         current.userInterfaceIdiom == .phone
+        #endif
     }
 
     static var isTV: Bool {
+        #if os(visionOS)
+        false
+        #else
         current.userInterfaceIdiom == .tv
+        #endif
+    }
+
+    static var isVision: Bool {
+        #if os(visionOS)
+        true
+        #else
+        false
+        #endif
     }
 
     static var hasNotch: Bool {
+        #if os(visionOS)
+        false
+        #else
         (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) > 0 &&
             isPhone
+        #endif
     }
 
     static var platform: String {
-        #if os(tvOS)
+        #if os(visionOS)
+        L10n.visionOS
+        #elseif os(tvOS)
         L10n.tvOS
         #else
         if UIDevice.isPad {
@@ -70,7 +97,7 @@ extension UIDevice {
     #endif
 }
 
-#if os(tvOS)
+#if os(tvOS) || os(visionOS)
 enum UINotificationFeedbackGenerator {
     enum FeedbackType {
         case success

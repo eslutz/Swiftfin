@@ -11,7 +11,6 @@ import Defaults
 import Factory
 import Foundation
 import JellyfinAPI
-import VLCUI
 
 // TODO: proper error catching
 

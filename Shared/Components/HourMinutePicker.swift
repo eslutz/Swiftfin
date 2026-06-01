@@ -33,7 +33,7 @@ struct HourMinutePicker: View {
         }
         #endif
 
-        #if !os(tvOS)
+        #if os(iOS) || os(visionOS)
         if isPresented {
             _HourMinutePickerView(interval: interval)
         }
@@ -84,6 +84,23 @@ private struct _HourMinutePickerView: UIViewRepresentable {
         @objc
         func dateChanged(_ picker: UIDatePicker) {
             interval.wrappedValue = picker.countDownDuration
+        }
+    }
+}
+
+#endif
+
+// MARK: - visionOS Picker
+
+#if os(visionOS)
+
+private struct _HourMinutePickerView: View {
+
+    let interval: Binding<TimeInterval>
+
+    var body: some View {
+        Stepper(value: interval, in: 60 ... 86400, step: 60) {
+            Text(Duration.seconds(interval.wrappedValue), format: .hourMinuteAbbreviated)
         }
     }
 }

@@ -39,7 +39,7 @@ public extension View {
 
     /// - Important: This does nothing on tvOS.
     func supportedOrientations(_ supportedOrientations: UIInterfaceOrientationMask) -> some View {
-        #if os(tvOS)
+        #if os(tvOS) || os(visionOS)
         self
         #else
         preference(key: SupportedOrientationsPreferenceKey.self, value: supportedOrientations)
@@ -47,7 +47,7 @@ public extension View {
     }
 }
 
-#if os(tvOS)
+#if os(tvOS) || os(visionOS)
 public struct UIInterfaceOrientationMask: OptionSet {
 
     public let rawValue: UInt

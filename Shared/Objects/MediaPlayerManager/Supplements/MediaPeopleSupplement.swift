@@ -6,10 +6,13 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
-import CollectionVGrid
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+import CollectionVGrid
+#endif
 
 class MediaPeopleSupplement: ObservableObject, MediaPlayerSupplement {
 
@@ -59,6 +62,9 @@ extension MediaPeopleSupplement {
 
         @ViewBuilder
         private var iOSCompactView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             CollectionVGrid(
                 uniqueElements: people,
                 layout: .columns(
@@ -69,11 +75,12 @@ extension MediaPeopleSupplement {
                 PersonRow(person: person)
                     .edgePadding(.horizontal)
             }
+            #endif
         }
 
         @ViewBuilder
         private func personView(for person: BaseItemPerson) -> some View {
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
             PosterButton(
                 item: person,
                 type: .portrait
@@ -93,6 +100,9 @@ extension MediaPeopleSupplement {
 
         @ViewBuilder
         private var iOSRegularView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             CollectionHStack(
                 uniqueElements: people,
                 id: \.unwrappedIDHashOrZero,
@@ -104,9 +114,13 @@ extension MediaPeopleSupplement {
             .insets(horizontal: max(safeAreaInsets.leading, safeAreaInsets.trailing) + EdgeInsets.edgePadding)
             .itemSpacing(EdgeInsets.edgePadding / 2)
             .scrollBehavior(.continuousLeadingEdge)
+            #endif
         }
 
         var tvOSView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             CollectionHStack(
                 uniqueElements: people,
                 id: \.unwrappedIDHashOrZero,
@@ -118,6 +132,7 @@ extension MediaPeopleSupplement {
             .insets(horizontal: max(safeAreaInsets.leading, safeAreaInsets.trailing) + EdgeInsets.edgePadding)
             .itemSpacing(EdgeInsets.edgePadding - 20)
             .scrollBehavior(.continuousLeadingEdge)
+            #endif
         }
     }
 

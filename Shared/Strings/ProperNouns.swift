@@ -137,6 +137,7 @@ extension L10n {
     static let iPadOS = "iPadOS"
     static let macOS = "macOS"
     static let tvOS = "tvOS"
+    static let visionOS = "visionOS"
 
     // MARK: - Clients
 

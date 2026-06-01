@@ -6,11 +6,14 @@
 // Copyright (c) 2026 Jellyfin & Jellyfin Contributors
 //
 
-import CollectionHStack
-import CollectionVGrid
 import Defaults
 import JellyfinAPI
 import SwiftUI
+
+#if !os(visionOS)
+import CollectionHStack
+import CollectionVGrid
+#endif
 
 // TODO: current button
 // TODO: scroll to current chapter on appear
@@ -63,8 +66,10 @@ extension MediaChaptersSupplement {
         @ObservedObject
         private var supplement: MediaChaptersSupplement
 
+        #if !os(visionOS)
         @StateObject
         private var collectionHStackProxy: CollectionHStackProxy = .init()
+        #endif
 
         init(supplement: MediaChaptersSupplement) {
             self.supplement = supplement
@@ -95,6 +100,9 @@ extension MediaChaptersSupplement {
 
         @ViewBuilder
         private var iOSCompactView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             // TODO: scroll to current chapter
             CollectionVGrid(
                 uniqueElements: chapters,
@@ -111,10 +119,14 @@ extension MediaChaptersSupplement {
                 .edgePadding(.horizontal)
                 .environmentObject(supplement)
             }
+            #endif
         }
 
         @ViewBuilder
         private var iOSRegularView: some View {
+            #if os(visionOS)
+            EmptyView()
+            #else
             // TODO: change to continuousLeadingEdge after
             // layout inset fix in CollectionHStack
             CollectionHStack(
@@ -135,6 +147,7 @@ extension MediaChaptersSupplement {
                 guard let currentChapter else { return }
                 collectionHStackProxy.scrollTo(id: currentChapter.id)
             }
+            #endif
         }
 
         var tvOSView: some View {
