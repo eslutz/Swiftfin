@@ -91,6 +91,13 @@ extension View {
     func listRowCornerRadius(_ radius: CGFloat) -> some View {
         clipShape(RoundedRectangle(cornerRadius: radius))
     }
+
+    /// Shapes the system hover highlight as a rounded rectangle. Attach to a
+    /// plain `Button` (or inside a `ButtonStyle`) so gaze/pointer highlighting
+    /// matches the content's corner radius instead of defaulting to a capsule.
+    func visionHoverEffect(cornerRadius: CGFloat) -> some View {
+        buttonBorderShape(.roundedRectangle(radius: cornerRadius))
+    }
 }
 
 // MARK: Filter modifier
