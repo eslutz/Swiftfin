@@ -98,6 +98,15 @@ extension View {
     func visionHoverEffect(cornerRadius: CGFloat) -> some View {
         buttonBorderShape(.roundedRectangle(radius: cornerRadius))
     }
+
+    /// Centers a full-width action row inside a `List`/`Form` and clears its
+    /// row chrome, so primary form buttons read as standalone actions on visionOS.
+    func visionFormActionRow() -> some View {
+        frame(maxWidth: .infinity, alignment: .center)
+            .listRowInsets(.init(vertical: 8, horizontal: EdgeInsets.edgePadding))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+    }
 }
 
 // MARK: Filter modifier
