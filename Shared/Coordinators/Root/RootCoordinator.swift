@@ -25,7 +25,7 @@ final class RootCoordinator: ObservableObject {
                 try await SwiftfinStore.setupDataStack()
 
                 if Container.shared.currentUserSession() != nil, !Defaults[.signOutOnClose] {
-                    #if os(tvOS)
+                    #if os(tvOS) || os(visionOS)
                     await MainActor.run {
                         root(.mainTab)
                     }
@@ -61,7 +61,7 @@ final class RootCoordinator: ObservableObject {
     private func didSignIn() {
         logger.info("Signed in")
 
-        #if os(tvOS)
+        #if os(tvOS) || os(visionOS)
         root(.mainTab)
         #else
         root(.serverCheck)
