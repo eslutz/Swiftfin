@@ -760,10 +760,6 @@ internal enum L10n {
   internal static let hearingImpaired = L10n.tr("Localizable", "hearingImpaired", fallback: "Hearing impaired")
   /// Hex color
   internal static let hexColor = L10n.tr("Localizable", "hexColor", fallback: "Hex color")
-  /// #%@
-  internal static func hexColorValue(_ p1: Any) -> String {
-    return L10n.tr("Localizable", "hexColorValue", String(describing: p1), fallback: "#%@")
-  }
   /// Hidden
   internal static let hidden = L10n.tr("Localizable", "hidden", fallback: "Hidden")
   /// Hide played in Latest
