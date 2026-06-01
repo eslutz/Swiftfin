@@ -328,6 +328,7 @@ struct UserSignInView: View {
                 ProgressView()
             }
 
+            #if os(iOS)
             Button(L10n.security, systemImage: "gearshape") {
                 router.route(
                     to: .userSecurity(
@@ -336,6 +337,7 @@ struct UserSignInView: View {
                     )
                 )
             }
+            #endif
         }
         #else
         SplitLoginWindowView(

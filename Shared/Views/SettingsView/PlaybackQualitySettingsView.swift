@@ -30,7 +30,7 @@ struct PlaybackQualitySettingsView: View {
     var body: some View {
         Form(systemImage: "play.rectangle.on.rectangle") {
             Section(L10n.bitrateDefault) {
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 Picker(
                     L10n.maximumBitrate,
                     selection: $appMaximumBitrate
@@ -59,7 +59,7 @@ struct PlaybackQualitySettingsView: View {
 
             if appMaximumBitrate == .auto {
                 Section {
-                    #if os(iOS)
+                    #if os(iOS) || os(visionOS)
                     Picker(
                         L10n.testSize,
                         selection: $appMaximumBitrateTest
@@ -80,7 +80,7 @@ struct PlaybackQualitySettingsView: View {
             }
 
             Section(L10n.deviceProfile) {
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 Picker(
                     L10n.compatibility,
                     selection: $compatibilityMode

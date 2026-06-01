@@ -61,7 +61,7 @@ struct CustomDeviceProfilesView: View {
     @ViewBuilder
     private var behaviorView: some View {
         Section(L10n.behavior) {
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
             Picker(L10n.behavior, selection: $customDeviceProfileAction)
             #else
             ListRowMenu(L10n.behavior, selection: $customDeviceProfileAction)

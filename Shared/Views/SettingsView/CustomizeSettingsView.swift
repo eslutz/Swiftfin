@@ -248,6 +248,7 @@ struct CustomizeSettingsView: View {
 
             PlatformPicker(L10n.defaultLayout, selection: $libraryDisplayType)
 
+            #if !os(visionOS)
             if libraryDisplayType == .list, UIDevice.isPad || UIDevice.isTV {
                 Stepper(L10n.columns, value: $listColumnCount, in: 1 ... 3, step: 1) {
                     LabeledContent(L10n.columns) {
@@ -257,6 +258,7 @@ struct CustomizeSettingsView: View {
                 }
                 .foregroundStyle(.primary, .secondary)
             }
+            #endif
 
             Toggle(L10n.rememberLayout, isOn: $rememberLibraryLayout)
 

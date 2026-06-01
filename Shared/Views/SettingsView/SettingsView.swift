@@ -39,8 +39,10 @@ struct SettingsView: View {
             customizeSection
             diagnosticsSection
         }
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         .navigationTitle(L10n.settings)
+        #endif
+        #if os(iOS)
         .navigationBarCloseButton {
             router.dismiss()
         }
@@ -87,7 +89,12 @@ struct SettingsView: View {
                 viewModel.signOut()
                 router.dismiss()
             }
+            #if os(visionOS)
+            .buttonStyle(.compactPrimary)
+            .visionFormActionRow()
+            #else
             .buttonStyle(.primary)
+            #endif
             .foregroundStyle(accentColor.overlayColor, accentColor)
         }
     }
@@ -99,22 +106,23 @@ struct SettingsView: View {
         Section(L10n.videoPlayer) {
             #if os(iOS)
             Picker(L10n.videoPlayerType, selection: $videoPlayerType)
-            #else
+            #elseif os(tvOS)
             ListRowMenu(L10n.videoPlayerType, selection: $videoPlayerType)
             #endif
 
+            #if !os(visionOS)
             ChevronButton(L10n.videoPlayer) {
                 router.route(to: .videoPlayerSettings)
             }
+            #endif
 
             ChevronButton(L10n.playbackQuality) {
                 router.route(to: .playbackQualitySettings)
             }
         } learnMore: {
-            LabeledContent(
-                L10n.swiftfin,
-                value: L10n.playerSwiftfinDescription
-            )
+            #if !os(visionOS)
+            LabeledContent(L10n.swiftfin, value: L10n.playerSwiftfinDescription)
+            #endif
             LabeledContent(
                 L10n.native,
                 value: L10n.playerNativeDescription

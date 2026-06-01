@@ -36,17 +36,24 @@ struct AppSettingsView: View {
     @StateObject
     private var viewModel = SettingsViewModel()
 
-    #if os(tvOS)
-    private var selectedServer: ServerState? {
-        viewModel.servers.first { server in
-            selectUserAllServersSplashscreen == .server(id: server.id)
+    private var selectedSplashscreenServer: ServerState? {
+        selectUserAllServersSplashscreen.server(from: viewModel.servers)
+    }
+
+    private var selectedSplashscreenServerSelection: Binding<SelectUserServerSelection> {
+        Binding {
+            Self.normalizedSplashscreenServerSelection(
+                selectUserAllServersSplashscreen,
+                servers: viewModel.servers
+            )
+        } set: { newValue in
+            selectUserAllServersSplashscreen = newValue
         }
     }
-    #endif
 
     private var serverPicker: some View {
-        Picker(L10n.servers, selection: $selectUserAllServersSplashscreen) {
-            Label(L10n.random, systemImage: "dice.fill")
+        Picker(L10n.servers, selection: selectedSplashscreenServerSelection) {
+            Label(L10n.allServers, systemImage: "person.2.fill")
                 .tag(SelectUserServerSelection.all)
 
             ForEach(viewModel.servers) { server in
@@ -87,28 +94,28 @@ struct AppSettingsView: View {
 
                 if selectUserUseSplashscreen {
 
-                    #if os(tvOS)
-                    ListRowMenu(L10n.servers) {
-                        if selectUserAllServersSplashscreen == .all {
-                            Label(L10n.random, systemImage: "dice.fill")
-                        } else if let selectedServer {
-                            Text(selectedServer.name)
-                        } else {
-                            Text(L10n.none)
+                    if viewModel.servers.isNotEmpty {
+                        #if os(tvOS)
+                        ListRowMenu(L10n.servers) {
+                            if case .all = selectUserAllServersSplashscreen {
+                                Text(L10n.allServers)
+                            } else if let selectedServer = selectedSplashscreenServer {
+                                Text(selectedServer.name)
+                            } else {
+                                Text(viewModel.servers.first?.name ?? L10n.none)
+                            }
+                        } content: {
+                            serverPicker
                         }
-                    } content: {
+                        #else
                         serverPicker
+                        #endif
                     }
-                    #else
-                    serverPicker
-                    #endif
                 }
             } header: {
                 Text(L10n.splashscreen)
             } footer: {
-                if selectUserUseSplashscreen {
-                    Text(L10n.splashscreenFooter)
-                }
+                EmptyView()
             }
 
             Section {
@@ -142,6 +149,38 @@ struct AppSettingsView: View {
         .navigationTitle(L10n.advanced)
         .navigationBarCloseButton {
             router.dismiss()
+        }
+        .onAppear(perform: normalizeSplashscreenServerSelection)
+        .backport.onChange(of: viewModel.servers.map(\.id)) { _, _ in
+            normalizeSplashscreenServerSelection()
+        }
+    }
+
+    private func normalizeSplashscreenServerSelection() {
+        let normalizedSelection = Self.normalizedSplashscreenServerSelection(
+            selectUserAllServersSplashscreen,
+            servers: viewModel.servers
+        )
+
+        guard normalizedSelection != selectUserAllServersSplashscreen else { return }
+
+        selectUserAllServersSplashscreen = normalizedSelection
+    }
+
+    static func normalizedSplashscreenServerSelection(
+        _ selection: SelectUserServerSelection,
+        servers: [ServerState]
+    ) -> SelectUserServerSelection {
+        switch selection {
+        case .all:
+            return .all
+        case let .server(id):
+            guard servers.isNotEmpty else { return selection }
+            guard servers.contains(where: { $0.id == id }) else {
+                return .server(id: servers[0].id)
+            }
+
+            return selection
         }
     }
 }
