@@ -7,7 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0515444DBB071104FF3589CC /* StatefulMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C15069ACB436524E81E69EB3 /* StatefulMacros */; };
+		178A437E85C6DBC8D0153825 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 69B4564643EAE0C28899669C /* Files */; };
+		1B51622B584104CC324D8BB3 /* Transmission in Frameworks */ = {isa = PBXBuildFile; productRef = 577F11A54207F3498D7840F4 /* Transmission */; };
+		1CF034F622753D425C6E44EA /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 0D37B4F3AE732C1B00927141 /* Defaults */; };
+		30CB5F29506AE84DCAE3CC79 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = BD773C89D2356D0DDA469DAB /* NukeUI */; };
+		43002DFED67143B4537CD5C0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4FC3331DBBEFCC56A0A13FCB /* Factory */; };
+		48E0813E7E248F79F5CBD9CB /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC20EF0DF184B0396FD3E48E /* KeychainSwift */; };
+		51DC1A4167DF42416F4649E8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 24409770FDB5D50B826043B5 /* OrderedCollections */; };
 		53ABFDDC267972BF00886593 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53ABFDDB267972BF00886593 /* TVServices.framework */; };
+		572501B39D18F5C5BFF83014 /* PreferencesView in Frameworks */ = {isa = PBXBuildFile; productRef = 0E5C421DAC1AC52F2D013A94 /* PreferencesView */; };
+		5C6342C31999190982EF50BF /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 93462BA34BF1362C91F9A398 /* SwiftUIIntrospect */; };
 		62666DF727E5012C00EC0ECD /* MobileVLCKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D5E3DC264B47EE00BADDC8 /* MobileVLCKit.xcframework */; };
 		62666DF827E5012C00EC0ECD /* MobileVLCKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D5E3DC264B47EE00BADDC8 /* MobileVLCKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		62666DFA27E5013700EC0ECD /* TVVLCKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 625CB57D2678E81E00530A6E /* TVVLCKit.xcframework */; };
@@ -42,7 +52,16 @@
 		62666E3227E5021E00EC0ECD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62666E3127E5021E00EC0ECD /* UIKit.framework */; };
 		62666E3E27E503FA00EC0ECD /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4BE267D40E4000E2F71 /* MediaAccessibility.framework */; };
 		62666E3F27E5040300EC0ECD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362E4C6267D40F4000E2F71 /* SystemConfiguration.framework */; };
+		640B32CD6696267462572846 /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = 20C3AA9A78F5CA31CF734FF7 /* PulseUI */; };
+		69C838E045C911FCFEBF7A1E /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12749410E89CF132825ADD66 /* Nuke */; };
+		75E66DB33777D0962AE8EAB4 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = 223BFFFD82EB9FD1A97EBF24 /* CoreStore */; };
+		7C51DBA0CDEF03A351FFC25C /* PulseLogHandler in Frameworks */ = {isa = PBXBuildFile; productRef = 765BA9B7795A33EC3935ACF3 /* PulseLogHandler */; };
+		A5DAA38C9142E391125FB35A /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = EB5A218D7AD4E23FFCE8071A /* Algorithms */; };
+		A84DAC3F85E69704A6A7509D /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 36D53D57025266EC79BFDFD5 /* IdentifiedCollections */; };
+		BBDB86975B47A548B4B0224C /* BlurHashKit in Frameworks */ = {isa = PBXBuildFile; productRef = 34963F8C69062E52C588C427 /* BlurHashKit */; };
 		BD88CB422D77E6A0006BB5E3 /* TVOSPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BD88CB412D77E6A0006BB5E3 /* TVOSPicker */; };
+		BF1F8CC43949F625C016BD8D /* JellyfinAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F66367B404108BD87C34A36E /* JellyfinAPI */; };
+		C13AA316067A4744DBAF346B /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = 9A0508B0D70E7588AE94F030 /* Pulse */; };
 		E1002B682793CFBA00E47059 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = E1002B672793CFBA00E47059 /* Algorithms */; };
 		E1002B6B2793E36600E47059 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = E1002B6A2793E36600E47059 /* Algorithms */; };
 		E10706102942F57D00646DAF /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = E107060F2942F57D00646DAF /* Pulse */; };
@@ -196,10 +215,60 @@
 		628B95212670CABD0091AF3B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		628B95232670CABD0091AF3B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		637FCAF3287B5B2600C0A353 /* UDPBroadcast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UDPBroadcast.xcframework; path = Carthage/Build/UDPBroadcast.xcframework; sourceTree = "<group>"; };
+		9BD69CB18E0DCFD8A590E186 /* Swiftfin visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1B2AB9628808CDF0072B3B9 /* GoogleCast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleCast.xcframework; path = Carthage/Build/GoogleCast.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		57726A1DF596D90867B6FDFB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Components/FastSVGView.swift,
+				Components/VideoPlayer.swift,
+				"Coordinators/Navigation/NavigationRoute/NavigationRoute+Download.swift",
+				"Extensions/JellyfinAPI/MediaStream+VLC.swift",
+				Extensions/JellyfinAPI/TaskTriggerInfoType.swift,
+				Objects/ItemArrayElements.swift,
+				"Objects/MediaPlayerManager/MediaPlayerProxy/MediaPlayerProxy+VLC.swift",
+				Objects/MediaPlayerManager/Supplements/EpisodeMediaPlayerQueue.swift,
+				Objects/MediaPlayerManager/Supplements/MediaChaptersSupplement.swift,
+				Objects/MediaPlayerManager/Supplements/MediaInfoSupplement.swift,
+				Objects/MediaPlayerManager/Supplements/MediaPeopleSupplement.swift,
+				Services/DownloadManager.swift,
+				Services/DownloadTask.swift,
+				ViewModels/AdminDashboard/ActiveSessionsViewModel.swift,
+				ViewModels/AdminDashboard/APIKeysViewModel.swift,
+				ViewModels/AdminDashboard/DevicesViewModel.swift,
+				ViewModels/AdminDashboard/ServerActivityDetailViewModel.swift,
+				ViewModels/AdminDashboard/ServerActivityViewModel.swift,
+				ViewModels/AdminDashboard/ServerLogs/ServerLogsViewModel.swift,
+				ViewModels/AdminDashboard/ServerTaskObserver.swift,
+				ViewModels/AdminDashboard/ServerTasksViewModel.swift,
+				ViewModels/AdminDashboard/Users/AddServerUserViewModel.swift,
+				ViewModels/AdminDashboard/Users/ServerUsersViewModel.swift,
+				ViewModels/DownloadListViewModel.swift,
+				ViewModels/ImageViewModel/ItemImageViewModel.swift,
+				ViewModels/ItemAdministration/IdentifyItemViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/GenreEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/ItemEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/PeopleEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/StudioEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemEditorViewModel/TagEditorViewModel.swift,
+				ViewModels/ItemAdministration/ItemSubtitlesViewModel.swift,
+				ViewModels/ItemAdministration/RemoteImageInfoViewModel.swift,
+				Views/ItemEditorView/ItemRefreshView.swift,
+				Views/ItemEditorView/ItemSubtitleSearchView/Components/ItemSubtitlesSearchResultRow.swift,
+				Views/ItemEditorView/ItemSubtitleSearchView/ItemSubtitleSearchView.swift,
+			);
+			target = 11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */;
+		};
+		6CC9E56350646B4B26AFED43 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = 11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */;
+		};
 		E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -251,8 +320,9 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		0862A460E3300D97E3A736D4 /* Swiftfin visionOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CC9E56350646B4B26AFED43 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOS"; sourceTree = "<group>"; };
 		E14560852DFCAE51008FF700 /* Swiftfin */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E14561A32DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Swiftfin; sourceTree = "<group>"; };
-		E14563272DFCAE6E008FF700 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		E14563272DFCAE6E008FF700 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 57726A1DF596D90867B6FDFB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		E14565DD2DFCAE78008FF700 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
 		E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14567272DFCAEFD008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin tvOS"; sourceTree = "<group>"; };
 		E1456FC82DFCB323008FF700 /* Translations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Translations; sourceTree = "<group>"; };
@@ -381,6 +451,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D79ECC6199B565EB5631B1CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75E66DB33777D0962AE8EAB4 /* CoreStore in Frameworks */,
+				1CF034F622753D425C6E44EA /* Defaults in Frameworks */,
+				A5DAA38C9142E391125FB35A /* Algorithms in Frameworks */,
+				69C838E045C911FCFEBF7A1E /* Nuke in Frameworks */,
+				30CB5F29506AE84DCAE3CC79 /* NukeUI in Frameworks */,
+				BBDB86975B47A548B4B0224C /* BlurHashKit in Frameworks */,
+				43002DFED67143B4537CD5C0 /* Factory in Frameworks */,
+				178A437E85C6DBC8D0153825 /* Files in Frameworks */,
+				C13AA316067A4744DBAF346B /* Pulse in Frameworks */,
+				7C51DBA0CDEF03A351FFC25C /* PulseLogHandler in Frameworks */,
+				640B32CD6696267462572846 /* PulseUI in Frameworks */,
+				51DC1A4167DF42416F4649E8 /* OrderedCollections in Frameworks */,
+				572501B39D18F5C5BFF83014 /* PreferencesView in Frameworks */,
+				5C6342C31999190982EF50BF /* SwiftUIIntrospect in Frameworks */,
+				48E0813E7E248F79F5CBD9CB /* KeychainSwift in Frameworks */,
+				A84DAC3F85E69704A6A7509D /* IdentifiedCollections in Frameworks */,
+				0515444DBB071104FF3589CC /* StatefulMacros in Frameworks */,
+				BF1F8CC43949F625C016BD8D /* JellyfinAPI in Frameworks */,
+				1B51622B584104CC324D8BB3 /* Transmission in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -395,6 +491,7 @@
 				53D5E3DB264B47EE00BADDC8 /* Frameworks */,
 				E14565DD2DFCAE78008FF700 /* Scripts */,
 				E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */,
+				0862A460E3300D97E3A736D4 /* Swiftfin visionOS */,
 			);
 			sourceTree = "<group>";
 		};
@@ -403,6 +500,7 @@
 			children = (
 				5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */,
 				535870602669D21600D05A09 /* Swiftfin tvOS.app */,
+				9BD69CB18E0DCFD8A590E186 /* Swiftfin visionOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -468,6 +566,54 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAC19A1B9CE5BA4DEB533B1E /* Build configuration list for PBXNativeTarget "Swiftfin visionOS" */;
+			buildPhases = (
+				D31B7E9807E39F1739C3F954 /* Run SwiftLint */,
+				08A87B51CE5D1AA855BA901E /* Run SwiftFormat */,
+				B933A962817582E5F6B89636 /* Run Swiftgen.swift */,
+				ED37FD2F58AD5BE9C5F1730B /* Alphabetize Strings */,
+				1124DA533F9822DCF482888A /* Sources */,
+				D79ECC6199B565EB5631B1CB /* Frameworks */,
+				1D06BA7942B9AE10EA9C83A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0862A460E3300D97E3A736D4 /* Swiftfin visionOS */,
+				E14563272DFCAE6E008FF700 /* Shared */,
+				E1456FC82DFCB323008FF700 /* Translations */,
+				E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */,
+			);
+			name = "Swiftfin visionOS";
+			packageProductDependencies = (
+				223BFFFD82EB9FD1A97EBF24 /* CoreStore */,
+				0D37B4F3AE732C1B00927141 /* Defaults */,
+				EB5A218D7AD4E23FFCE8071A /* Algorithms */,
+				12749410E89CF132825ADD66 /* Nuke */,
+				BD773C89D2356D0DDA469DAB /* NukeUI */,
+				34963F8C69062E52C588C427 /* BlurHashKit */,
+				4FC3331DBBEFCC56A0A13FCB /* Factory */,
+				69B4564643EAE0C28899669C /* Files */,
+				9A0508B0D70E7588AE94F030 /* Pulse */,
+				765BA9B7795A33EC3935ACF3 /* PulseLogHandler */,
+				20C3AA9A78F5CA31CF734FF7 /* PulseUI */,
+				24409770FDB5D50B826043B5 /* OrderedCollections */,
+				0E5C421DAC1AC52F2D013A94 /* PreferencesView */,
+				93462BA34BF1362C91F9A398 /* SwiftUIIntrospect */,
+				CC20EF0DF184B0396FD3E48E /* KeychainSwift */,
+				36D53D57025266EC79BFDFD5 /* IdentifiedCollections */,
+				C15069ACB436524E81E69EB3 /* StatefulMacros */,
+				F66367B404108BD87C34A36E /* JellyfinAPI */,
+				577F11A54207F3498D7840F4 /* Transmission */,
+			);
+			productName = "Swiftfin visionOS";
+			productReference = 9BD69CB18E0DCFD8A590E186 /* Swiftfin visionOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5358705F2669D21600D05A09 /* Swiftfin tvOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 535870712669D21700D05A09 /* Build configuration list for PBXNativeTarget "Swiftfin tvOS" */;
@@ -678,6 +824,8 @@
 				fa,
 				et,
 				enm,
+				ka,
+				gl,
 			);
 			mainGroup = 5377CBE8263B596A003A4E83;
 			packageReferences = (
@@ -712,11 +860,19 @@
 			targets = (
 				5377CBF0263B596A003A4E83 /* Swiftfin iOS */,
 				5358705F2669D21600D05A09 /* Swiftfin tvOS */,
+				11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1D06BA7942B9AE10EA9C83A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5358705E2669D21600D05A09 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -734,6 +890,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08A87B51CE5D1AA855BA901E /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftFormat installations\nexport PATH=/opt/homebrew/bin:$PATH\n\n# Skip phase if the action is not build (ie. analyze, archive, etc).\nif [ \"$ACTION\" != \"build\" ]; then\n    exit 0\nfi\n\nif which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"error: SwiftFormat not installed, check contributing.md for installation instructions.\"\nfi\n";
+		};
 		4EC71FBC2D16201C00D0B3A8 /* Alphabetize Strings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -812,6 +986,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftGen installations\nexport PATH=/opt/homebrew/bin:$PATH \n\nif which swiftgen >/dev/null; then\n  swiftgen\nelse\n  echo \"error: SwiftGen not installed, check contributing.md for installation instructions.\"\n  return 1\nfi\n";
 		};
+		B933A962817582E5F6B89636 /* Run Swiftgen.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftgen.swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftGen installations\nexport PATH=/opt/homebrew/bin:$PATH \n\nif which swiftgen >/dev/null; then\n  swiftgen\nelse\n  echo \"error: SwiftGen not installed, check contributing.md for installation instructions.\"\n  return 1\nfi\n";
+		};
 		BD0BA2282AD64BB200306A8D /* Run SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -849,6 +1041,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Add Homebrew to the path to support Apple Silicon Homebrew SwiftFormat installations\nexport PATH=/opt/homebrew/bin:$PATH\n\n# Skip phase if the action is not build (ie. analyze, archive, etc).\nif [ \"$ACTION\" != \"build\" ]; then\n    exit 0\nfi\n\nif which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"error: SwiftFormat not installed, check contributing.md for installation instructions.\"\nfi\n";
+		};
+		D31B7E9807E39F1739C3F954 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif command -v swiftlint >/dev/null; then\n  swiftlint lint\nelse\n  echo \"warning: SwiftLint not installed. Run 'brew bundle --file Brewfile' from the repository root.\"\nfi\n";
 		};
 		E1A1B5C42F00000000000001 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -888,9 +1098,36 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif command -v swiftlint >/dev/null; then\n  swiftlint lint\nelse\n  echo \"warning: SwiftLint not installed. Run 'brew bundle --file Brewfile' from the repository root.\"\nfi\n";
 		};
+		ED37FD2F58AD5BE9C5F1730B /* Alphabetize Strings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Translations/en.lproj/Localizable.strings",
+			);
+			name = "Alphabetize Strings";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/alphabetizeStrings.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun --sdk macosx swift \"${SRCROOT}/Scripts/Translations/AlphabetizeStrings.swift\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1124DA533F9822DCF482888A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5358705C2669D21600D05A09 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1171,6 +1408,67 @@
 			};
 			name = Release;
 		};
+		56006C7372AB96A2DCC0F7A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 70;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Swiftfin visionOS/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4.1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		CAC7750CCF8E2FE21D61CA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 70;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Swiftfin visionOS/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4.1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1197,6 +1495,15 @@
 			buildConfigurations = (
 				5377CC1C263B596B003A4E83 /* Debug */,
 				5377CC1D263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC19A1B9CE5BA4DEB533B1E /* Build configuration list for PBXNativeTarget "Swiftfin visionOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAC7750CCF8E2FE21D61CA61 /* Debug */,
+				56006C7372AB96A2DCC0F7A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1406,10 +1713,93 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0D37B4F3AE732C1B00927141 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E13DD3D127168E65009D4DAF /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		0E5C421DAC1AC52F2D013A94 /* PreferencesView */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PreferencesView;
+		};
+		12749410E89CF132825ADD66 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19E6E0328A0B958005C10C8 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		20C3AA9A78F5CA31CF734FF7 /* PulseUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E15210522946DF1B00375CC2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseUI;
+		};
+		223BFFFD82EB9FD1A97EBF24 /* CoreStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E13DD3C42716499E009D4DAF /* XCRemoteSwiftPackageReference "CoreStore" */;
+			productName = CoreStore;
+		};
+		24409770FDB5D50B826043B5 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19DDEC52948EF9900954E10 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		34963F8C69062E52C588C427 /* BlurHashKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19E6E0828A0BEFF005C10C8 /* XCRemoteSwiftPackageReference "BlurHashKit" */;
+			productName = BlurHashKit;
+		};
+		36D53D57025266EC79BFDFD5 /* IdentifiedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E176EBDC2D050067009F4CF1 /* XCRemoteSwiftPackageReference "swift-identified-collections" */;
+			productName = IdentifiedCollections;
+		};
+		4FC3331DBBEFCC56A0A13FCB /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E192608128D2D0DB002314B4 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		577F11A54207F3498D7840F4 /* Transmission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E164308A2E3AA9710028D4E8 /* XCRemoteSwiftPackageReference "Transmission" */;
+			productName = Transmission;
+		};
+		69B4564643EAE0C28899669C /* Files */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1575E3A293C6B15001665B1 /* XCRemoteSwiftPackageReference "Files" */;
+			productName = Files;
+		};
+		765BA9B7795A33EC3935ACF3 /* PulseLogHandler */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E15210522946DF1B00375CC2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseLogHandler;
+		};
+		93462BA34BF1362C91F9A398 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5335256F265EA0A0006CCA86 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		9A0508B0D70E7588AE94F030 /* Pulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E15210522946DF1B00375CC2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = Pulse;
+		};
+		BD773C89D2356D0DDA469DAB /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19E6E0328A0B958005C10C8 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
 		BD88CB412D77E6A0006BB5E3 /* TVOSPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BD88CB402D77E6A0006BB5E3 /* XCRemoteSwiftPackageReference "TVOSPicker" */;
 			productName = TVOSPicker;
+		};
+		C15069ACB436524E81E69EB3 /* StatefulMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StatefulMacros;
+		};
+		CC20EF0DF184B0396FD3E48E /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E145EB492BE16849003BF6F3 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		E1002B672793CFBA00E47059 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1754,6 +2144,16 @@
 		E1FADDF02E84B63600FB310E /* StatefulMacros */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StatefulMacros;
+		};
+		EB5A218D7AD4E23FFCE8071A /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1002B662793CFBA00E47059 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		F66367B404108BD87C34A36E /* JellyfinAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1BD95B02FBE8E44001CDA57 /* XCRemoteSwiftPackageReference "jellyfin-sdk-swift" */;
+			productName = JellyfinAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
