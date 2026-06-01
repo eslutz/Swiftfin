@@ -105,6 +105,10 @@ extension MediaView {
                     .id(imageSources.hashValue)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .posterStyle(.landscape)
+                #if os(visionOS)
+                    .frame(width: 300, height: 169)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                #endif
                     .backport
                     .matchedTransitionSource(id: "item", in: namespace)
             }
@@ -113,7 +117,12 @@ extension MediaView {
             .onChange(of: useRandomImage) { _, _ in
                 setImageSources()
             }
+            #if os(visionOS)
+            .buttonStyle(.plain)
+            .visionHoverEffect(cornerRadius: 12)
+            #else
             .buttonStyle(.card)
+            #endif
         }
     }
 }
