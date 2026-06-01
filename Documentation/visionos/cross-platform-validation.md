@@ -55,6 +55,51 @@ from the codebase: only **9 Shared files** import visionOS‑incompatible packag
 > (`scrollInputBehavior(.enabled, for: .look)`, gated `if #available(visionOS 26.0, *)`), so it
 > is **not** a shared change (unlike PR #1, which placed it in `Shared/`).
 
+## Build‑out findings (validated by driving the visionOS build)
+
+Driving `xcodebuild` on the bootstrapped target empirically confirmed the path. The target
+builds through **all SPM dependencies for xros** and **most of `Shared/`**, down to a small set
+of foundational seams. Findings:
+
+**SPM products**
+- **Link `Transmission`** — it transitively provides `Engine` (used by `MediaView`). Do not link
+  `VLCUI`, `CollectionHStack`, `CollectionVGrid`, `Mantis`, `TVOSPicker`, `SVGKit` (no visionOS support).
+
+**Shared exclusions (31 files)** — features outside visionOS's browsing+playback scope, applied as a
+`Shared` membership exception on the visionOS target (no source edits): all `ViewModels/AdminDashboard/*`,
+`ViewModels/ItemAdministration/*`, `ViewModels/DownloadListViewModel`, `Services/Download{Manager,Task}`,
+`NavigationRoute+Download`, `Components/{FastSVGView,VideoPlayer}`, `MediaPlayerProxy+VLC`,
+`Extensions/JellyfinAPI/TaskTriggerInfoType`, `Objects/ItemArrayElements`, `ViewModels/ImageViewModel/ItemImageViewModel`,
+`Views/ItemEditorView/*`. (Full list: `Documentation/visionos` working notes.)
+
+**Foundational shared seams needed** (each a small, additive `#if os(visionOS)` guard — iOS/tvOS byte‑identical; **Category A/C**):
+| File | Seam |
+|---|---|
+| `PreferencesView` (ViewExtensions + Package.swift) | route visionOS through tvOS orientation no‑op; add `.visionOS("2.0")` platform |
+| `Extensions/UIScreen.swift` | guard `UIScreen` ext `#if !os(visionOS)`; add `PlatformScreen.scale` (visionOS via `UITraitCollection`) |
+| `Extensions/UIDevice.swift` | guard haptics/`UIScreen`; add visionOS branches; extend stub enums to `os(tvOS) || os(visionOS)` |
+| `Strings/ProperNouns.swift` | add `static let visionOS = "visionOS"` |
+| `Extensions/.../BaseItemDto+Images`, `BaseItemPerson+Poster` | `UIScreen.main.scale` → `PlatformScreen.scale` |
+| `MediaStream.swift` | guard `import VLCUI` + `asVLCPlaybackChild` for non‑visionOS |
+| `MediaPlayerManager.swift` | remove dead `import VLCUI` |
+| player `Supplements/*`, `HourMinutePicker`, `ImageView` | guard `CollectionHStack`/`CollectionVGrid`/`TVOSPicker`/`FastSVGView`; native visionOS branches |
+| `Objects/PlatformView.swift` | add a visionOS body (currently `InlinePlatformView` conforms to `View` only on iOS/tvOS) |
+| `DeviceType` + `DeviceType+Image` | move `DeviceIcons` imageset into the **Shared** catalog (so visionOS gets the `ImageResource` symbols); refactor image resolution |
+
+**⚠️ Critical constraint — port the shared layer holistically, not file‑by‑file.** PR #1's shared
+changes are **interdependent**: e.g. adopting `Shared/Views/UserSignInView.swift` alone breaks the
+**iOS** build because it references `UserSignInViewModel.publicUserIdentifiers` (added by PR #1 in the
+view model). Each shared view seam must land together with its view‑model/component changes as a unit,
+and **iOS + tvOS must be re‑verified after each unit**.
+
+**Forked view layer is required (the bulk of remaining work).** `Shared/Coordinators/Tabs/TabItem.swift`
+references `HomeView` / `SearchView` / `PagingLibraryView` unconditionally, and those live only in the
+iOS folder (not `Shared/`). Since the visionOS target does not compile the iOS folder, visionOS needs its
+own `HomeView`/`SearchView`/`PagingLibraryView`/`ItemView` — which in turn depend on iOS components
+(`PosterButton`, `PosterHStack`, …) that are **not** in `Shared/`. Each must be **promoted to `Shared/`**
+(with seams) or **forked** into `Swiftfin visionOS/Views/`. This + binary assets (layered icon, cinema env)
+is the remaining multi‑session effort.
+
 ## Sign‑off
 
 - [ ] iOS scheme builds clean
