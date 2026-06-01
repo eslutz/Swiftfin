@@ -7,7 +7,19 @@
 
 ## 1. Create the app target
 
-In Xcode: **File ▸ New ▸ Target… ▸ visionOS ▸ App**.
+**Automated path (validated):** run the bootstrap script — it creates the target by mirroring
+the tvOS target with the correct synchronized groups (Shared + `Swiftfin visionOS`, **not** the
+iOS folder), build settings, and SPM products:
+
+```bash
+gem install xcodeproj          # once
+ruby Documentation/visionos/bootstrap-target.rb Swiftfin.xcodeproj
+```
+
+It rewrites `project.pbxproj` in xcodeproj's formatting; let Xcode re-normalize on next save if
+desired. Then add a shared scheme (§7) and proceed to §4. The manual equivalent follows.
+
+**Manual path** — in Xcode: **File ▸ New ▸ Target… ▸ visionOS ▸ App**.
 - Product Name: `Swiftfin visionOS`  →  folder `Swiftfin visionOS/`
 - Interface: SwiftUI, Language: Swift, no tests from the wizard (add the test target separately).
 - Minimum Deployments: **visionOS 2.0** (matches `Documentation/version.md`).
