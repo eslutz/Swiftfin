@@ -74,9 +74,11 @@ Documentation for advanced or complex features and other implementation reasonin
 
 ## Architecture
 
-Swiftfin is developed using SwiftUI. The iOS and tvOS Jellyfin clients share the same backend with each client containing their respective views. Due to this architecture, working on both clients at once may be necessary.
+Swiftfin is developed using SwiftUI. The iOS, tvOS, and visionOS Jellyfin clients share the same backend with each client containing their respective views. Due to this architecture, working on multiple clients at once may be necessary.
 
 Playback is done with [VLCKit](https://code.videolan.org/videolan/VLCKit) for its great codec support. Becoming familiar with VLCKit will be necessary for video playback development and debugging.
+
+Vision Pro playback currently uses the Native player with AVKit. VLCKit/VLCUI player surfaces are not included in the visionOS target (VLCKit ships iOS/tvOS binaries only). VLC playback on visionOS may be revisited after Swiftfin migrates to the unified VLCKit 4.x line with visionOS support and adapts its VLC player integration for visionOS.
 
 ## Design
 
