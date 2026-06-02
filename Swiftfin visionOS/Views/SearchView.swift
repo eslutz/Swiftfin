@@ -45,6 +45,11 @@ struct SearchView: View {
                 section(L10n.tvShows, .series)
                 section(L10n.collections, .boxSet)
                 section(L10n.episodes, .episode, landscape: true)
+                section(L10n.musicVideos, .musicVideo, landscape: true)
+                section(L10n.videos, .video, landscape: true)
+                section(L10n.programs, .program, landscape: true)
+                section(L10n.channels, .tvChannel, landscape: true)
+                section(L10n.artists, .musicArtist)
                 section(L10n.people, .person)
             }
             .padding(.vertical, EdgeInsets.edgePadding)

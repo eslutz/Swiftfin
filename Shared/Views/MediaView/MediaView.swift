@@ -36,7 +36,13 @@ struct MediaView: View {
     #endif
 
     private var mediaItems: [MediaViewModel.MediaType] {
+        #if os(visionOS)
+        // Live TV is not routable on visionOS; exclude it to avoid a visible
+        // tile that does nothing when selected.
+        viewModel.mediaItems.filter { if case .liveTV = $0 { false } else { true } }
+        #else
         Array(viewModel.mediaItems)
+        #endif
     }
 
     private func route(to mediaType: MediaViewModel.MediaType, in namespace: Namespace.ID) {
