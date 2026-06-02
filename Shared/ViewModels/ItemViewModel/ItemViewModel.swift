@@ -110,7 +110,7 @@ class ItemViewModel: ViewModel, Stateful {
                 guard itemID == self?.item.id else { return }
 
                 Task {
-                    await self?.send(.backgroundRefresh)
+                    self?.send(.backgroundRefresh)
                 }
             }
             .store(in: &cancellables)
@@ -121,7 +121,7 @@ class ItemViewModel: ViewModel, Stateful {
                 guard let newItemID = newItem.id, newItemID == self?.item.id else { return }
 
                 Task {
-                    await self?.send(.replace(newItem))
+                    self?.send(.replace(newItem))
                 }
             }
             .store(in: &cancellables)

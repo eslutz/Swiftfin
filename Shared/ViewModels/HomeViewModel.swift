@@ -157,14 +157,14 @@ final class HomeViewModel: ViewModel, Stateful {
 
     private func refresh() async throws {
 
-        await nextUpViewModel.send(.refresh)
-        await recentlyAddedViewModel.send(.refresh)
+        nextUpViewModel.send(.refresh)
+        recentlyAddedViewModel.send(.refresh)
 
         let resumeItems = try await getResumeItems()
         let libraries = try await getLibraries()
 
         for library in libraries {
-            await library.send(.refresh)
+            library.send(.refresh)
         }
 
         await MainActor.run {
