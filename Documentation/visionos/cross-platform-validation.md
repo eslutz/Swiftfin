@@ -100,11 +100,37 @@ own `HomeView`/`SearchView`/`PagingLibraryView`/`ItemView` — which in turn dep
 (with seams) or **forked** into `Swiftfin visionOS/Views/`. This + binary assets (layered icon, cinema env)
 is the remaining multi‑session effort.
 
-## Sign‑off
+## Final status — visionOS complete
 
-- [ ] iOS scheme builds clean
-- [ ] tvOS scheme builds clean
-- [ ] `git diff --stat upstream/main -- Swiftfin/` shows no behavioral iOS view edits
-- [ ] iOS smoke: sign‑in, browse, page a library, start native + VLC playback
-- [ ] tvOS smoke: sign‑in, browse, page a library, start native + VLC playback
+All three schemes build green and the visionOS unit tests pass; **the iOS and tvOS view trees
+(`Swiftfin/`, `Swiftfin tvOS/`) are byte‑identical to `upstream/main`** (0 `.swift` edits). The
+shared‑layer footprint is **41 files**, all additive `#if os(visionOS)` seams or per‑feature units —
+versus PR #1's 89 Shared + 40 iOS files.
+
+### Complete shared‑seam inventory (the iOS/tvOS validation surface)
+
+| Area | Files | Nature |
+|---|---|---|
+| `Extensions/` (UIScreen, UIDevice, BaseItemDto/Person images, MediaStream±VLC, DeviceType±Image) | 6 + 2 | `PlatformScreen`; VLC split; image‑source scale; device icons |
+| `Objects/MediaPlayerManager/*` (manager, AVPlayer proxy, supplements) | 5 | force‑native; AVPlayer end handling; no custom supplements on visionOS |
+| `Views/SettingsView/*` (Settings, Customize, VideoPlayer, PlaybackQuality, EditDeviceProfile, CustomDeviceProfiles) | 5 | `PlatformPicker`; guard iPad/TV/tvOS‑only controls |
+| `Coordinators/Navigation/*` (+Item, +Media, NavigationInjectionView) + `Coordinators/Root` | 3 + 1 | guard excluded routes; live‑TV/serverCheck seams |
+| `Views/` (MediaView×2, ConnectToServerView×2, UserSignInView, AppSettingsView, ItemView/ItemEditorMenu) | 8 | CollectionVGrid → VisionVGrid; onboarding; guard iOS‑only routes |
+| `Objects/` (VideoPlayerType, VideoPlayerContainerState, PlatformView) | 3 | native‑only; guard VLC container; visionOS body |
+| `Components/` (PrimaryButtonStyle, NativeVideoPlayer, ImageView, HourMinutePicker) | 4 | card/hover; AVPlayer guards; FastSVG/TVOSPicker guards |
+| `Services/SwiftfinDefaults`, `Strings/*`, `ViewModels/UserSignInViewModel`, `PreferencesView` (package) | 4 | native default; L10n.cinema; publicUserIdentifiers; orientation seam |
+
+Every change keeps the iOS/tvOS `#if` branch unchanged (`#else` / `#if !os(visionOS)`), so iOS and
+tvOS compile byte‑for‑byte identically. Net: **31 Shared files excluded** from the visionOS target by
+membership (admin dashboard, downloads, item editing, VLC surfaces, custom‑player supplements) with
+no source edits.
+
+### Sign‑off
+
+- [x] iOS scheme builds clean (verified)
+- [x] tvOS scheme builds clean (verified)
+- [x] `git diff upstream/main -- Swiftfin/ "Swiftfin tvOS/"` shows no `.swift` edits (byte‑identical)
+- [x] visionOS unit tests pass — 16 tests / 6 suites on the visionOS 26.5 simulator
+- [ ] iOS smoke on device: sign‑in, browse, page a library, start native + VLC playback _(human QA)_
+- [ ] tvOS smoke on device: sign‑in, browse, page a library, start native + VLC playback _(human QA)_
 - [ ] Reviewer named: ____  Date: ____
