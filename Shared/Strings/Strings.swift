@@ -310,6 +310,8 @@ internal enum L10n {
   internal static let chapters = L10n.tr("Localizable", "chapters", fallback: "Chapters")
   /// Chapter slider
   internal static let chapterSlider = L10n.tr("Localizable", "chapterSlider", fallback: "Chapter slider")
+  /// Cinema
+  internal static let cinema = L10n.tr("Localizable", "cinema", fallback: "Cinema")
   /// Cinematic
   internal static let cinematic = L10n.tr("Localizable", "cinematic", fallback: "Cinematic")
   /// Client
@@ -680,6 +682,8 @@ internal enum L10n {
   internal static let existingItems = L10n.tr("Localizable", "existingItems", fallback: "Existing items")
   /// This item exists on your Jellyfin Server.
   internal static let existsOnServer = L10n.tr("Localizable", "existsOnServer", fallback: "This item exists on your Jellyfin Server.")
+  /// Exit Cinema
+  internal static let exitCinema = L10n.tr("Localizable", "exitCinema", fallback: "Exit Cinema")
   /// Experimental
   internal static let experimental = L10n.tr("Localizable", "experimental", fallback: "Experimental")
   /// External

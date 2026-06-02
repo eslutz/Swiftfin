@@ -49,7 +49,7 @@ struct CinemaToggleButton: View {
             }
         } label: {
             Label(
-                cinema.isOpen ? "Exit Cinema" : "Cinema",
+                cinema.isOpen ? L10n.exitCinema : L10n.cinema,
                 systemImage: cinema.isOpen ? "xmark.circle" : "movieclapper"
             )
         }
