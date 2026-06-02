@@ -22,8 +22,8 @@ struct VisionPlatformAdapterTests {
     func `horizontal scroll renders its content`() {
         renderToCompletion(
             VisionHorizontalScroll {
-                Text("a")
-                Text("b")
+                Color.clear.frame(width: 80, height: 120)
+                Color.clear.frame(width: 80, height: 120)
             }
         )
     }
@@ -47,7 +47,7 @@ struct VisionPlatformAdapterTests {
     @Test
     func `no-op platform modifiers return a usable view`() {
         renderToCompletion(
-            Text("x")
+            Color.clear
                 .focusSection()
                 .prefersStatusBarHidden()
                 .listRowCornerRadius(8)
