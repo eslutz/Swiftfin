@@ -137,6 +137,16 @@
 		E1FADDF12E84B63600FB310E /* StatefulMacros in Frameworks */ = {isa = PBXBuildFile; productRef = E1FADDF02E84B63600FB310E /* StatefulMacros */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4A3B57B549408EABC0CA27AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5377CBE9263B596A003A4E83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11F56F737908C52D3F8CC7E1;
+			remoteInfo = "Swiftfin visionOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		62666DF927E5012C00EC0ECD /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -215,12 +225,13 @@
 		628B95212670CABD0091AF3B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		628B95232670CABD0091AF3B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		637FCAF3287B5B2600C0A353 /* UDPBroadcast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UDPBroadcast.xcframework; path = Carthage/Build/UDPBroadcast.xcframework; sourceTree = "<group>"; };
+		976EEF473B27B96FAF061B06 /* Swiftfin visionOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swiftfin visionOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BD69CB18E0DCFD8A590E186 /* Swiftfin visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swiftfin visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1B2AB9628808CDF0072B3B9 /* GoogleCast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleCast.xcframework; path = Carthage/Build/GoogleCast.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		57726A1DF596D90867B6FDFB /* Exceptions for "Shared" folder in "Swiftfin visionOS" target */ = {
+		57726A1DF596D90867B6FDFB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Components/FastSVGView.swift,
@@ -262,28 +273,28 @@
 			);
 			target = 11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */;
 		};
-		6CC9E56350646B4B26AFED43 /* Exceptions for "Swiftfin visionOS" folder in "Swiftfin visionOS" target */ = {
+		6CC9E56350646B4B26AFED43 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
 			);
 			target = 11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */;
 		};
-		E14561A22DFCAE51008FF700 /* Exceptions for "Swiftfin" folder in "Swiftfin iOS" target */ = {
+		E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
 			);
 			target = 5377CBF0263B596A003A4E83 /* Swiftfin iOS */;
 		};
-		E14561A32DFCAE51008FF700 /* Exceptions for "Swiftfin" folder in "Swiftfin tvOS" target */ = {
+		E14561A32DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Assets.xcassets,
 			);
 			target = 5358705F2669D21600D05A09 /* Swiftfin tvOS */;
 		};
-		E14565D92DFCAE6E008FF700 /* Exceptions for "Shared" folder in "Swiftfin tvOS" target */ = {
+		E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Extensions/JellyfinAPI/TaskTriggerInfoType.swift,
@@ -310,7 +321,7 @@
 			);
 			target = 5358705F2669D21600D05A09 /* Swiftfin tvOS */;
 		};
-		E14567272DFCAEFD008FF700 /* Exceptions for "Swiftfin tvOS" folder in "Swiftfin tvOS" target */ = {
+		E14567272DFCAEFD008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
@@ -320,89 +331,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0862A460E3300D97E3A736D4 /* Swiftfin visionOS */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6CC9E56350646B4B26AFED43 /* Exceptions for "Swiftfin visionOS" folder in "Swiftfin visionOS" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = "Swiftfin visionOS";
-			sourceTree = "<group>";
-		};
-		E14560852DFCAE51008FF700 /* Swiftfin */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E14561A22DFCAE51008FF700 /* Exceptions for "Swiftfin" folder in "Swiftfin iOS" target */,
-				E14561A32DFCAE51008FF700 /* Exceptions for "Swiftfin" folder in "Swiftfin tvOS" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = Swiftfin;
-			sourceTree = "<group>";
-		};
-		E14563272DFCAE6E008FF700 /* Shared */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E14565D92DFCAE6E008FF700 /* Exceptions for "Shared" folder in "Swiftfin tvOS" target */,
-				57726A1DF596D90867B6FDFB /* Exceptions for "Shared" folder in "Swiftfin visionOS" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		E14565DD2DFCAE78008FF700 /* Scripts */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
-		E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E14567272DFCAEFD008FF700 /* Exceptions for "Swiftfin tvOS" folder in "Swiftfin tvOS" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = "Swiftfin tvOS";
-			sourceTree = "<group>";
-		};
-		E1456FC82DFCB323008FF700 /* Translations */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = Translations;
-			sourceTree = "<group>";
-		};
-		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = XcodeConfig;
-			sourceTree = "<group>";
-		};
+		0862A460E3300D97E3A736D4 /* Swiftfin visionOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CC9E56350646B4B26AFED43 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOS"; sourceTree = "<group>"; };
+		9D6B8C5E6986914E9EA99457 /* Swiftfin visionOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin visionOSTests"; sourceTree = "<group>"; };
+		E14560852DFCAE51008FF700 /* Swiftfin */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14561A22DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E14561A32DFCAE51008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Swiftfin; sourceTree = "<group>"; };
+		E14563272DFCAE6E008FF700 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14565D92DFCAE6E008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 57726A1DF596D90867B6FDFB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		E14565DD2DFCAE78008FF700 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
+		E145669F2DFCAEFD008FF700 /* Swiftfin tvOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E14567272DFCAEFD008FF700 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Swiftfin tvOS"; sourceTree = "<group>"; };
+		E1456FC82DFCB323008FF700 /* Translations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Translations; sourceTree = "<group>"; };
+		E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XcodeConfig; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +463,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEAE6D943F7AE71E7400D1F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D79ECC6199B565EB5631B1CB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -568,6 +511,7 @@
 				E14565DD2DFCAE78008FF700 /* Scripts */,
 				E150B7D12DFF2E7C00DC7CF4 /* XcodeConfig */,
 				0862A460E3300D97E3A736D4 /* Swiftfin visionOS */,
+				9D6B8C5E6986914E9EA99457 /* Swiftfin visionOSTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -577,6 +521,7 @@
 				5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */,
 				535870602669D21600D05A09 /* Swiftfin tvOS.app */,
 				9BD69CB18E0DCFD8A590E186 /* Swiftfin visionOS.app */,
+				976EEF473B27B96FAF061B06 /* Swiftfin visionOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -821,6 +766,27 @@
 			productReference = 5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D311FE11F404C336D52A9D89 /* Swiftfin visionOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CE4308AF8F47DFDB05ECC76 /* Build configuration list for PBXNativeTarget "Swiftfin visionOSTests" */;
+			buildPhases = (
+				26D928C1852479680B0BE3EF /* Sources */,
+				CEAE6D943F7AE71E7400D1F7 /* Frameworks */,
+				966A82DFFC4C9C85572ED4A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A69F244F79E5CDFD86A29B6A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9D6B8C5E6986914E9EA99457 /* Swiftfin visionOSTests */,
+			);
+			name = "Swiftfin visionOSTests";
+			productName = "$(TARGET_NAME)";
+			productReference = 976EEF473B27B96FAF061B06 /* Swiftfin visionOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -937,6 +903,7 @@
 				5377CBF0263B596A003A4E83 /* Swiftfin iOS */,
 				5358705F2669D21600D05A09 /* Swiftfin tvOS */,
 				11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */,
+				D311FE11F404C336D52A9D89 /* Swiftfin visionOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -957,6 +924,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5377CBEF263B596A003A4E83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		966A82DFFC4C9C85572ED4A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1204,6 +1178,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		26D928C1852479680B0BE3EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5358705C2669D21600D05A09 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1220,7 +1201,40 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A69F244F79E5CDFD86A29B6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Swiftfin visionOS";
+			target = 11F56F737908C52D3F8CC7E1 /* Swiftfin visionOS */;
+			targetProxy = 4A3B57B549408EABC0CA27AC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		38954FB42DA09B080FC63FB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin.visionOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swiftfin visionOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swiftfin visionOS";
+				TEST_TARGET_NAME = "Swiftfin visionOS";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
 		535870722669D21700D05A09 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1484,6 +1498,29 @@
 			};
 			name = Release;
 		};
+		54527AE0B09A52CFAAF1EE6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jellyfin.swiftfin.visionOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swiftfin visionOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swiftfin visionOS";
+				TEST_TARGET_NAME = "Swiftfin visionOS";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		56006C7372AB96A2DCC0F7A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1571,6 +1608,15 @@
 			buildConfigurations = (
 				5377CC1C263B596B003A4E83 /* Debug */,
 				5377CC1D263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CE4308AF8F47DFDB05ECC76 /* Build configuration list for PBXNativeTarget "Swiftfin visionOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38954FB42DA09B080FC63FB3 /* Debug */,
+				54527AE0B09A52CFAAF1EE6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
