@@ -34,6 +34,7 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
     let player: AVPlayer
 
 //    private var rateObserver: NSKeyValueObservation!
+    private var itemDidPlayToEndObserver: NSObjectProtocol?
     private var statusObserver: NSKeyValueObservation!
     private var timeControlStatusObserver: NSKeyValueObservation!
     private var timeObserver: Any!
@@ -80,14 +81,26 @@ class AVMediaPlayerProxy: VideoMediaPlayerProxy {
         timeObserver = player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
             queue: .main
-        ) { newTime in
-            let newSeconds = Duration.seconds(newTime.seconds)
+        ) { [weak self] newTime in
+            let seconds = newTime.seconds
 
-            if !self.isScrubbing.wrappedValue {
-                self.scrubbedSeconds.wrappedValue = newSeconds
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+
+                let newSeconds = Duration.seconds(seconds)
+
+                if !self.isScrubbing.wrappedValue {
+                    self.scrubbedSeconds.wrappedValue = newSeconds
+                }
+
+                self.manager?.seconds = newSeconds
             }
+        }
+    }
 
-            self.manager?.seconds = newSeconds
+    deinit {
+        if let itemDidPlayToEndObserver {
+            NotificationCenter.default.removeObserver(itemDidPlayToEndObserver)
         }
     }
 
@@ -139,6 +152,7 @@ extension AVMediaPlayerProxy {
 
     private func playbackStopped() {
         player.pause()
+        removeItemDidPlayToEndObserver()
 
         if let timeObserver {
             DispatchQueue.main.async {
@@ -158,6 +172,37 @@ extension AVMediaPlayerProxy {
         }
     }
 
+    private func observeItemDidPlayToEnd(_ item: AVPlayerItem) {
+        removeItemDidPlayToEndObserver()
+
+        itemDidPlayToEndObserver = NotificationCenter.default.addObserver(
+            forName: AVPlayerItem.didPlayToEndTimeNotification,
+            object: item,
+            queue: .main
+        ) { [weak self, weak item] _ in
+            Task { @MainActor [weak self, weak item] in
+                guard let self, let item else { return }
+                guard self.player.currentItem === item else { return }
+                guard self.manager?.item.isLiveStream != true else { return }
+
+                self.removeItemDidPlayToEndObserver()
+
+                if let runtime = self.manager?.item.runtime {
+                    self.manager?.seconds = runtime
+                }
+
+                self.manager?.ended()
+            }
+        }
+    }
+
+    private func removeItemDidPlayToEndObserver() {
+        guard let itemDidPlayToEndObserver else { return }
+
+        NotificationCenter.default.removeObserver(itemDidPlayToEndObserver)
+        self.itemDidPlayToEndObserver = nil
+    }
+
     private func playNew(item: MediaPlayerItem) {
         let baseItem = item.baseItem
 
@@ -165,6 +210,7 @@ extension AVMediaPlayerProxy {
         newAVPlayerItem.externalMetadata = item.baseItem.avMetadata
 
         player.replaceCurrentItem(with: newAVPlayerItem)
+        observeItemDidPlayToEnd(newAVPlayerItem)
 
         // TODO: protect against paused
 //        rateObserver = player.observe(\.rate, options: [.new, .initial]) { _, value in
@@ -176,12 +222,15 @@ extension AVMediaPlayerProxy {
         timeControlStatusObserver = player.observe(\.timeControlStatus, options: [.new, .initial]) { player, _ in
             let timeControlStatus = player.timeControlStatus
 
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+
                 switch timeControlStatus {
                 case .paused:
                     self.manager?.setPlaybackRequestStatus(status: .paused)
-                case .waitingToPlayAtSpecifiedRate: ()
-                // TODO: buffering
+                case .waitingToPlayAtSpecifiedRate:
+                    // TODO: buffering
+                    break
                 case .playing:
                     self.manager?.setPlaybackRequestStatus(status: .playing)
                 @unknown default: ()
@@ -194,25 +243,32 @@ extension AVMediaPlayerProxy {
             guard let newValue = value.newValue else { return }
             switch newValue {
             case .failed:
-                if let error = self.player.error {
-                    DispatchQueue.main.async {
-                        self.manager?.error(ErrorMessage("AVPlayer error: \(error.localizedDescription)"))
-                    }
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    guard let error = self.player.error else { return }
+
+                    self.manager?.error(ErrorMessage("AVPlayer error: \(error.localizedDescription)"))
                 }
             case .none, .readyToPlay, .unknown:
                 let startSeconds = max(.zero, (baseItem.startSeconds ?? .zero) - Duration.seconds(Defaults[.VideoPlayer.resumeOffset]))
 
-                self.player.seek(
-                    to: CMTimeMake(
-                        value: startSeconds.components.seconds,
-                        timescale: 1
-                    ),
-                    toleranceBefore: .zero,
-                    toleranceAfter: .zero,
-                    completionHandler: { _ in
-                        self.play()
-                    }
-                )
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+
+                    self.player.seek(
+                        to: CMTimeMake(
+                            value: startSeconds.components.seconds,
+                            timescale: 1
+                        ),
+                        toleranceBefore: .zero,
+                        toleranceAfter: .zero,
+                        completionHandler: { [weak self] _ in
+                            Task { @MainActor [weak self] in
+                                self?.play()
+                            }
+                        }
+                    )
+                }
             @unknown default: ()
             }
         }

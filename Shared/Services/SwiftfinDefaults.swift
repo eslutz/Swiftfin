@@ -302,7 +302,13 @@ extension Defaults.Keys {
         }
 
         static var videoPlayerType: Key<VideoPlayerType> {
+            #if os(visionOS)
+            // VLCKit is unavailable on visionOS; the native AVKit player is the
+            // only option, so it is also the default.
+            UserKey("videoPlayerType", default: .native)
+            #else
             UserKey("videoPlayerType", default: .swiftfin)
+            #endif
         }
 
         enum Gesture {
