@@ -16,6 +16,9 @@ struct SwiftfinApp: App {
     @StateObject
     private var valueObservation = ValueObservation()
 
+    @StateObject
+    private var cinemaModel = CinemaModel()
+
     @State
     private var hasEnteredBackground = false
 
@@ -45,7 +48,16 @@ struct SwiftfinApp: App {
                         Notifications[.didSignOut].post()
                     }
                 }
+                .environmentObject(cinemaModel)
         }
         .defaultSize(width: 1280, height: 900)
+
+        // Branded immersive "Jellyfin Cinema" — an opt-in environment that
+        // surrounds the windowed AVKit player. Progressive immersion lets the
+        // viewer dial the room in/out with the Digital Crown for comfort.
+        ImmersiveSpace(id: CinemaModel.immersiveSpaceID) {
+            JellyfinCinemaImmersiveView()
+        }
+        .immersionStyle(selection: .constant(.progressive), in: .progressive)
     }
 }

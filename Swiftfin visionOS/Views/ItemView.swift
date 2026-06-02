@@ -60,6 +60,10 @@ struct ItemView: View {
                         .controlSize(.extraLarge)
                     }
 
+                    CinemaToggleButton()
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+
                     if let overview = item.overview {
                         Text(overview)
                             .foregroundStyle(.secondary)
